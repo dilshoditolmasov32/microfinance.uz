@@ -1,0 +1,261 @@
+{
+  "brand": {
+    "descriptor": "«Biznesni rivojlantirish» mikromoliya tashkiloti"
+  },
+  "a11y": {
+    "skipToContent": "Asosiy mazmunga oʻtish",
+    "mainNav": "Asosiy menyu",
+    "mobileNav": "Mobil menyu",
+    "footerNav": "Sayt boʻlimlari",
+    "openMenu": "Menyuni ochish",
+    "closeMenu": "Menyuni yopish",
+    "language": "Sayt tili",
+    "breadcrumbs": "Sahifa joylashuvi",
+    "homeLink": "Microfinance.uz bosh sahifasi",
+    "newTab": "yangi oynada ochiladi",
+    "loading": "Yuklanmoqda…"
+  },
+  "nav": {
+    "home": "Bosh sahifa",
+    "products": "Kreditlar",
+    "process": "Kredit olish tartibi",
+    "contacts": "Aloqa",
+    "packages": "Kredit paketlari",
+    "calculator": "Kalkulyator",
+    "application": "Ariza",
+    "faq": "Savollar"
+  },
+  "actions": {
+    "consult": "Maslahat olish",
+    "viewTerms": "Kredit shartlari",
+    "details": "Batafsil",
+    "openMap": "Xaritada ochish",
+    "backHome": "Bosh sahifaga qaytish",
+    "retry": "Qayta urinish",
+    "apply": "Ariza qoldirish"
+  },
+  "contact": {
+    "trustLine": "Ishonch telefoni",
+    "email": "Elektron pochta",
+    "address": "Manzil",
+    "mapTitle": "Ofisimiz xaritada"
+  },
+  "loan": {
+    "segment": {
+      "individual": "Jismoniy shaxslar uchun"
+    },
+    "terms": {
+      "title": "Asosiy shartlar",
+      "purpose": "Kredit maqsadi",
+      "segment": "Mijoz segmenti",
+      "currency": "Kredit valyutasi",
+      "amount": "Kredit summasi",
+      "term": "Kredit muddati",
+      "gracePeriod": "Imtiyozli davr",
+      "rate": "Yillik foiz stavkasi",
+      "repayment": "Toʻlov grafigi",
+      "collateral": "Taʼminot turi"
+    },
+    "values": {
+      "individuals": "Jismoniy shaxslar",
+      "uzs": "Milliy valyuta (soʻm)",
+      "amountUpTo": "{amount} mln soʻmgacha",
+      "termUpTo": "{months} oygacha",
+      "gracePeriodUpTo": "{months} oygacha",
+      "noGracePeriod": "Nazarda tutilmagan",
+      "rateIndividual": "Individual belgilanadi",
+      "equalMonthly": "Har oy teng miqdorda"
+    },
+    "figures": {
+      "label": "Asosiy shartlar",
+      "maxAmount": "Maksimal summa",
+      "maxTerm": "Maksimal muddat",
+      "rate": "Foiz stavkasi",
+      "mlnSum": "mln soʻm",
+      "months": "oy",
+      "individual": "Individual",
+      "rateNote": "mutaxassis bilan maslahatdan soʻng belgilanadi"
+    },
+    "collateralTitle": "Taʼminot turlari",
+    "collateralLead": "Kredit quyidagi taʼminot turlaridan biri asosida beriladi.",
+    "allTerms": "Barcha shartlar",
+    "contractNote": "Yakuniy kredit shartlari, jumladan yillik foiz stavkasi va toʻlov jadvali, kredit shartnomasida koʻrsatiladi.",
+    "consultTitle": "Shartlarni aniqlashtiring",
+    "consultText": "Kerakli hujjatlar roʻyxati, qarz oluvchiga qoʻyiladigan talablar va foiz stavkasi boʻyicha mutaxassis maslahat beradi.",
+    "responsible": {
+      "title": "Masʼuliyat bilan qarz oling",
+      "text": "Kredit olishdan oldin oylik toʻlov miqdorini daromadingiz bilan solishtiring va shartnomadagi barcha shartlar — yillik foiz stavkasi, toʻlov jadvali va toʻlov kechiktirilishi oqibatlari bilan tanishib chiqing."
+    }
+  },
+  "collateral": {
+    "realEstate": {
+      "title": "Koʻchmas mulk",
+      "text": "Uy-joy va boshqa koʻchmas mulk"
+    },
+    "car": {
+      "title": "Avtomobil",
+      "text": "Transport vositasi garovi"
+    },
+    "gold": {
+      "title": "Tilla buyumlar",
+      "text": "Tilla zargarlik buyumlari"
+    }
+  },
+  "products": {
+    "istemol": {
+      "name": "Isteʼmol krediti",
+      "summary": "Shaxsiy ehtiyojlar, maishiy texnika, sayohat va boshqa maqsadlar uchun.",
+      "purpose": "Maishiy texnika, mebel, sayohat va boshqa shaxsiy ehtiyojlar",
+      "metaTitle": "Isteʼmol krediti — {amount} mln soʻmgacha, {months} oygacha",
+      "metaDescription": "Garov asosida isteʼmol krediti: {amount} mln soʻmgacha, {months} oygacha muddatga. Koʻchmas mulk, avtomobil yoki tilla buyumlari taʼminoti. Foiz stavkasi individual belgilanadi."
+    }
+  },
+  "process": {
+    "title": "Murojaatdan shartnomagacha — toʻrt bosqich",
+    "steps": {
+      "contact": {
+        "title": "Murojaat",
+        "text": "Ishonch telefoniga qoʻngʻiroq qiling yoki ofisimizga tashrif buyuring."
+      },
+      "consult": {
+        "title": "Maslahat",
+        "text": "Mutaxassis ehtiyojingizni aniqlab, kredit shartlari va taʼminot turlarini tushuntiradi."
+      },
+      "review": {
+        "title": "Koʻrib chiqish",
+        "text": "Hujjatlar va taʼminot baholanadi, foiz stavkasi individual belgilanadi."
+      },
+      "contract": {
+        "title": "Shartnoma",
+        "text": "Barcha shartlar bilan tanishib chiqqaningizdan soʻng kredit shartnomasi imzolanadi."
+      }
+    }
+  },
+  "home": {
+    "meta": {
+      "title": "Microfinance.uz — «Biznesni rivojlantirish» mikromoliya tashkiloti",
+      "description": "Garov asosida isteʼmol krediti: {amount} mln soʻmgacha, {months} oygacha muddatga. Foiz stavkasi individual belgilanadi. Toshkent, ishonch telefoni {phone}."
+    },
+    "hero": {
+      "badge": "Sizning maqsadlaringiz biz uchun muhim",
+      "titleLead": "Biz bilan biznesingizni",
+      "titleAccent": "rivojlantiring",
+      "titleTail": "",
+      "lead": "Tez rasmiylashtirish, qulay shartlar",
+      "cta": "Ariza qoldirish",
+      "imageAlt": "«Biznesni rivojlantirish» mikromoliya tashkiloti binosi"
+    },
+    "offers": {
+      "title": "Kreditni hisoblang",
+      "cta": "Takliflarni koʻrish",
+      "islamic": {
+        "title": "Islomiy moliyalashtirish",
+        "text": "Shariat tamoyillariga mos moliyalashtirish yechimlari."
+      },
+      "consumer": {
+        "title": "Isteʼmol krediti",
+        "text": "Kundalik xaridlar uchun qulay moliyalashtirish imkoniyatlari."
+      }
+    },
+    "calculator": {
+      "title": "Kreditni hisoblang",
+      "lead": "Oylik toʻlovingizni hoziroq bilib oling",
+      "product": "Kredit turi",
+      "murobaha": "Murobaha",
+      "amount": "Kredit summasi",
+      "term": "Muddat",
+      "mln": "{value} mln",
+      "mlnSum": "{value} mln soʻm",
+      "months": "{value} oy",
+      "sum": "soʻm",
+      "monthly": "Oylik toʻlov",
+      "total": "Umumiy toʻlov",
+      "overpayment": "Ortiqcha toʻlov",
+      "markup": "Ustama",
+      "cta": "Hoziroq ariza qoldiring",
+      "note": "* Foiz stavkasi individual ravishda belgilanadi",
+      "assumption": "Hisob taxminiy: yillik {rate}% stavka va teng oylik toʻlovlar asosida. Yakuniy shartlar kredit shartnomasida koʻrsatiladi."
+    },
+    "products": {
+      "title": "Har bir ehtiyoj uchun aniq shartlar",
+      "lead": "Kreditlar taʼminot asosida beriladi. Summa, muddat va toʻlov tartibi oldindan eʼlon qilingan, foiz stavkasi esa har bir mijoz uchun individual belgilanadi."
+    },
+    "application": {
+      "titleLead": "Moliyaviy maqsadlaringizga",
+      "titleAccent": "bir qadam yaqinroq",
+      "lead": "Maʼlumotlaringizni qoldiring — mutaxassisimiz siz bilan bogʻlanadi.",
+      "form": {
+        "title": "Ariza qoldirish",
+        "name": "Ismingiz va familiyangiz",
+        "namePlaceholder": "Toʻliq ism-familiya",
+        "phone": "Telefon raqamingiz",
+        "amount": "Kredit summasi",
+        "decrease": "Summani kamaytirish",
+        "increase": "Summani oshirish",
+        "collateral": "Garov turi",
+        "collateralPlaceholder": "Garov turini tanlang",
+        "submit": "Ariza yuborish"
+      },
+      "errors": {
+        "name": "Ism va familiyangizni kiriting",
+        "phone": "Telefon raqamini toʻliq kiriting",
+        "collateral": "Garov turini tanlang"
+      },
+      "failed": {
+        "title": "Arizani yuborib boʻlmadi",
+        "text": "Birozdan soʻng qayta urinib koʻring yoki ishonch telefoniga qoʻngʻiroq qiling:"
+      },
+      "success": {
+        "title": "Arizangiz qabul qilindi",
+        "text": "Mutaxassisimiz tez orada siz bilan bogʻlanadi.",
+        "again": "Yangi ariza"
+      }
+    },
+    "faq": {
+      "title": "Koʻp soʻraladigan savollar",
+      "lead": "Javoblarni shu yerda toping",
+      "items": {
+        "documents": {
+          "q": "Kredit olish uchun qanday hujjatlar kerak?",
+          "a": "Pasport, STIR raqami va daromadni tasdiqlovchi hujjat talab qilinadi. Mikrokreditlar (5 mln soʻmgacha) uchun faqat pasport va STIR yetarli."
+        },
+        "timing": {
+          "q": "Kredit qancha vaqtda rasmiylashtiriladi?",
+          "a": "Standart kreditlar 24–48 soat ichida, mikrokreditlar esa bir ish kuni ichida rasmiylashtiriladi. Express xizmat orqali 4 soat ichida ham olish mumkin."
+        },
+        "collateral": {
+          "q": "Qanday garov turlari qabul qilinadi?",
+          "a": "Kreditlarimiz asosan garov asosida beriladi. Garov sifatida uy-joy (koʻchmas mulk), avtomobil yoki tilla (zargarlik buyumlari) qabul qilinadi. Garov qiymati kredit summasiga mos boʻlishi kerak."
+        },
+        "earlyRepayment": {
+          "q": "Muddatidan oldin toʻlash mumkinmi?",
+          "a": "Ha, istalgan vaqtda jarima yoki qoʻshimcha toʻlovsiz muddatidan oldin toʻlash mumkin."
+        },
+        "creditHistory": {
+          "q": "Kredit tarixi yomon boʻlsa ham ariza topshirish mumkinmi?",
+          "a": "Ha, har bir ariza individual koʻrib chiqiladi. Joriy daromad va biznes rejasi ham inobatga olinadi."
+        }
+      }
+    },
+    "contact": {
+      "title": "Biz bilan bogʻlaning",
+      "lead": "Kredit shartlari, taʼminot va kerakli hujjatlar boʻyicha savollaringizga mutaxassislarimiz javob beradi."
+    }
+  },
+  "footer": {
+    "tagline": "Jismoniy shaxslar va tadbirkorlar uchun mikromoliya xizmatlari.",
+    "productsTitle": "Kreditlar",
+    "companyTitle": "Tashkilot",
+    "contactTitle": "Aloqa",
+    "rights": "Barcha huquqlar himoyalangan.",
+    "disclaimer": "Saytdagi maʼlumotlar ommaviy oferta hisoblanmaydi. Yakuniy shartlar kredit shartnomasida belgilanadi.",
+    "license": "Markaziy bank litsenziyasi № {number}"
+  },
+  "error": {
+    "notFoundTitle": "Sahifa topilmadi",
+    "notFoundText": "Siz qidirgan sahifa mavjud emas yoki boshqa manzilga koʻchirilgan.",
+    "genericTitle": "Xatolik yuz berdi",
+    "genericText": "Sahifani yuklashda kutilmagan xatolik yuz berdi. Birozdan soʻng qayta urinib koʻring yoki ishonch telefoniga qoʻngʻiroq qiling.",
+    "code": "Xato kodi"
+  }
+}

@@ -1,0 +1,146 @@
+# Integration and content notes
+
+This file covers three things: which content on the site has been verified, what the
+organization still has to provide, and how to connect a backend when one exists.
+
+## 1. Content sources
+
+All company and product facts live in two typed files:
+
+| File | Contents |
+| --- | --- |
+| `shared/company.ts` | Name, phone, email, address, licence (`null` until confirmed) |
+| `shared/products.ts` | Loan products: amount, term, currency, repayment, collateral |
+| `i18n/locales/{uz,ru}.json` | All visible text in Uzbek and Russian |
+
+The data comes from the current microfinance.uz site (reviewed 2026-10-19). Only facts that the
+site states consistently were used.
+
+### Deliberately not published
+
+The current site contradicts itself on these points, or they look like placeholders. Each needs
+a confirmed value from the organization before it goes on the site:
+
+| Item | What the current site shows | Problem |
+| --- | --- | --- |
+| Central Bank licence | "№ 12345" | Looks like a placeholder |
+| Interest rate (consumer loan) | "45%" in one place, "48% dan" in another | Two different rates for one product. The old calculator reproduces exactly with 48%, which the new calculator uses as an indicative rate (see item 2) |
+| Founding year / experience | "Established 2025" and "15+ years of experience" | Contradictory |
+| Copyright / charter dates | © 2024, charter 2023 | Earlier than the stated 2025 founding |
+| Client statistics | 1000+ clients, 98% approval, 2-hour review | No source |
+| Branch network | "9 branches and representative offices" | No addresses |
+| Affiliation | "Opened under Biznesni Rivojlantirish Banki" | Not confirmed from an independent source |
+| Decision and payout times, early repayment, documents | FAQ answers | Needs confirmation before it is presented as a commitment |
+| Documents (licence, certificates, charter) | View/download buttons | No files available |
+
+### Required from the organization
+
+1. **Legal details:** full registered name and legal form (e.g. MChJ), Central Bank licence number
+   and date, STIR/INN. Set `COMPANY.license` in `shared/company.ts`. The licence line in
+   the footer appears automatically once it is set.
+2. **Interest rates and disclosures:** confirmed rate or range for each product, plus any
+   disclosure that consumer-credit rules require (for example the annual effective rate and total
+   cost of credit). Until then the site says the rate is set individually.
+   The homepage calculator ("Kreditni hisoblang") uses **48% annual, annuity** as an indicative
+   rate and shows that figure under the result. The value lives in
+   `LOAN_PRODUCTS[].calculator.indicativeAnnualRatePct` in `shared/products.ts`, together with
+   the slider limits (1–300 mln, 3–60 months), all taken from the current site's calculator.
+   Confirm or correct them, and check whether fees or insurance must be included in the example.
+3. **Required documents and borrower requirements** for each product. The "documents" and
+   "requirements" tabs on the current site are empty.
+4. **Working hours** of the office and the trust line.
+5. **Official logo** as SVG (horizontal lockup and a square mark). The header uses
+   `public/logo/logo-mark.png`, cleaned up from a PNG with a baked-in checkerboard, and the
+   favicons in `public/` are an interim mark.
+6. **The official Russian spelling** of the organization name and street address. Both are
+   currently kept in their Uzbek form in `ru.json` and `shared/company.ts`.
+7. **Social media accounts**, if any. They can then be added to the footer and to JSON-LD `sameAs`.
+8. **Other products.** The current site's meta tags list women's, business, agricultural,
+   education and mortgage loans, but only the consumer loan has a page. Add products to
+   `shared/products.ts` and the locale files only once their terms are confirmed.
+9. **Open Graph image** (1200×630) for link previews.
+10. **Islamic finance.** The hero card "Islomiy moliyalashtirish" says "Shariat tamoyillariga
+    mos" and links to the BRB marketplace (`MARKETPLACE_URL` in `shared/company.ts`). As of
+    2026-10-19 the marketplace describes installment purchases ("nasiya") with a sample 24%
+    annual rate and never calls them Islamic or Sharia-compliant. Before launch, confirm the
+    product structure (e.g. murabaha), its Sharia review and the regulatory basis, or soften the
+    wording. Then replace `vercel.app` with the production domain.
+11. **Photos.** The hero uses `public/logo/hero-image.webp` (1672×941); the offer cards use
+    `public/logo/islomiy-moliya.png` and `public/logo/istemol-credit.png`; the application section
+    background is `public/logo/forma-image.png` (1536×1024), which a 2400px+ version would make
+    sharper on wide screens. Use only images the organization has rights to.
+12. **FAQ answers.** The "Koʻp soʻraladigan savollar" section reuses the answers from the current
+    site. Several are commitments that must be confirmed before launch: required documents
+    ("passport and STIR are enough up to 5 mln"), processing times (24–48 h, same day, 4 h express)
+    and early repayment "without any penalty". Texts: `home.faq` in `i18n/locales/{uz,ru}.json`.
+
+## 2. Backend integration
+
+No backend or API is known yet. The only form is the loan application, which is not delivered
+anywhere until an endpoint is configured (see below).
+
+### Pattern
+
+Browser code calls only the site's own server routes under `server/api/`. Those routes call
+upstream services from the server, so credentials never reach the client.
+
+```
+Browser ──> /api/<name> (Nitro, server/api/<name>.ts) ──> upstream CMS / API
+```
+
+Server-only configuration goes in `runtimeConfig` in `nuxt.config.ts`, **not** under `public`.
+Set it with environment variables:
+
+```ts
+runtimeConfig: {
+  backendApiUrl: '',   // NUXT_BACKEND_API_URL
+  backendApiToken: '', // NUXT_BACKEND_API_TOKEN
+  public: { siteUrl: 'https://microfinance.uz' },
+}
+```
+
+### Loan applications
+
+The homepage section `#application` (`app/components/home/HomeApplication.vue`) collects name,
+phone, amount and collateral type. The browser posts to `/api/applications`
+(`server/api/applications.post.ts`), which validates with the same rules as the form
+(`shared/application.ts`) and forwards the JSON to `NUXT_APPLICATIONS_ENDPOINT` with an optional
+`Authorization: Bearer <NUXT_APPLICATIONS_TOKEN>` header. Body:
+`{ product, name, phone (E.164), amountMln, collateral, locale, submittedAt }`.
+
+Until an endpoint is set, the route answers 503 and the form shows an error with the phone number,
+so it never reports a success that nobody receives. Before launch:
+
+- **Where submissions go** (CRM, email, core banking system) and who processes them.
+- **Personal data:** a consent line on the form (currently none) and a privacy notice under
+  the Law of the Republic of Uzbekistan "On Personal Data", the storage location and the retention
+  period.
+- **Abuse protection:** the route has server-side validation and a honeypot field only. Add rate
+  limiting and bot protection (for example a CAPTCHA).
+
+Collect the minimum until security requirements are agreed. Do not collect passport, STIR,
+income or card data through the website.
+
+## 3. Environment variables
+
+| Variable | Default | Purpose |
+| --- | --- | --- |
+| `NUXT_PUBLIC_SITE_URL` | `https://microfinance.uz` | Origin for JSON-LD and the sitemap |
+| `NUXT_PUBLIC_I18N_BASE_URL` | `https://microfinance.uz` | Origin for canonical and hreflang links |
+| `NUXT_APPLICATIONS_ENDPOINT` | (empty) | Server-only URL that receives loan applications |
+| `NUXT_APPLICATIONS_TOKEN` | (empty) | Optional bearer token for that URL |
+
+Set both to the same value on staging. Staging should also send `noindex`, which is not
+configured yet.
+
+## 4. SEO behaviour
+
+- URLs: `/uz/...` and `/ru/...`. `/` redirects to the visitor's language (cookie, then
+  `Accept-Language`, then Uzbek).
+- Every page has a self-referencing canonical, hreflang alternates for `uz`, `ru` and
+  `x-default`, plus `og:locale` and `og:url`.
+- JSON-LD: `Organization` and `WebSite` on the homepage, `BreadcrumbList` on product pages.
+  `logo` and `sameAs` are left out until official assets are available.
+- `/sitemap.xml` lists every page with its alternates. When you add a page, also add it to
+  `PAGE_PATHS` in `server/routes/sitemap.xml.ts`.
+- The legacy URL `/kredit/istemol` returns a 301 to `/uz/kredit/istemol`.
