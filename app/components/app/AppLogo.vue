@@ -14,7 +14,7 @@ const localePath = useLocalePath()
     <!-- Logo mark cleaned from the organization's header logo: checkerboard removed, cropped, resized. -->
     <NuxtImg
       format="webp"
-      src="/logo/logo-mark.png"
+      src="/images/logo-mark.png"
       alt=""
       width="70"
       height="32"

@@ -3,9 +3,9 @@ import { MARKETPLACE_URL } from '#shared/company'
 import { LOAN_PRODUCTS, loanProductPath } from '#shared/products'
 
 /** Islamic finance card illustration (1024×1024, dark background). */
-const ISLAMIC_PHOTO = '/logo/islomiy-moliya.png'
+const ISLAMIC_PHOTO = '/images/islomiy-moliya.webp'
 /** Consumer-loan card illustration (887×1774, portrait). Set to null to show the terms graphic instead. */
-const CONSUMER_PHOTO = '/logo/istemol-credit.png' as string | null
+const CONSUMER_PHOTO = '/images/istemol-credit.webp' as string | null
 /** The card visual is full width on phones, half the card on desktop. */
 const PHOTO_SIZES = '100vw md:50vw lg:25vw'
 

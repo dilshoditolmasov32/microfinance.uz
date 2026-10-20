@@ -1,6 +1,6 @@
 <script setup lang="ts">
-/** Office photo supplied by the organization (1672×941), in public/logo/. */
-const BUILDING_PHOTO = '/logo/hero-image.webp'
+/** Office photo supplied by the organization (1672×941), in public/images/. */
+const BUILDING_PHOTO = '/images/hero-image.webp'
 
 const { t, te } = useI18n()
 const sectionLink = useSectionLink()

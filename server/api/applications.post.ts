@@ -1,8 +1,9 @@
 import { invalidApplicationFields, type LoanApplication } from '#shared/application'
 
 /**
- * Receives a loan application from the homepage form and forwards it to the processing system
- * (NUXT_APPLICATIONS_ENDPOINT). Without an endpoint it answers 503, so the form never reports a
+ * Receives a loan application from the homepage form, emails it through Resend
+ * (NUXT_RESEND_API_KEY + NUXT_APPLICATIONS_EMAIL_TO) and/or forwards it to the processing system
+ * (NUXT_APPLICATIONS_ENDPOINT). With neither configured it answers 503, so the form never reports a
  * success that nobody receives. See docs/INTEGRATION.md.
  */
 /** A real application is ~300 bytes; refuse anything far larger before reading it. */
@@ -27,9 +28,8 @@ export default defineEventHandler(async (event) => {
   if (invalid.length)
     throw createError({ statusCode: 422, statusMessage: 'Invalid application', data: { invalid } })
 
-  const { applicationsEndpoint, applicationsToken } = useRuntimeConfig(event)
-  if (!applicationsEndpoint)
-    throw createError({ statusCode: 503, statusMessage: 'Applications are not configured' })
+  const config = useRuntimeConfig(event)
+  const emailTo = config.applicationsEmailTo.split(',').map(address => address.trim()).filter(Boolean)
 
   const application: LoanApplication = {
     product: body.product!,
@@ -39,18 +39,36 @@ export default defineEventHandler(async (event) => {
     collateral: body.collateral!,
     locale: body.locale!,
   }
+  const submittedAt = new Date()
 
-  try {
-    await $fetch(applicationsEndpoint, {
+  const deliveries: Promise<unknown>[] = []
+  if (config.resendApiKey && emailTo.length) {
+    deliveries.push($fetch('https://api.resend.com/emails', {
       method: 'POST',
-      body: { ...application, submittedAt: new Date().toISOString() },
-      headers: applicationsToken ? { Authorization: `Bearer ${applicationsToken}` } : undefined,
+      headers: { Authorization: `Bearer ${config.resendApiKey}` },
+      body: { from: config.applicationsEmailFrom, to: emailTo, ...applicationEmail(application, submittedAt) },
       timeout: 10_000,
-    })
+    }))
   }
-  catch {
+  if (config.applicationsEndpoint) {
+    deliveries.push($fetch(config.applicationsEndpoint, {
+      method: 'POST',
+      body: { ...application, submittedAt: submittedAt.toISOString() },
+      headers: config.applicationsToken ? { Authorization: `Bearer ${config.applicationsToken}` } : undefined,
+      timeout: 10_000,
+    }))
+  }
+  if (!deliveries.length)
+    throw createError({ statusCode: 503, statusMessage: 'Applications are not configured' })
+
+  // Delivered once any channel accepted it; failures are logged for the operator.
+  const results = await Promise.allSettled(deliveries)
+  for (const result of results) {
+    if (result.status === 'rejected')
+      console.error('[applications] delivery failed:', result.reason)
+  }
+  if (!results.some(result => result.status === 'fulfilled'))
     throw createError({ statusCode: 502, statusMessage: 'Application was not delivered' })
-  }
 
   return { ok: true }
 })

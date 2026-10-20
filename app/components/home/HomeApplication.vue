@@ -9,7 +9,7 @@ import { COLLATERAL_ICON } from '~/utils/collateral'
  * Full-section background on desktop (1536×1024; the artwork fills the left ~58 %, light waves
  * the rest). Set to null to drop it.
  */
-const ILLUSTRATION = '/logo/forma-image.png' as string | null
+const ILLUSTRATION = '/images/forma-image.webp' as string | null
 
 const { t } = useI18n()
 const locale = useAppLocale()

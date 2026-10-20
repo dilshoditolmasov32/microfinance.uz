@@ -4,7 +4,6 @@ const { t } = useI18n()
 
 <template>
   <div class="flex min-h-dvh flex-col">
-    <!-- Native anchor on purpose: it moves keyboard focus to <main>, which router navigation does not. -->
     <a
       href="#main"
       class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-lg focus:bg-ink-950 focus:px-4 focus:py-3 focus:text-sm focus:font-bold focus:text-white"
@@ -19,5 +18,7 @@ const { t } = useI18n()
     </main>
 
     <AppFooter />
+
+    <AppBackToTop />
   </div>
 </template>

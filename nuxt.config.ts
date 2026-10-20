@@ -64,6 +64,11 @@ export default defineNuxtConfig({
     // Loan applications are forwarded here (NUXT_APPLICATIONS_ENDPOINT / NUXT_APPLICATIONS_TOKEN).
     applicationsEndpoint: '',
     applicationsToken: '',
+    // Loan applications are also emailed through Resend (NUXT_RESEND_API_KEY, NUXT_APPLICATIONS_EMAIL_TO
+    // as a comma-separated list, NUXT_APPLICATIONS_EMAIL_FROM on a domain verified in Resend).
+    resendApiKey: '',
+    applicationsEmailTo: '',
+    applicationsEmailFrom: 'Microfinance.uz <onboarding@resend.dev>',
     public: {
       // Override per environment with NUXT_PUBLIC_SITE_URL.
       siteUrl: SITE_URL,

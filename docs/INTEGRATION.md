@@ -50,7 +50,7 @@ a confirmed value from the organization before it goes on the site:
    "requirements" tabs on the current site are empty.
 4. **Working hours** of the office and the trust line.
 5. **Official logo** as SVG (horizontal lockup and a square mark). The header uses
-   `public/logo/logo-mark.png`, cleaned up from a PNG with a baked-in checkerboard, and the
+   `public/images/logo-mark.png`, cleaned up from a PNG with a baked-in checkerboard, and the
    favicons in `public/` are an interim mark.
 6. **The official Russian spelling** of the organization name and street address. Both are
    currently kept in their Uzbek form in `ru.json` and `shared/company.ts`.
@@ -65,9 +65,9 @@ a confirmed value from the organization before it goes on the site:
     annual rate and never calls them Islamic or Sharia-compliant. Before launch, confirm the
     product structure (e.g. murabaha), its Sharia review and the regulatory basis, or soften the
     wording. Then replace `vercel.app` with the production domain.
-11. **Photos.** The hero uses `public/logo/hero-image.webp` (1672×941); the offer cards use
-    `public/logo/islomiy-moliya.png` and `public/logo/istemol-credit.png`; the application section
-    background is `public/logo/forma-image.png` (1536×1024), which a 2400px+ version would make
+11. **Photos.** The hero uses `public/images/hero-image.webp` (1672×941); the offer cards use
+    `public/images/islomiy-moliya.webp` and `public/images/istemol-credit.webp`; the application section
+    background is `public/images/forma-image.webp` (1536×1024), which a 2400px+ version would make
     sharper on wide screens. Use only images the organization has rights to.
 12. **FAQ answers.** The "Koʻp soʻraladigan savollar" section reuses the answers from the current
     site. Several are commitments that must be confirmed before launch: required documents
@@ -104,12 +104,21 @@ runtimeConfig: {
 The homepage section `#application` (`app/components/home/HomeApplication.vue`) collects name,
 phone, amount and collateral type. The browser posts to `/api/applications`
 (`server/api/applications.post.ts`), which validates with the same rules as the form
-(`shared/application.ts`) and forwards the JSON to `NUXT_APPLICATIONS_ENDPOINT` with an optional
-`Authorization: Bearer <NUXT_APPLICATIONS_TOKEN>` header. Body:
-`{ product, name, phone (E.164), amountMln, collateral, locale, submittedAt }`.
+(`shared/application.ts`) and delivers it to every configured channel:
 
-Until an endpoint is set, the route answers 503 and the form shows an error with the phone number,
-so it never reports a success that nobody receives. Before launch:
+- **Email via [Resend](https://resend.com):** set `NUXT_RESEND_API_KEY` and
+  `NUXT_APPLICATIONS_EMAIL_TO` (comma-separated). The message is in Uzbek
+  (`server/utils/applicationEmail.ts`). Until a sending domain is verified in Resend, the default
+  sender `onboarding@resend.dev` only delivers to the Resend account's own address; afterwards set
+  `NUXT_APPLICATIONS_EMAIL_FROM`, e.g. `Microfinance.uz <ariza@microfinance.uz>`.
+- **Endpoint:** the JSON goes to `NUXT_APPLICATIONS_ENDPOINT` with an optional
+  `Authorization: Bearer <NUXT_APPLICATIONS_TOKEN>` header. Body:
+  `{ product, name, phone (E.164), amountMln, collateral, locale, submittedAt }`.
+
+The form reports success once any channel accepted the application; failed channels are logged.
+With no channel configured the route answers 503, and if every channel fails it answers 502. In
+both cases the form shows an error with the phone number, so it never reports a success that
+nobody receives. Before launch:
 
 - **Where submissions go** (CRM, email, core banking system) and who processes them.
 - **Personal data:** a consent line on the form (currently none) and a privacy notice under
@@ -129,6 +138,9 @@ income or card data through the website.
 | `NUXT_PUBLIC_I18N_BASE_URL` | `https://microfinance.uz` | Origin for canonical and hreflang links |
 | `NUXT_APPLICATIONS_ENDPOINT` | (empty) | Server-only URL that receives loan applications |
 | `NUXT_APPLICATIONS_TOKEN` | (empty) | Optional bearer token for that URL |
+| `NUXT_RESEND_API_KEY` | (empty) | Server-only Resend API key for application emails |
+| `NUXT_APPLICATIONS_EMAIL_TO` | (empty) | Comma-separated recipients of application emails |
+| `NUXT_APPLICATIONS_EMAIL_FROM` | `Microfinance.uz <onboarding@resend.dev>` | Sender; must be on a domain verified in Resend |
 
 Set both to the same value on staging. Staging should also send `noindex`, which is not
 configured yet.
