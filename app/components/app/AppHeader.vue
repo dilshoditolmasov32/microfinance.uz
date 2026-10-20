@@ -80,7 +80,15 @@ const mobileLinkClass = 'group/link flex items-center justify-between py-4 text-
           :title="t('a11y.mobileNav')"
           :description="t('brand.descriptor')"
           class="xl:hidden"
-          :ui="{ content: 'max-w-sm', body: 'flex flex-col p-0 sm:p-0' }"
+          :close="{ size: 'xl', color: 'neutral', variant: 'soft', square: true, class: '-mr-1 rounded-full bg-ink-100 text-ink-950 hover:bg-ink-200 active:bg-ink-200' }"
+          :ui="{
+            content: 'max-w-sm',
+            // Same height as the site header; title and description stay for screen readers only.
+            header: 'h-16 min-h-0 justify-between gap-3 border-b border-ink-100 px-4 py-0 sm:px-6',
+            wrapper: 'sr-only',
+            close: 'static',
+            body: 'flex flex-col p-0 sm:p-0',
+          }"
         >
           <UButton
             color="neutral"
@@ -91,6 +99,10 @@ const mobileLinkClass = 'group/link flex items-center justify-between py-4 text-
             class="-mr-2 xl:hidden"
             :aria-label="t('a11y.openMenu')"
           />
+
+          <template #actions>
+            <AppLogo class="min-w-0" @click="menuOpen = false" />
+          </template>
 
           <template #body>
             <nav :aria-label="t('a11y.mobileNav')" class="px-4 sm:px-6">
