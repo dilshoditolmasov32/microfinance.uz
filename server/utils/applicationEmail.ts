@@ -10,7 +10,7 @@ export function applicationEmail(application: LoanApplication, submittedAt: Date
   const product = findLoanProduct(application.product)
   // Keeps a pasted multi-line name on one line in the subject.
   const name = application.name.replace(/\s+/g, ' ')
-  const amount = `${application.amountMln} mln soʻm`
+  const amount = `${application.amountMln} mln söm`
   const time = submittedAt.toLocaleString('uz-UZ', { timeZone: 'Asia/Tashkent' })
 
   const rows: [string, string][] = [
@@ -19,8 +19,9 @@ export function applicationEmail(application: LoanApplication, submittedAt: Date
     ['Kredit turi', product ? uz.products[product.key as keyof typeof uz.products].name : application.product],
     ['Summa', amount],
     ['Garov', uz.collateral[application.collateral].title],
+    ['Hudud', uz.regions[application.region]],
     ['Sayt tili', application.locale],
-    ['Vaqt (Toshkent)', time],
+    ['Vaqt (Toşkent)', time],
   ]
 
   const html = `<h2 style="margin:0 0 16px">Yangi kredit arizasi</h2>

@@ -33,6 +33,9 @@ export default defineNuxtConfig({
   image: {
     // Local images in public/ are resized and converted on the fly by IPX (sharp).
     // Output format is set per <NuxtImg format="webp">.
+    // `sizes` in @nuxt/image 2: every value needs a breakpoint (`sm:100vw md:100vw lg:60vw`); the
+    // candidate width is computed from that breakpoint. A bare `100vw` counts as a 1px screen and
+    // produces useless 1w/2w candidates, so phones fall back to the largest image.
     quality: 80,
     // Cache processed images for 7 days (IPX default is 60 s). Image URLs carry no content hash,
     // so rename a file in public/ when replacing it to bust caches immediately.
@@ -72,6 +75,9 @@ export default defineNuxtConfig({
     public: {
       // Override per environment with NUXT_PUBLIC_SITE_URL.
       siteUrl: SITE_URL,
+      // Yandex Maps JavaScript API key for the branches map (NUXT_PUBLIC_YANDEX_MAPS_API_KEY). It is
+      // public by design; restrict it to the site domain in the Yandex developer console.
+      yandexMapsApiKey: '',
     },
   },
 
@@ -88,11 +94,13 @@ export default defineNuxtConfig({
         'X-Content-Type-Options': 'nosniff',
         'X-Frame-Options': 'SAMEORIGIN',
         'Referrer-Policy': 'strict-origin-when-cross-origin',
-        'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), payment=()',
+        // geolocation=(self): the branches map has a 'my location' button.
+        'Permissions-Policy': 'camera=(), microphone=(), geolocation=(self), payment=()',
       },
     },
-    // Keep the legacy, already-indexed product URL working.
-    '/kredit/istemol': { redirect: { to: `/${DEFAULT_LOCALE}/kredit/istemol`, statusCode: 301 } },
+    // The consumer loan became Mikroqarz (2026-10-23); keep the legacy, already-indexed URLs working.
+    '/kredit/istemol': { redirect: { to: `/${DEFAULT_LOCALE}/kredit/mikroqarz`, statusCode: 301 } },
+    ...Object.fromEntries(LOCALES.map(code => [`/${code}/kredit/istemol`, { redirect: { to: `/${code}/kredit/mikroqarz`, statusCode: 301 } }])),
   },
 
   i18n: {

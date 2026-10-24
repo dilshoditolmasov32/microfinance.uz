@@ -28,7 +28,7 @@ export interface CompanyInfo {
 export const COMPANY: CompanyInfo = {
   brandName: SITE_NAME,
   legalName: {
-    uz: '«Biznesni rivojlantirish» mikromoliya tashkiloti',
+    uz: '«Biznesni rivojlantiriş» mikromoliya taşkiloti',
     ru: 'Микрофинансовая организация «Biznesni rivojlantirish»',
   },
   phone: {
@@ -38,15 +38,15 @@ export const COMPANY: CompanyInfo = {
   email: 'info@microfinance.uz',
   address: {
     display: {
-      uz: 'Toshkent sh., Laylitoʻgʻon koʻchasi, 266-A-uy',
+      uz: 'Toşkent ş., Laylitöğon köçasi, 266-A-uy',
       ru: 'г. Ташкент, ул. Laylitoʻgʻon, дом 266-A',
     },
     street: {
-      uz: 'Laylitoʻgʻon koʻchasi, 266-A-uy',
+      uz: 'Laylitöğon köçasi, 266-A-uy',
       ru: 'ул. Laylitoʻgʻon, дом 266-A',
     },
     locality: {
-      uz: 'Toshkent',
+      uz: 'Toşkent',
       ru: 'Ташкент',
     },
     countryCode: 'UZ',
@@ -67,6 +67,35 @@ export const MARKETPLACE_URL: Localized = {
   ru: 'https://brb-marketplace.vercel.app/ru',
 }
 
+/** Office and trust-line hours, as shown in the footer design (2026-10-23). */
+export const WORKING_HOURS: Localized = {
+  uz: 'Duşanba – Juma, 09:00 – 18:00',
+  ru: 'Понедельник – пятница, 09:00 – 18:00',
+}
+
+/** Telegram support chat, opened by the footer "Support" button. */
+export const SUPPORT_URL = 'https://t.me/Biznes_mikromoliya'
+
+export type SocialNetwork = 'instagram' | 'telegram' | 'youtube' | 'linkedin' | 'facebook'
+
+export interface SocialLink {
+  network: SocialNetwork
+  /** Accessible name; brand names are not translated. */
+  name: string
+  url: string
+}
+
+/**
+ * Footer social icons and JSON-LD `sameAs`. LinkedIn is in the footer design but its profile URL
+ * is not known yet; add it here when it is.
+ */
+export const SOCIAL_LINKS: readonly SocialLink[] = [
+  { network: 'instagram', name: 'Instagram', url: 'https://www.instagram.com/biznes.mikromoliya/' },
+  { network: 'telegram', name: 'Telegram', url: SUPPORT_URL },
+  { network: 'youtube', name: 'YouTube', url: 'https://www.youtube.com/@Biznes_Mikromoliya' },
+  { network: 'facebook', name: 'Facebook', url: 'https://www.facebook.com/share/1BgukdEgQS/' },
+]
+
 export const telHref =(e164: string = COMPANY.phone.e164): string => `tel:${e164}`
 export const mailtoHref = (email: string = COMPANY.email): string => `mailto:${email}`
 
@@ -78,14 +107,8 @@ function yandexMapParams(zoom: number): URLSearchParams {
   return new URLSearchParams({ ll, pt: `${ll},pm2rdm`, z: String(zoom) })
 }
 
-const YANDEX_LANG: Record<AppLocale, string> = { uz: 'uz_UZ', ru: 'ru_RU' }
+/** `lang` parameter of the Yandex Maps JavaScript API. */
+export const YANDEX_LANG: Record<AppLocale, string> = { uz: 'uz_UZ', ru: 'ru_RU' }
 
-/** Full Yandex Maps page, opened from the contacts section. */
+/** Full Yandex Maps page with the head office, opened from the footer. */
 export const mapHref = (): string => `https://yandex.uz/maps/?${yandexMapParams(17)}`
-
-/** Embeddable Yandex Maps widget (no API key needed). */
-export const mapEmbedSrc = (locale: AppLocale): string => {
-  const params = yandexMapParams(16)
-  params.set('lang', YANDEX_LANG[locale])
-  return `https://yandex.uz/map-widget/v1/?${params}`
-}

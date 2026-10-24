@@ -10,7 +10,7 @@ const localePath = useLocalePath()
 </script>
 
 <template>
-  <NuxtLink :to="localePath('/')" class="inline-flex items-center gap-2 rounded-md sm:gap-3" :aria-label="t('a11y.homeLink')">
+  <NuxtLink :to="localePath('/')" class="inline-flex items-center gap-2 rounded-md sm:gap-3">
     <!-- Logo mark cleaned from the organization's header logo: checkerboard removed, cropped, resized. -->
     <NuxtImg
       format="webp"

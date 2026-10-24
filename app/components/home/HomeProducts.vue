@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { telHref } from '#shared/company'
-import { LOAN_PRODUCTS, loanProductPath } from '#shared/products'
+import { LOAN_PRODUCTS, loanProductPath, rateRangePct } from '#shared/products'
 
 const { t } = useI18n()
 const localePath = useLocalePath()
@@ -23,7 +23,7 @@ const localePath = useLocalePath()
           class="grid overflow-hidden rounded-xl border border-ink-200 bg-white transition-shadow duration-300 ease-smooth hover:shadow-raised lg:grid-cols-12"
         >
           <div class="p-6 sm:p-8 lg:col-span-7 lg:p-10">
-            <UBadge color="primary" variant="subtle">{{ t('loan.segment.individual') }}</UBadge>
+            <UBadge color="primary" variant="subtle">{{ t(`loan.segment.${product.borrower}`) }}</UBadge>
             <h3 class="mt-4 text-h3 font-extrabold">
               {{ t(`products.${product.key}.name`) }}
             </h3>
@@ -53,7 +53,7 @@ const localePath = useLocalePath()
                   {{ t('loan.terms.repayment') }}
                 </dt>
                 <dd class="mt-1 font-bold text-ink-950">
-                  {{ t('loan.values.equalMonthly') }}
+                  {{ t('loan.values.repayment') }}
                 </dd>
               </div>
               <div>
@@ -61,7 +61,7 @@ const localePath = useLocalePath()
                   {{ t('loan.terms.rate') }}
                 </dt>
                 <dd class="mt-1 font-bold text-ink-950">
-                  {{ t('loan.values.rateIndividual') }}
+                  {{ t('loan.values.rateRange', { min: rateRangePct(product)[0], max: rateRangePct(product)[1] }) }}
                 </dd>
               </div>
             </dl>

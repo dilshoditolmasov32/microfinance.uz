@@ -31,11 +31,19 @@ export default defineAppConfig({
         { color: 'primary', variant: 'solid', class: `shadow-sm hover:bg-brand-700 active:bg-brand-800 ${focusRing}` },
         { color: 'neutral', variant: 'outline', class: `bg-white ring-ink-200 hover:bg-ink-50 hover:ring-ink-300 ${focusRing}` },
         { color: 'neutral', variant: 'solid', class: focusRing },
+        // Icon-only buttons: match the fixed heights above so `rounded-full` gives a circle.
+        { size: 'md', square: true, class: 'w-10' },
+        { size: 'lg', square: true, class: 'w-11' },
+        { size: 'xl', square: true, class: 'w-13' },
       ],
     },
 
     badge: {
       slots: { base: 'rounded-full font-bold' },
+      // brand-600 on the subtle tint is 4.1:1; brand-700 passes AA.
+      compoundVariants: [
+        { color: 'primary', variant: 'subtle', class: 'text-brand-700' },
+      ],
     },
 
     /* Click anywhere on the track to jump; the thumb can be dragged. */

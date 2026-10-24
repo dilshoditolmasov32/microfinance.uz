@@ -17,6 +17,18 @@ npm run preview     # serve the production build
 `nuxt build` and `nuxt dev` both use `.nuxt/`. Stop the dev server before you build in the
 same folder.
 
+## Production
+
+- **Environment variables.** The built server (`node .output/server/index.mjs`) does not read
+  `.env`. Set the variables from `.env.example` in the hosting environment, or start it with
+  `node --env-file=.env .output/server/index.mjs`. Without them the application form answers 503
+  and the map has no API key. See [docs/INTEGRATION.md](docs/INTEGRATION.md#3-environment-variables).
+- **Reverse proxy.** Put nginx (or similar) in front for HTTPS, HSTS and gzip/brotli. The Node
+  server does not compress HTML (a homepage is ~136 KB uncompressed, ~25 KB gzipped); `/_nuxt/*`
+  files are fingerprinted and can be cached for a year (`immutable`).
+- **Images.** `@nuxt/image` resizes on the server with `sharp`, whose binaries are built for the
+  build machine. Build on the same OS and CPU architecture as the server (e.g. Linux x64).
+
 ## Structure
 
 ```

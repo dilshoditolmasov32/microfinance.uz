@@ -1,25 +1,37 @@
 <script setup lang="ts">
-import { CALCULATOR_OPTIONS } from '#shared/products'
+import { CALCULATOR_OPTIONS, RATE_SHEET, annualRatePct, maxTermForAmount } from '#shared/products'
 
 const { t } = useI18n()
 const sectionLink = useSectionLink()
 
 const productSlug = ref(CALCULATOR_OPTIONS[0].value)
 const limits = computed(() => CALCULATOR_OPTIONS.find(option => option.value === productSlug.value) ?? CALCULATOR_OPTIONS[0])
+const isMurobaha = computed(() => limits.value.markupPct != null)
 
 const amountMln = ref(limits.value.defaultAmountMln)
-const months = ref(limits.value.maxTermMonths)
+const months = ref(12)
+
+/** Loans up to 100 mln run at most 36 months; murobaha keeps its own limit. */
+const maxTerm = computed(() =>
+  isMurobaha.value ? limits.value.maxTermMonths : maxTermForAmount(amountMln.value, limits.value.maxTermMonths),
+)
 
 // Keep the values inside the selected option's limits.
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value))
 watch(limits, (l) => {
   amountMln.value = clamp(amountMln.value, l.minAmountMln, l.maxAmountMln)
-  months.value = clamp(months.value, l.minTermMonths, l.maxTermMonths)
+})
+watch(maxTerm, (max) => {
+  months.value = clamp(months.value, limits.value.minTermMonths, max)
 })
 
+/** Clamped here as well, so the result never renders an out-of-range term between watcher runs. */
+const term = computed(() => clamp(months.value, limits.value.minTermMonths, maxTerm.value))
+const ratePct = computed(() => limits.value.markupPct ?? annualRatePct(amountMln.value, term.value) ?? 0)
+
 const principal = computed(() => amountMln.value * 1_000_000)
-const monthly = computed(() => annuityPayment(principal.value, limits.value.annualRatePct, months.value))
-const total = computed(() => monthly.value * months.value)
+const monthly = computed(() => annuityPayment(principal.value, ratePct.value, term.value))
+const total = computed(() => monthly.value * term.value)
 const overpayment = computed(() => total.value - principal.value)
 
 // Shown values glide to the new result; screen readers get the exact one.
@@ -30,6 +42,8 @@ const overpaymentShown = useTweenedNumber(overpayment)
 const productItems = computed(() =>
   CALCULATOR_OPTIONS.map(option => ({ label: t(option.labelKey), value: option.value })),
 )
+
+const rateSheetDate = RATE_SHEET.effectiveFrom.split('-').reverse().join('.')
 </script>
 
 <template>
@@ -70,13 +84,11 @@ const productItems = computed(() =>
             class="mt-8"
             :label="t('home.calculator.term')"
             :min="limits.minTermMonths"
-            :max="limits.maxTermMonths"
-            :display="t('home.calculator.months', { value: months })"
+            :max="maxTerm"
+            :display="t('home.calculator.months', { value: term })"
             :min-label="String(limits.minTermMonths)"
-            :max-label="String(limits.maxTermMonths)"
+            :max-label="String(maxTerm)"
           />
-
-          
         </div>
 
         <!-- Result -->
@@ -91,6 +103,7 @@ const productItems = computed(() =>
           </p>
 
           <dl class="mt-8 space-y-4 border-t border-white/25 pt-6">
+           
             <div class="flex items-baseline justify-between gap-4">
               <dt class="font-medium">
                 {{ t('home.calculator.total') }}
@@ -103,7 +116,7 @@ const productItems = computed(() =>
             </div>
             <div class="flex items-baseline justify-between gap-4">
               <dt class="font-medium">
-                {{ t(limits.markup ? 'home.calculator.markup' : 'home.calculator.overpayment') }}
+                {{ t(isMurobaha ? 'home.calculator.markup' : 'home.calculator.overpayment') }}
               </dt>
               <dd class="text-right">
                 <span class="text-xl font-extrabold tabular-nums" aria-hidden="true">{{ formatAmount(overpaymentShown) }}</span>
@@ -124,6 +137,7 @@ const productItems = computed(() =>
             >
               {{ t('home.calculator.cta') }}
             </UButton>
+            
           </div>
         </div>
       </div>

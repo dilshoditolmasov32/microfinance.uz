@@ -16,7 +16,7 @@ export const LOCALE_LANGUAGE: Readonly<Record<AppLocale, string>> = {
 
 /** Native language names, shown in the language switcher. */
 export const LOCALE_NAME: Readonly<Record<AppLocale, string>> = {
-  uz: 'Oʻzbekcha',
+  uz: 'Özbekça',
   ru: 'Русский',
 }
 

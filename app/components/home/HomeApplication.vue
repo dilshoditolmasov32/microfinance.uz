@@ -2,7 +2,8 @@
 import type { FormError } from '@nuxt/ui'
 import { formatUzPhone, invalidApplicationFields, toUzE164, type ApplicationField } from '#shared/application'
 import { COMPANY, telHref } from '#shared/company'
-import { type CollateralType, LOAN_PRODUCTS } from '#shared/products'
+import { type CollateralType, LOAN_PRODUCTS, findLoanProduct } from '#shared/products'
+import { REGIONS, type Region } from '#shared/regions'
 import { COLLATERAL_ICON } from '~/utils/collateral'
 
 /**
@@ -14,13 +15,15 @@ const ILLUSTRATION = '/images/forma-image.webp' as string | null
 const { t } = useI18n()
 const locale = useAppLocale()
 
-const product = LOAN_PRODUCTS[0]
+const initialProduct = LOAN_PRODUCTS[0]
 
 const state = reactive({
+  product: initialProduct.slug,
   name: '',
   phone: '',
-  amountMln: product.calculator.defaultAmountMln,
+  amountMln: initialProduct.defaultAmountMln,
   collateral: undefined as CollateralType | undefined,
+  region: undefined as Region | undefined,
 })
 /** Honeypot, hidden from people. */
 const website = ref('')
@@ -28,16 +31,28 @@ const status = ref<'idle' | 'pending' | 'success' | 'error'>('idle')
 /** Receives focus after sending, since the submit button it was on disappears. */
 const successTitle = useTemplateRef<HTMLElement>('successTitle')
 
+const product = computed(() => findLoanProduct(state.product) ?? initialProduct)
+const productItems = computed(() =>
+  LOAN_PRODUCTS.map(item => ({ label: t(`products.${item.key}.name`), value: item.slug })),
+)
+// Keep the amount within the chosen product's limits.
+watch(product, (p) => {
+  state.amountMln = Math.min(p.maxAmountMln, Math.max(p.minAmountMln, state.amountMln))
+})
+
+const regionItems = computed(() => REGIONS.map(region => ({ label: t(`regions.${region}`), value: region })))
+
 const collateralItems = computed(() =>
-  product.collateral.map(type => ({ label: t(`collateral.${type}.title`), value: type, icon: COLLATERAL_ICON[type] })),
+  product.value.collateral.map(type => ({ label: t(`collateral.${type}.title`), value: type, icon: COLLATERAL_ICON[type] })),
 )
 
 const payload = () => ({
-  product: product.slug,
+  product: state.product,
   name: state.name.trim(),
   phone: toUzE164(state.phone),
   amountMln: state.amountMln,
   collateral: state.collateral,
+  region: state.region,
   locale: locale.value,
 })
 
@@ -45,6 +60,7 @@ const FIELD_ERRORS: Partial<Record<ApplicationField, string>> = {
   name: 'home.application.errors.name',
   phone: 'home.application.errors.phone',
   collateral: 'home.application.errors.collateral',
+  region: 'home.application.errors.region',
 }
 
 function validate(): FormError[] {
@@ -68,7 +84,7 @@ async function onSubmit() {
 }
 
 function reset() {
-  Object.assign(state, { name: '', phone: '', amountMln: product.calculator.defaultAmountMln, collateral: undefined })
+  Object.assign(state, { product: initialProduct.slug, name: '', phone: '', amountMln: initialProduct.defaultAmountMln, collateral: undefined, region: undefined })
   status.value = 'idle'
 }
 
@@ -94,7 +110,7 @@ const fieldUi = { label: 'text-sm font-semibold text-ink-700', container: 'mt-1.
       format="webp"
       width="1536"
       height="1024"
-      sizes="lg:100vw"
+      sizes="lg:100vw xl:100vw 2xl:100vw"
       loading="lazy"
       class="pointer-events-none absolute inset-0 -z-10 hidden size-full object-cover object-[0%_70%] lg:block"
     />
@@ -165,14 +181,39 @@ const fieldUi = { label: 'text-sm font-semibold text-ink-700', container: 'mt-1.
               </UFormField>
             </div>
 
+            <div class="grid gap-4 sm:grid-cols-2">
+              <UFormField name="product" :label="t('home.application.form.product')" :ui="fieldUi">
+                <USelect
+                  v-model="state.product"
+                  :items="productItems"
+                  leading-icon="i-lucide-wallet"
+                  size="lg"
+                  class="w-full"
+                  :ui="{ ...inputUi, base: `${inputUi.base} font-semibold`, trailingIcon: 'text-ink-500' }"
+                />
+              </UFormField>
+
+              <UFormField name="region" :label="t('home.application.form.region')" :ui="fieldUi">
+                <USelect
+                  v-model="state.region"
+                  :items="regionItems"
+                  :placeholder="t('home.application.form.regionPlaceholder')"
+                  leading-icon="i-lucide-map-pin"
+                  size="lg"
+                  class="w-full"
+                  :ui="{ ...inputUi, base: `${inputUi.base} font-semibold`, trailingIcon: 'text-ink-500' }"
+                />
+              </UFormField>
+            </div>
+
             <UiRangeSlider
               v-model="state.amountMln"
               dense
               :label="t('home.application.form.amount')"
-              :min="product.calculator.minAmountMln"
+              :min="product.minAmountMln"
               :max="product.maxAmountMln"
               :display="t('home.calculator.mlnSum', { value: state.amountMln })"
-              :min-label="t('home.calculator.mlnSum', { value: product.calculator.minAmountMln })"
+              :min-label="t('home.calculator.mlnSum', { value: product.minAmountMln })"
               :max-label="t('home.calculator.mlnSum', { value: product.maxAmountMln })"
               :step-labels="{ decrease: t('home.application.form.decrease'), increase: t('home.application.form.increase') }"
             />

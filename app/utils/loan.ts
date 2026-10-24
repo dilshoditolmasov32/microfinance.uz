@@ -13,5 +13,5 @@ export function annuityPayment(principal: number, annualRatePct: number, months:
 
 /** Formats so'm amounts as "26 521 107" (no-break spaces, no Intl, so SSR and client match). */
 export function formatAmount(value: number): string {
-  return Math.round(value).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+  return Math.round(value).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
 }

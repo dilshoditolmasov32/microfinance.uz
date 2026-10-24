@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import type { LoanProduct } from '#shared/products'
+import { rateRangePct, type LoanProduct } from '#shared/products'
 
-defineProps<{ product: LoanProduct }>()
+const props = defineProps<{ product: LoanProduct }>()
+const rateRange = computed(() => rateRangePct(props.product))
 
 const { t } = useI18n()
 </script>
@@ -31,7 +32,7 @@ const { t } = useI18n()
         {{ t('loan.figures.rate') }}
       </dt>
       <dd class="mt-1.5 flex flex-wrap items-baseline gap-x-2">
-        <span class="text-[1.75rem] leading-tight font-extrabold tracking-tight text-ink-950">{{ t('loan.figures.individual') }}</span>
+        <span class="text-[1.75rem] leading-tight font-extrabold tracking-tight text-ink-950">{{ t('loan.figures.rateValue', { min: rateRange[0], max: rateRange[1] }) }}</span>
         <span class="text-sm text-ink-600">— {{ t('loan.figures.rateNote') }}</span>
       </dd>
     </div>

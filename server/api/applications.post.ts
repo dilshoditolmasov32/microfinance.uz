@@ -37,6 +37,7 @@ export default defineEventHandler(async (event) => {
     phone: body.phone!,
     amountMln: body.amountMln!,
     collateral: body.collateral!,
+    region: body.region!,
     locale: body.locale!,
   }
   const submittedAt = new Date()

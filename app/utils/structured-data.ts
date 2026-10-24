@@ -1,4 +1,4 @@
-import { COMPANY, SITE_NAME } from '#shared/company'
+import { COMPANY, SITE_NAME, SOCIAL_LINKS } from '#shared/company'
 import { LOCALE_LANGUAGE, type AppLocale } from '#shared/locales'
 
 type JsonLdNode = Record<string, unknown>
@@ -8,7 +8,7 @@ const websiteId = (siteUrl: string) => absoluteUrl(siteUrl, '/#website')
 
 /**
  * schema.org Organization built only from verified company facts.
- * `logo` and `sameAs` are omitted until an official logo file and social profiles are provided.
+ * `logo` is omitted until an official logo file is provided.
  */
 export function organizationSchema(siteUrl: string, locale: AppLocale): JsonLdNode {
   return {
@@ -32,6 +32,7 @@ export function organizationSchema(siteUrl: string, locale: AppLocale): JsonLdNo
       'contactType': 'customer service',
       'areaServed': COMPANY.address.countryCode,
     },
+    ...(SOCIAL_LINKS.length > 0 && { sameAs: SOCIAL_LINKS.map(link => link.url) }),
   }
 }
 

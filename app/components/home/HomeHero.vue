@@ -20,7 +20,7 @@ const hasTitleTail = computed(() => te('home.hero.titleTail') && t('home.hero.ti
           :alt="t('home.hero.imageAlt')"
           width="1672"
           height="941"
-          sizes="100vw lg:60vw"
+          sizes="sm:100vw md:100vw lg:60vw xl:60vw 2xl:60vw"
           :preload="{ fetchPriority: 'high' }"
           fetchpriority="high"
           class="enter-photo size-full object-cover object-[55%_22%]"

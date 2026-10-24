@@ -32,9 +32,10 @@ function toTop() {
       v-if="visible"
       icon="i-lucide-arrow-up"
       size="xl"
+      square
       :aria-label="t('a11y.backToTop')"
       :title="t('a11y.backToTop')"
-      class="fixed right-4 bottom-4 z-40 rounded-full p-3 shadow-raised sm:right-6 sm:bottom-6"
+      class="fixed right-4 bottom-4 z-40 rounded-full shadow-raised sm:right-6 sm:bottom-6"
       @click="toTop"
     />
   </Transition>

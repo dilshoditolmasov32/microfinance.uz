@@ -81,6 +81,8 @@
      brand-600 (#DC2626) gives 4.8:1 and is the existing button colour. */
   --ui-primary: var(--ui-color-primary-600);
   --ui-error: var(--ui-color-error-700);
+  /* Placeholders and other "dimmed" text: Nuxt UI's ink-400 is 2.6:1 on the light inputs; ink-500 passes AA. */
+  --ui-text-dimmed: var(--ui-color-neutral-500);
 }
 
 @media (min-width: 64rem) {

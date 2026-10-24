@@ -14,10 +14,18 @@ export function useAppHead() {
     titleTemplate: (title?: string) => (title ? `${title} — ${SITE_NAME}` : SITE_NAME),
   }))
 
+  // Link previews (Telegram, Facebook, WhatsApp): the head office photo, 1200×630 in public/.
+  const { t } = useI18n()
+  const ogImage = absoluteUrl(useRuntimeConfig().public.siteUrl, '/og-image.jpg')
   useSeoMeta({
     ogSiteName: SITE_NAME,
     ogType: 'website',
-    twitterCard: 'summary',
+    ogImage,
+    ogImageWidth: 1200,
+    ogImageHeight: 630,
+    ogImageAlt: () => t('home.hero.imageAlt'),
+    twitterCard: 'summary_large_image',
+    twitterImage: ogImage,
   })
 }
 

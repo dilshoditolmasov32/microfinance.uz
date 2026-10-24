@@ -1,15 +1,15 @@
 import { isAppLocale, type AppLocale } from './locales'
 import { type CollateralType, findLoanProduct } from './products'
+import { isRegion, type Region } from './regions'
 
-/** Loan application sent from the homepage form to /api/applications. */
 export interface LoanApplication {
-  /** Loan product slug from shared/products.ts. */
   product: string
   name: string
-  /** E.164, e.g. +998901234567. */
   phone: string
   amountMln: number
   collateral: CollateralType
+  /** Where the applicant is applying from. */
+  region: Region
   locale: AppLocale
 }
 
@@ -17,7 +17,6 @@ export type ApplicationField = keyof LoanApplication
 
 export const APPLICATION_NAME_MAX = 100
 
-/** National part (9 digits) of an Uzbek phone number typed with or without the +998 prefix. */
 export function uzPhoneNational(value: string): string {
   let digits = value.replace(/\D/g, '')
   if ((value.trim().startsWith('+') || digits.length > 9) && digits.startsWith('998'))
@@ -50,11 +49,13 @@ export function invalidApplicationFields(input: Partial<Record<ApplicationField,
     invalid.push('phone')
   if (
     typeof amount !== 'number' || !Number.isInteger(amount)
-    || (product && (amount < product.calculator.minAmountMln || amount > product.maxAmountMln))
+    || (product && (amount < product.minAmountMln || amount > product.maxAmountMln))
   )
     invalid.push('amountMln')
   if (!product?.collateral.includes(input.collateral as CollateralType))
     invalid.push('collateral')
+  if (!isRegion(input.region))
+    invalid.push('region')
   if (!isAppLocale(input.locale))
     invalid.push('locale')
 
