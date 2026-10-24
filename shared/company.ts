@@ -11,7 +11,11 @@ export interface CompanyInfo {
   brandName: string
   legalName: Localized
   phone: { e164: string; display: string }
+  /** Trust line for proposals and complaints, shown in the footer. */
+  trustPhone: { e164: string; display: string }
   email: string
+  /** Support inbox, shown under the trust line in the footer. */
+  supportEmail: string
   address: {
     display: Localized
     street: Localized
@@ -35,7 +39,12 @@ export const COMPANY: CompanyInfo = {
     e164: '+998712027575',
     display: '+998 71 202 75 75',
   },
+  trustPhone: {
+    e164: '+998712025775',
+    display: '+998 71 202 57 75',
+  },
   email: 'info@microfinance.uz',
+  supportEmail: 'support@microfinance.uz',
   address: {
     display: {
       uz: 'Toşkent ş., Laylitöğon köçasi, 266-A-uy',
@@ -73,7 +82,7 @@ export const WORKING_HOURS: Localized = {
   ru: 'Понедельник – пятница, 09:00 – 18:00',
 }
 
-/** Telegram support chat, opened by the footer "Support" button. */
+/** Telegram channel, linked from the footer social icons. */
 export const SUPPORT_URL = 'https://t.me/Biznes_mikromoliya'
 
 export type SocialNetwork = 'instagram' | 'telegram' | 'youtube' | 'linkedin' | 'facebook'

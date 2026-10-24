@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { COMPANY, MARKETPLACE_URL, SOCIAL_LINKS, SUPPORT_URL, WORKING_HOURS, mailtoHref, mapHref, telHref, type SocialNetwork } from '#shared/company'
+import { COMPANY, MARKETPLACE_URL, SOCIAL_LINKS, WORKING_HOURS, mailtoHref, mapHref, telHref, type SocialNetwork } from '#shared/company'
 import { LOAN_PRODUCTS, loanProductPath } from '#shared/products'
 
 const { t } = useI18n()
@@ -134,28 +134,22 @@ const linkClass = 'rounded-sm text-[0.9375rem] text-ink-300 transition-colors ho
           </p>
         </div>
         <ULink
-          :to="telHref()"
+          :to="telHref(COMPANY.trustPhone.e164)"
           external
           raw
           class="mt-5 inline-block rounded-sm text-2xl font-extrabold tracking-tight whitespace-nowrap text-white underline-offset-4 hover:underline focus-visible:outline-white"
         >
-          {{ COMPANY.phone.display }}
+          {{ COMPANY.trustPhone.display }}
         </ULink>
-        <UButton
-          :to="SUPPORT_URL"
+        <ULink
+          :to="mailtoHref(COMPANY.supportEmail)"
           external
-          target="_blank"
-          rel="noopener"
-          size="xl"
-          variant="outline"
-          leading-icon="i-lucide-headset"
-          trailing-icon="i-lucide-arrow-right"
-          class="mt-5 w-full justify-between rounded-xl bg-transparent text-white ring-brand-600 hover:bg-brand-600/15 focus-visible:outline-white"
-          :ui="{ leadingIcon: 'text-brand-500', trailingIcon: 'text-brand-500' }"
+          raw
+          class="mt-3 flex items-center gap-2 rounded-sm text-[0.9375rem] font-bold wrap-break-word text-white underline-offset-4 hover:underline focus-visible:outline-white"
         >
-          {{ t('footer.support') }}
-          <span class="sr-only">({{ t('a11y.newTab') }})</span>
-        </UButton>
+          <UIcon name="i-lucide-mail" class="size-5 shrink-0 text-brand-500" />
+          {{ COMPANY.supportEmail }}
+        </ULink>
       </div>
     </UContainer>
 
