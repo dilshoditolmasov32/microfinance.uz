@@ -108,35 +108,17 @@ export interface CalculatorOption {
   defaultAmountMln: number
   minTermMonths: number
   maxTermMonths: number
-  /** Murobaha charges a fixed annual markup instead of interest; loans use the rate sheet. */
-  markupPct: number | null
 }
 
-/** Murobaha terms per the organization (2026-10-23): 30 % annual markup, 1–300 mln, 3–24 months. */
-const MUROBAHA_MARKUP_PCT = 30
-
-export const CALCULATOR_OPTIONS: readonly [CalculatorOption, ...CalculatorOption[]] = [
-  ...LOAN_PRODUCTS.map(product => ({
-    value: product.slug,
-    labelKey: `products.${product.key}.name`,
-    minAmountMln: product.minAmountMln,
-    maxAmountMln: product.maxAmountMln,
-    defaultAmountMln: product.defaultAmountMln,
-    minTermMonths: product.minTermMonths,
-    maxTermMonths: product.maxTermMonths,
-    markupPct: null,
-  })) as [CalculatorOption, ...CalculatorOption[]],
-  {
-    value: 'murobaha',
-    labelKey: 'home.calculator.murobaha',
-    minAmountMln: 1,
-    maxAmountMln: 300,
-    defaultAmountMln: 50,
-    minTermMonths: 3,
-    maxTermMonths: 24,
-    markupPct: MUROBAHA_MARKUP_PCT,
-  },
-]
+export const CALCULATOR_OPTIONS = LOAN_PRODUCTS.map(product => ({
+  value: product.slug,
+  labelKey: `products.${product.key}.name`,
+  minAmountMln: product.minAmountMln,
+  maxAmountMln: product.maxAmountMln,
+  defaultAmountMln: product.defaultAmountMln,
+  minTermMonths: product.minTermMonths,
+  maxTermMonths: product.maxTermMonths,
+})) as readonly [CalculatorOption, ...CalculatorOption[]]
 
 export function findLoanProduct(slug: string): LoanProduct | undefined {
   return LOAN_PRODUCTS.find(product => product.slug === slug)

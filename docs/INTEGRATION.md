@@ -45,10 +45,9 @@ a confirmed value from the organization before it goes on the site:
    the footer appears automatically once it is set.
 2. **Interest rates and disclosures:** the rate sheet in force from 2026-06-01 (45–51 % a year by
    amount and term, loans up to 100 mln for at most 36 months) is `RATE_SHEET` in `shared/products.ts`;
-   the calculator, product pages and meta descriptions read it. Murobaha uses a 30 % annual markup
-   with equal instalments (`MUROBAHA_MARKUP_PCT`). Still to confirm: whether the murobaha markup is
-   annual or for the whole term, and any disclosure that consumer-credit rules require (for example
-   the annual effective rate and total cost of credit, fees or insurance).
+   the calculator, product pages and meta descriptions read it. Still to confirm: any disclosure that
+   consumer-credit rules require (for example the annual effective rate and total cost of credit,
+   fees or insurance).
 3. **Required documents and borrower requirements** for each product. The "documents" and
    "requirements" tabs on the current site are empty.
 4. **Working hours** of the office and the trust line.

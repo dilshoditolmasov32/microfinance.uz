@@ -195,7 +195,6 @@
       "title": "Kreditni hisoblang",
       "lead": "Oylik tölovingizni hoziroq bilib oling",
       "product": "Kredit turi",
-      "murobaha": "Murobaha",
       "amount": "Kredit summasi",
       "term": "Muddat",
       "mln": "{value} mln",
@@ -205,12 +204,9 @@
       "monthly": "Oylik tölov",
       "total": "Umumiy tölov",
       "overpayment": "Ortiqça tölov",
-      "markup": "Ustama",
       "cta": "Hoziroq ariza qoldiring",
       "note": "Foiz stavkalari {date} dan amalda. Hisob taxminiy, yakuniy şartlar kredit şartnomasida körsatiladi.",
-      "rate": "Yillik foiz stavkasi",
-      "markupRate": "Yillik ustama",
-      "murobahaNote": "Hisob taxminiy, yakuniy şartlar şartnomada körsatiladi."
+      "rate": "Yillik foiz stavkasi"
     },
     "products": {
       "title": "Har bir ehtiyoj uçun aniq şartlar",

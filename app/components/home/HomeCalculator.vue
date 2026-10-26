@@ -6,15 +6,12 @@ const sectionLink = useSectionLink()
 
 const productSlug = ref(CALCULATOR_OPTIONS[0].value)
 const limits = computed(() => CALCULATOR_OPTIONS.find(option => option.value === productSlug.value) ?? CALCULATOR_OPTIONS[0])
-const isMurobaha = computed(() => limits.value.markupPct != null)
 
 const amountMln = ref(limits.value.defaultAmountMln)
 const months = ref(12)
 
-/** Loans up to 100 mln run at most 36 months; murobaha keeps its own limit. */
-const maxTerm = computed(() =>
-  isMurobaha.value ? limits.value.maxTermMonths : maxTermForAmount(amountMln.value, limits.value.maxTermMonths),
-)
+/** Loans up to 100 mln run at most 36 months. */
+const maxTerm = computed(() => maxTermForAmount(amountMln.value, limits.value.maxTermMonths))
 
 // Keep the values inside the selected option's limits.
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value))
@@ -27,7 +24,7 @@ watch(maxTerm, (max) => {
 
 /** Clamped here as well, so the result never renders an out-of-range term between watcher runs. */
 const term = computed(() => clamp(months.value, limits.value.minTermMonths, maxTerm.value))
-const ratePct = computed(() => limits.value.markupPct ?? annualRatePct(amountMln.value, term.value) ?? 0)
+const ratePct = computed(() => annualRatePct(amountMln.value, term.value) ?? 0)
 
 const principal = computed(() => amountMln.value * 1_000_000)
 const monthly = computed(() => annuityPayment(principal.value, ratePct.value, term.value))
@@ -116,7 +113,7 @@ const rateSheetDate = RATE_SHEET.effectiveFrom.split('-').reverse().join('.')
             </div>
             <div class="flex items-baseline justify-between gap-4">
               <dt class="font-medium">
-                {{ t(isMurobaha ? 'home.calculator.markup' : 'home.calculator.overpayment') }}
+                {{ t('home.calculator.overpayment') }}
               </dt>
               <dd class="text-right">
                 <span class="text-xl font-extrabold tabular-nums" aria-hidden="true">{{ formatAmount(overpaymentShown) }}</span>
