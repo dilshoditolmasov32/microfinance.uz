@@ -80,7 +80,6 @@
       "rateValue": "{min}–{max}%"
     },
     "collateralTitle": "Taʼminot turlari",
-    "collateralLead": "Kredit quyidagi taʼminot turlaridan biri asosida beriladi.",
     "allTerms": "Barça şartlar",
     "contractNote": "Yakuniy kredit şartlari, jumladan yillik foiz stavkasi va tölov jadvali, kredit şartnomasida körsatiladi.",
     "consultTitle": "Şartlarni aniqlaştiring",
@@ -102,19 +101,29 @@
     "gold": {
       "title": "Tilla buyumlar",
       "text": "Tilla zargarlik buyumlari"
+    },
+    "guarantor": {
+      "title": "Jismoniy şaxs kafilligi",
+      "text": "Qarzni jismoniy şaxs kafolatlaydi"
+    },
+    "salary": {
+      "title": "Doimiy rasmiy oylik daromadga ega mijoz",
+      "text": "Rasmiy ish joyidan muntazam oylik maoş"
     }
   },
   "products": {
     "mikroqarz": {
       "name": "Mikroqarz",
-      "summary": "Jismoniy şaxslar uçun garov asosidagi qulay moliyaviy yeçim.",
+      "summary": "Jismoniy şaxslar uçun garovsiz, kafillik asosidagi qulay moliyaviy yeçim.",
+      "collateralLead": "Mikroqarz quyidagi şartlar asosida beriladi.",
       "purpose": "Şaxsiy ehtiyojlar: maişiy texnika, mebel, taʼmirlaş, sayohat va boşqalar",
       "metaTitle": "Mikroqarz — {amount} mln sömgaça, {months} oygaça",
-      "metaDescription": "Jismoniy şaxslar uçun garov asosida mikroqarz: {amount} mln sömgaça, {months} oygaça. Yillik foiz stavkasi {rateMin}% dan. Köçmas mulk, avtomobil yoki tilla buyumlari taʼminoti."
+      "metaDescription": "Jismoniy şaxslar uçun garovsiz mikroqarz: {amount} mln sömgaça, {months} oygaça. Yillik foiz stavkasi {rateMin}% dan. Jismoniy şaxs kafilligi, doimiy rasmiy oylik daromadga ega mijozlar uçun."
     },
     "mikrokredit": {
       "name": "Mikrokredit",
       "summary": "Yakka tartibdagi tadbirkorlar va özini özi band qilganlar uçun garov asosidagi kredit.",
+      "collateralLead": "Kredit quyidagi taʼminot turlaridan biri asosida beriladi.",
       "purpose": "Tadbirkorlik faoliyatini rivojlantiriş",
       "metaTitle": "Mikrokredit — {amount} mln sömgaça, {months} oygaça",
       "metaDescription": "Yakka tartibdagi tadbirkorlar va özini özi band qilganlar uçun garov asosida mikrokredit: {amount} mln sömgaça, {months} oygaça. Yillik foiz stavkasi {rateMin}% dan."
@@ -213,8 +222,8 @@
         "amount": "Kredit summasi",
         "decrease": "Summani kamaytiriş",
         "increase": "Summani oşiriş",
-        "collateral": "Garov turi",
-        "collateralPlaceholder": "Garov turini tanlang",
+        "collateral": "Taʼminot turi",
+        "collateralPlaceholder": "Taʼminot turini tanlang",
         "submit": "Ariza yuboriş",
         "product": "Kredit turi",
         "region": "Hududingiz",
@@ -223,7 +232,7 @@
       "errors": {
         "name": "Ism va familiyangizni kiriting",
         "phone": "Telefon raqamini töliq kiriting",
-        "collateral": "Garov turini tanlang",
+        "collateral": "Taʼminot turini tanlang",
         "region": "Viloyatni tanlang"
       },
       "failed": {

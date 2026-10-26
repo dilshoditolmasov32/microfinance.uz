@@ -82,7 +82,7 @@ const localePath = useLocalePath()
               {{ t('loan.collateralTitle') }}
             </h4>
             <p class="mt-1 text-sm text-ink-600">
-              {{ t('loan.collateralLead') }}
+              {{ t(`products.${product.key}.collateralLead`) }}
             </p>
             <LoanCollateralList :items="product.collateral" class="mt-5" />
           </div>

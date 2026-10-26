@@ -18,7 +18,7 @@ export function applicationEmail(application: LoanApplication, submittedAt: Date
     ['Telefon', application.phone],
     ['Kredit turi', product ? uz.products[product.key as keyof typeof uz.products].name : application.product],
     ['Summa', amount],
-    ['Garov', uz.collateral[application.collateral].title],
+    ['Taʼminot', uz.collateral[application.collateral].title],
     ['Hudud', uz.regions[application.region]],
     ['Sayt tili', application.locale],
     ['Vaqt (Toşkent)', time],

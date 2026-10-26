@@ -157,7 +157,7 @@ useJsonLd('ld-breadcrumbs', () =>
           {{ t('loan.collateralTitle') }}
         </h2>
         <p v-reveal="80" class="mt-3 text-lead text-ink-600">
-          {{ t('loan.collateralLead') }}
+          {{ t(`products.${product.key}.collateralLead`) }}
         </p>
         <LoanCollateralList :items="product.collateral" layout="grid" class="mt-8" />
       </UContainer>

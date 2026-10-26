@@ -13,7 +13,7 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <ul :class="layout === 'grid' ? 'grid gap-4 sm:grid-cols-3' : 'grid gap-3'">
+  <ul :class="layout === 'grid' ? ['grid gap-4', items.length === 2 ? 'sm:grid-cols-2' : 'sm:grid-cols-3'] : 'grid gap-3'">
     <li
       v-for="(item, index) in items"
       :key="item"
