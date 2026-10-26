@@ -122,7 +122,8 @@
       "collateralLead": "Mikroqarz quyidagi şartlar asosida beriladi.",
       "purpose": "Şaxsiy ehtiyojlar: maişiy texnika, mebel, taʼmirlaş, sayohat va boşqalar",
       "metaTitle": "Mikroqarz — {amount} mln sömgaça, {months} oygaça",
-      "metaDescription": "Jismoniy şaxslar uçun garovsiz mikroqarz: {amount} mln sömgaça, {months} oygaça. Yillik foiz stavkasi {rateMin}% dan. Jismoniy şaxs kafilligi, doimiy rasmiy oylik daromadga ega mijozlar uçun."
+      "metaDescription": "Jismoniy şaxslar uçun garovsiz mikroqarz: {amount} mln sömgaça, {months} oygaça. Yillik foiz stavkasi {rateMin}% dan. Jismoniy şaxs kafilligi, doimiy rasmiy oylik daromadga ega mijozlar uçun.",
+      "metaKeywords": "mikroqarz, mikroqarz oliş, mikroqarz olish, garovsiz kredit, garovsiz qarz, kafillik asosida kredit, kafil bilan kredit, oylik maoşga kredit, oylik maoshga kredit, isteʼmol krediti, şaxsiy ehtiyojlar uçun kredit, shaxsiy ehtiyojlar uchun kredit, maişiy texnika uçun kredit, taʼmirlaş uçun kredit, jismoniy şaxslarga kredit, jismoniy shaxslarga kredit, {amount} mln sömgaça kredit, Toşkentda mikroqarz, микроқарз, гаровсиз кредит, кредит олиш"
     },
     "mikrokredit": {
       "name": "Mikrokredit",
@@ -130,7 +131,8 @@
       "collateralLead": "Kredit quyidagi taʼminot turlaridan biri asosida beriladi.",
       "purpose": "Tadbirkorlik faoliyatini rivojlantiriş",
       "metaTitle": "Mikrokredit — {amount} mln sömgaça, {months} oygaça",
-      "metaDescription": "Yakka tartibdagi tadbirkorlar va özini özi band qilganlar uçun garov asosida mikrokredit: {amount} mln sömgaça, {months} oygaça. Yillik foiz stavkasi {rateMin}% dan."
+      "metaDescription": "Yakka tartibdagi tadbirkorlar va özini özi band qilganlar uçun garov asosida mikrokredit: {amount} mln sömgaça, {months} oygaça. Yillik foiz stavkasi {rateMin}% dan.",
+      "metaKeywords": "mikrokredit, mikrokredit oliş, mikrokredit olish, tadbirkorlar uçun kredit, tadbirkorlar uchun kredit, YTT uçun kredit, yakka tartibdagi tadbirkorlarga kredit, özini özi band qilganlar uçun kredit, oʻzini oʻzi band qilganlar uchun kredit, biznes uçun kredit, biznes uchun kredit, biznes kredit, garov asosida kredit, köçmas mulk garovi bilan kredit, avtomobil garovi bilan kredit, tilla garovi bilan kredit, oltin garoviga kredit, {amount} mln sömgaça kredit, {months} oyga kredit, микрокредит, тадбиркорлар учун кредит"
     }
   },
   "process": {
@@ -157,7 +159,8 @@
   "home": {
     "meta": {
       "title": "Microfinance.uz — «Biznesni rivojlantiriş» mikromoliya taşkiloti",
-      "description": "Garov asosida mikroqarz va mikrokreditlar: {amount} mln sömgaça, {months} oygaça. Yillik foiz stavkasi {rateMin}% dan. Toşkent, işonç telefoni {phone}."
+      "description": "Garov asosida mikroqarz va mikrokreditlar: {amount} mln sömgaça, {months} oygaça. Yillik foiz stavkasi {rateMin}% dan. Toşkent, işonç telefoni {phone}.",
+      "keywords": "mikromoliya taşkiloti, mikromoliya tashkiloti, MMT, mikrokredit, mikroqarz, kredit oliş, kredit olish, tez kredit, onlayn ariza, kredit uçun ariza, garov asosida kredit, garovsiz kredit, tadbirkorlar uçun kredit, biznes uçun kredit, kredit kalkulyatori, foiz stavkasi, Toşkentda kredit, Toshkentda kredit, Özbekistonda kredit, Oʻzbekistonda kredit, Biznesni rivojlantiriş, Biznesni rivojlantirish, microfinance.uz, микромолия ташкилоти, микрокредит, кредит олиш"
     },
     "hero": {
       "badge": "Tezkor moliya — muvaffaqiyatli start",

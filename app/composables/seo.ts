@@ -32,6 +32,8 @@ export function useAppHead() {
 interface PageSeo {
   title: string
   description: string
+  /** Comma-separated search phrases for <meta name="keywords">. Google ignores the tag; Yandex gives it little weight. */
+  keywords?: string
   /** Use the title as-is instead of appending the site name. */
   fullTitle?: boolean
 }
@@ -42,6 +44,7 @@ export function usePageSeo(input: () => PageSeo) {
   useSeoMeta({
     title: () => input().title,
     description: () => input().description,
+    keywords: () => input().keywords,
     ogTitle: () => input().title,
     ogDescription: () => input().description,
     twitterTitle: () => input().title,

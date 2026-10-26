@@ -50,6 +50,7 @@ const metaParams = { amount: product.maxAmountMln, months: product.maxTermMonths
 usePageSeo(() => ({
   title: t(`products.${product.key}.metaTitle`, metaParams),
   description: t(`products.${product.key}.metaDescription`, metaParams),
+  keywords: t(`products.${product.key}.metaKeywords`, metaParams),
 }))
 
 useJsonLd('ld-breadcrumbs', () =>

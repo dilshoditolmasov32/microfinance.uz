@@ -21,6 +21,7 @@ usePageSeo(() => ({
     rateMin,
     phone: COMPANY.phone.display,
   }),
+  keywords: t('home.meta.keywords'),
   fullTitle: true,
 }))
 
