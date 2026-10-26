@@ -28,6 +28,9 @@ const props = defineProps<{
   href?: string
 }>()
 
+/** Fired by the button when the card has neither `to` nor `href`. */
+const emit = defineEmits<{ select: [] }>()
+
 const { t } = useI18n()
 
 /** Static class strings per tone so Tailwind can see them. */
@@ -119,6 +122,10 @@ const tone = computed(() => TONES[props.tone])
         <UButton v-else-if="href" size="lg" :to="href" external target="_blank" rel="noopener" trailing-icon="i-lucide-arrow-right" :class="tone.button">
           {{ ctaLabel }}
           <span class="sr-only">— {{ title }} ({{ t('a11y.newTab') }})</span>
+        </UButton>
+        <UButton v-else size="lg" trailing-icon="i-lucide-arrow-right" :class="tone.button" @click="emit('select')">
+          {{ ctaLabel }}
+          <span class="sr-only">— {{ title }}</span>
         </UButton>
       </div>
     </div>

@@ -169,7 +169,9 @@
       "cta": "Takliflarni köriş",
       "murobaha": {
         "title": "Murobaha",
-        "text": "Islomiy moliyalaştiriş tamoyillariga asoslangan biznesni qöllab-quvvatlaş mahsuloti."
+        "text": "Islomiy moliyalaştiriş tamoyillariga asoslangan biznesni qöllab-quvvatlaş mahsuloti.",
+        "soonTitle": "Murobaha tez orada",
+        "soonText": "Bu xizmat hozir tayyorlanmoqda. Tez orada işga tuşadi."
       },
       "microloan": {
         "title": "Mikroqarz",

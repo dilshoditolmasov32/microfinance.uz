@@ -1,12 +1,22 @@
 <script setup lang="ts">
-import { MARKETPLACE_URL } from '#shared/company'
 import { LOAN_PRODUCTS, loanProductPath } from '#shared/products'
 
 const { t } = useI18n()
 const localePath = useLocalePath()
-const locale = useAppLocale()
+const toast = useToast()
 
 const [microloan, microcredit] = LOAN_PRODUCTS
+
+/** Murobaha is not open yet, so the card tells the user instead of leaving for the marketplace. */
+function notifyMurobahaSoon() {
+  toast.add({
+    id: 'murobaha-soon',
+    title: t('home.offers.murobaha.soonTitle'),
+    description: t('home.offers.murobaha.soonText'),
+    icon: 'i-lucide-clock',
+    color: 'primary',
+  })
+}
 </script>
 
 <template>
@@ -25,7 +35,7 @@ const [microloan, microcredit] = LOAN_PRODUCTS
           :title="t('home.offers.murobaha.title')"
           :text="t('home.offers.murobaha.text')"
           :cta-label="t('home.offers.cta')"
-          :href="MARKETPLACE_URL[locale]"
+          @select="notifyMurobahaSoon"
         />
 
         <HomeOfferCard
