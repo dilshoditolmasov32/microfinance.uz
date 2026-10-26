@@ -109,6 +109,10 @@
     "salary": {
       "title": "Doimiy rasmiy oylik daromadga ega mijoz",
       "text": "Rasmiy ish joyidan muntazam oylik maoş"
+    },
+    "pledge": {
+      "title": "Garov evaziga",
+      "text": "Qarz mol-mulk garovi asosida beriladi"
     }
   },
   "products": {

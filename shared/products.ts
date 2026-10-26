@@ -1,4 +1,4 @@
-export type CollateralType = 'realEstate' | 'car' | 'gold' | 'guarantor' | 'salary'
+export type CollateralType = 'realEstate' | 'car' | 'gold' | 'guarantor' | 'salary' | 'pledge'
 
 export interface LoanProduct {
   /** URL segment: /{locale}/kredit/{slug}. */
@@ -80,7 +80,7 @@ export const LOAN_PRODUCTS: readonly [LoanProduct, ...LoanProduct[]] = [
     // Loans up to 100 mln are not issued for longer than 36 months (rate sheet).
     maxTermMonths: 36,
     gracePeriodMonths: 0,
-    collateral: ['guarantor', 'salary'],
+    collateral: ['guarantor', 'salary', 'pledge'],
     defaultAmountMln: 10,
   },
   {

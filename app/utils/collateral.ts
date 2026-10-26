@@ -7,4 +7,5 @@ export const COLLATERAL_ICON: Readonly<Record<CollateralType, string>> = {
   gold: 'i-lucide-gem',
   guarantor: 'i-lucide-user-check',
   salary: 'i-lucide-wallet',
+  pledge: 'i-lucide-shield-check',
 }
