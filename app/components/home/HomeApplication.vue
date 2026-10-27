@@ -2,7 +2,7 @@
 import type { FormError } from '@nuxt/ui'
 import { formatUzPhone, invalidApplicationFields, toUzE164, type ApplicationField } from '#shared/application'
 import { COMPANY, telHref } from '#shared/company'
-import { type CollateralType, LOAN_PRODUCTS, findLoanProduct } from '#shared/products'
+import { type CollateralType, LOAN_CHOICES, findLoanChoice } from '#shared/products'
 import { REGIONS, type Region } from '#shared/regions'
 import { COLLATERAL_ICON } from '~/utils/collateral'
 
@@ -15,10 +15,10 @@ const ILLUSTRATION = '/images/forma-image.webp' as string | null
 const { t } = useI18n()
 const locale = useAppLocale()
 
-const initialProduct = LOAN_PRODUCTS[0]
+const initialProduct = LOAN_CHOICES[0]
 
 const state = reactive({
-  product: initialProduct.slug,
+  product: initialProduct.value,
   name: '',
   phone: '',
   amountMln: initialProduct.defaultAmountMln,
@@ -41,13 +41,15 @@ function onPhoneInput(value: unknown) {
     el.value = state.phone
 }
 
-const product = computed(() => findLoanProduct(state.product) ?? initialProduct)
+const product = computed(() => findLoanChoice(state.product) ?? initialProduct)
 const productItems = computed(() =>
-  LOAN_PRODUCTS.map(item => ({ label: t(`products.${item.key}.name`), value: item.slug })),
+  LOAN_CHOICES.map(item => ({ label: t(`products.${item.key}.name`), value: item.value })),
 )
-// Keep the amount within the chosen product's limits.
+// Keep the amount and the collateral valid for the chosen product.
 watch(product, (p) => {
   state.amountMln = Math.min(p.maxAmountMln, Math.max(p.minAmountMln, state.amountMln))
+  if (state.collateral && !p.collateral.includes(state.collateral))
+    state.collateral = undefined
 })
 
 const regionItems = computed(() => REGIONS.map(region => ({ label: t(`regions.${region}`), value: region })))
@@ -94,7 +96,7 @@ async function onSubmit() {
 }
 
 function reset() {
-  Object.assign(state, { product: initialProduct.slug, name: '', phone: '', amountMln: initialProduct.defaultAmountMln, collateral: undefined, region: undefined })
+  Object.assign(state, { product: initialProduct.value, name: '', phone: '', amountMln: initialProduct.defaultAmountMln, collateral: undefined, region: undefined })
   status.value = 'idle'
 }
 

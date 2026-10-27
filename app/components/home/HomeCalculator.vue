@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { CALCULATOR_OPTIONS, RATE_SHEET, annualRatePct, maxTermForAmount } from '#shared/products'
+import { LOAN_CHOICES, RATE_SHEET, annualRatePct, maxTermForAmount } from '#shared/products'
 
 const { t } = useI18n()
 const sectionLink = useSectionLink()
 
-const productSlug = ref(CALCULATOR_OPTIONS[0].value)
-const limits = computed(() => CALCULATOR_OPTIONS.find(option => option.value === productSlug.value) ?? CALCULATOR_OPTIONS[0])
+const productSlug = ref(LOAN_CHOICES[0].value)
+const limits = computed(() => LOAN_CHOICES.find(option => option.value === productSlug.value) ?? LOAN_CHOICES[0])
 
 const amountMln = ref(limits.value.defaultAmountMln)
 const months = ref(12)
@@ -37,7 +37,7 @@ const totalShown = useTweenedNumber(total)
 const overpaymentShown = useTweenedNumber(overpayment)
 
 const productItems = computed(() =>
-  CALCULATOR_OPTIONS.map(option => ({ label: t(option.labelKey), value: option.value })),
+  LOAN_CHOICES.map(option => ({ label: t(`products.${option.key}.name`), value: option.value })),
 )
 
 const rateSheetDate = RATE_SHEET.effectiveFrom.split('-').reverse().join('.')

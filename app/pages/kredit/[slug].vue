@@ -9,6 +9,7 @@ definePageMeta({ key: route => route.fullPath })
 const route = useRoute()
 const { t } = useI18n()
 const localePath = useLocalePath()
+const amountLabel = useLoanAmountLabel()
 const siteUrl = useRuntimeConfig().public.siteUrl
 
 function resolveProduct(slug: unknown): LoanProduct {
@@ -24,10 +25,9 @@ const msg = (field: string) => t(`products.${product.key}.${field}`)
 const [rateMin, rateMax] = rateRangePct(product)
 
 const terms = computed(() => [
-  { key: 'purpose', label: t('loan.terms.purpose'), value: msg('purpose') },
   { key: 'segment', label: t('loan.terms.segment'), value: t(product.borrower === 'individual' ? 'loan.values.individuals' : 'loan.values.entrepreneurs') },
   { key: 'currency', label: t('loan.terms.currency'), value: t('loan.values.uzs') },
-  { key: 'amount', label: t('loan.terms.amount'), value: t('loan.values.amountUpTo', { amount: product.maxAmountMln }) },
+  { key: 'amount', label: t('loan.terms.amount'), value: amountLabel(product) },
   { key: 'term', label: t('loan.terms.term'), value: t('loan.values.termUpTo', { months: product.maxTermMonths }) },
   {
     key: 'gracePeriod',
@@ -46,7 +46,8 @@ const breadcrumbs = computed(() => [
   { label: msg('name'), active: true },
 ])
 
-const metaParams = { amount: product.maxAmountMln, months: product.maxTermMonths, rateMin }
+// minAmount is the limit the loan must exceed ("100 mln dan ortiq"), hence the - 1.
+const metaParams = { minAmount: product.minAmountMln - 1, amount: product.maxAmountMln, months: product.maxTermMonths, rateMin }
 
 usePageSeo(() => ({
   title: t(`products.${product.key}.metaTitle`, metaParams),
@@ -70,8 +71,7 @@ useJsonLd('ld-breadcrumbs', () =>
 
         <div class="mt-10 grid gap-10 lg:grid-cols-12 lg:items-end lg:gap-8">
           <div class="lg:col-span-7">
-            <UBadge color="primary" variant="subtle" class="enter">{{ t(`loan.segment.${product.borrower}`) }}</UBadge>
-            <h1 id="product-title" class="enter enter-delay-100 mt-5 text-display font-extrabold">
+            <h1 id="product-title" class="enter text-display font-extrabold">
               {{ msg('name') }}
             </h1>
             <p class="enter enter-delay-200 mt-5 max-w-xl text-lead text-ink-600">
@@ -83,7 +83,7 @@ useJsonLd('ld-breadcrumbs', () =>
                 <span class="sr-only">— {{ COMPANY.phone.display }}</span>
               </UButton>
               <UButton to="#process" size="xl" color="neutral" variant="outline">
-                {{ t('nav.process') }}
+                {{ msg('processButton') }}
               </UButton>
             </div>
           </div>

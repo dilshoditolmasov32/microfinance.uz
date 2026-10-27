@@ -65,8 +65,10 @@ export function rateRangePct(product: LoanProduct): [number, number] {
   RATE_SHEET.termTiersMonths.forEach((_, row) => {
     RATE_SHEET.amountTiersMln.forEach((_, column) => {
       const rate = RATE_SHEET.ratesPct[row]![column]
-      const lowestAmount = column === 0 ? product.minAmountMln : RATE_SHEET.amountTiersMln[column - 1]! + 1
-      if (rate != null && lowestAmount <= product.maxAmountMln)
+      const columnFrom = column === 0 ? 0 : RATE_SHEET.amountTiersMln[column - 1]! + 1
+      const columnTo = RATE_SHEET.amountTiersMln[column]!
+      // Only columns that overlap the product's amount range.
+      if (rate != null && columnFrom <= product.maxAmountMln && columnTo >= product.minAmountMln)
         rates.push(rate)
     })
   })
@@ -108,38 +110,64 @@ export const LOAN_PRODUCTS: readonly [LoanProduct, ...LoanProduct[]] = [
     key: 'mikrokredit',
     borrower: 'entrepreneur',
     currency: 'UZS',
-    minAmountMln: 1,
+    // Above 100 mln only: 100 mln itself is a mikroqarz.
+    minAmountMln: 101,
     maxAmountMln: 300,
     minTermMonths: 3,
     maxTermMonths: 60,
     gracePeriodMonths: 0,
     collateral: ['realEstate', 'car', 'gold'],
     documents: ['identity', 'collateral', 'selfEmployed'],
-    defaultAmountMln: 50,
+    defaultAmountMln: 150,
   },
 ]
 
-/** One entry of the "Kredit turi" select in the home calculator. */
-export interface CalculatorOption {
+/**
+ * One entry of the "Kredit turi" select in the calculator and the application form.
+ * Both mikroqarz products (with and without collateral) share one entry.
+ */
+export interface LoanChoice {
+  /** Sent with the application as `product`. */
   value: string
-  /** i18n key of the select label. */
-  labelKey: string
+  /** Message key under `products.*` for the label. */
+  key: string
   minAmountMln: number
   maxAmountMln: number
   defaultAmountMln: number
   minTermMonths: number
   maxTermMonths: number
+  collateral: readonly CollateralType[]
 }
 
-export const CALCULATOR_OPTIONS = LOAN_PRODUCTS.map(product => ({
-  value: product.slug,
-  labelKey: `products.${product.key}.name`,
-  minAmountMln: product.minAmountMln,
-  maxAmountMln: product.maxAmountMln,
-  defaultAmountMln: product.defaultAmountMln,
-  minTermMonths: product.minTermMonths,
-  maxTermMonths: product.maxTermMonths,
-})) as readonly [CalculatorOption, ...CalculatorOption[]]
+function loanChoice(products: readonly [LoanProduct, ...LoanProduct[]]): LoanChoice {
+  const [first] = products
+  return {
+    value: first.slug,
+    key: first.key,
+    minAmountMln: Math.min(...products.map(p => p.minAmountMln)),
+    maxAmountMln: Math.max(...products.map(p => p.maxAmountMln)),
+    defaultAmountMln: first.defaultAmountMln,
+    minTermMonths: Math.min(...products.map(p => p.minTermMonths)),
+    maxTermMonths: Math.max(...products.map(p => p.maxTermMonths)),
+    collateral: [...new Set(products.flatMap(p => p.collateral))],
+  }
+}
+
+const bySlug = (slug: string): LoanProduct => {
+  const product = findLoanProduct(slug)
+  if (!product)
+    throw new Error(`Unknown loan product: ${slug}`)
+  return product
+}
+
+export const LOAN_CHOICES: readonly [LoanChoice, ...LoanChoice[]] = [
+  loanChoice([bySlug('mikroqarz'), bySlug('garov-asosida-mikroqarz')]),
+  loanChoice([bySlug('mikrokredit')]),
+]
+
+export function findLoanChoice(value: string): LoanChoice | undefined {
+  return LOAN_CHOICES.find(choice => choice.value === value)
+}
 
 export function findLoanProduct(slug: string): LoanProduct | undefined {
   return LOAN_PRODUCTS.find(product => product.slug === slug)

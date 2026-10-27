@@ -5,8 +5,10 @@ const { t } = useI18n()
 const localePath = useLocalePath()
 const toast = useToast()
 
-/** Mikroqarz comes in two products (with and without collateral); the card shows the larger limit. */
-const microloanMaxMln = Math.max(...LOAN_PRODUCTS.filter(p => p.borrower === 'individual').map(p => p.maxAmountMln))
+/** Mikroqarz comes in two products (with and without collateral): the card opens a window with both. */
+const microloans = LOAN_PRODUCTS.filter(p => p.borrower === 'individual')
+const microloanMaxMln = Math.max(...microloans.map(p => p.maxAmountMln))
+const microloanChooserOpen = ref(false)
 const microcredit = findLoanProduct('mikrokredit')!
 
 /** Murobaha is not open yet, so the card tells the user instead of leaving for the marketplace. */
@@ -50,7 +52,7 @@ function notifyMurobahaSoon() {
           :text="t('home.offers.microloan.text')"
           :max-amount-mln="microloanMaxMln"
           :cta-label="t('home.offers.cta')"
-          :to="{ hash: '#products' }"
+          @select="microloanChooserOpen = true"
         />
 
         <HomeOfferCard
@@ -67,6 +69,19 @@ function notifyMurobahaSoon() {
           :to="localePath(loanProductPath(microcredit.slug))"
         />
       </div>
+
+      <UModal
+        v-model:open="microloanChooserOpen"
+        :title="t('home.offers.microloan.title')"
+        :description="t('home.offers.microloan.chooseText')"
+        :ui="{ content: 'sm:max-w-4xl' }"
+      >
+        <template #body>
+          <div class="grid gap-4 sm:grid-cols-2">
+            <LoanProductCard v-for="product in microloans" :key="product.slug" :product="product" />
+          </div>
+        </template>
+      </UModal>
     </UContainer>
   </section>
 </template>

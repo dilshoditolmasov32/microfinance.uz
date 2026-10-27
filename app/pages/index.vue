@@ -40,7 +40,6 @@ useJsonLd('ld-site', () => ({
       The 400px margin hydrates them while still off screen, so v-reveal can still fade them in.
     -->
     <LazyHomeCalculator :hydrate-on-visible="NEAR_VIEWPORT" />
-    <LazyHomeProducts :hydrate-on-visible="NEAR_VIEWPORT" />
     <LazyLoanProcess :hydrate-on-visible="NEAR_VIEWPORT" />
     <LazyHomeApplication :hydrate-on-visible="NEAR_VIEWPORT" />
     <LazyHomeFaq :hydrate-on-visible="NEAR_VIEWPORT" />

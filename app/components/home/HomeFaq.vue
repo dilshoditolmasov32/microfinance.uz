@@ -5,6 +5,7 @@ import { LOAN_PRODUCTS } from '#shared/products'
 const QUESTIONS = ['documents', 'timing', 'collateral', 'earlyRepayment'] as const
 
 const { t } = useI18n()
+const amountLabel = useLoanAmountLabel()
 
 // The documents answer is built from the product list, so it matches the product pages.
 const items = computed(() =>
@@ -45,7 +46,7 @@ const items = computed(() =>
           <ul class="grid gap-4">
             <li v-for="product in LOAN_PRODUCTS" :key="product.slug">
               <p class="font-bold text-ink-950">
-                {{ t(`products.${product.key}.name`) }} ({{ t('loan.values.amountUpTo', { amount: product.maxAmountMln }) }})
+                {{ t(`products.${product.key}.name`) }} ({{ amountLabel(product) }})
               </p>
               <ul class="mt-1 list-disc ps-5">
                 <li v-for="doc in product.documents" :key="doc">

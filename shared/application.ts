@@ -1,5 +1,5 @@
 import { isAppLocale, type AppLocale } from './locales'
-import { type CollateralType, findLoanProduct } from './products'
+import { type CollateralType, findLoanChoice } from './products'
 import { isRegion, type Region } from './regions'
 
 export interface LoanApplication {
@@ -37,7 +37,7 @@ export const toUzE164 = (value: string): string => `+998${uzPhoneNational(value)
 /** Fields that fail validation. Shared by the form and the server route. */
 export function invalidApplicationFields(input: Partial<Record<ApplicationField, unknown>>): ApplicationField[] {
   const invalid: ApplicationField[] = []
-  const product = typeof input.product === 'string' ? findLoanProduct(input.product) : undefined
+  const product = typeof input.product === 'string' ? findLoanChoice(input.product) : undefined
   const name = typeof input.name === 'string' ? input.name.trim() : ''
   const amount = input.amountMln
 

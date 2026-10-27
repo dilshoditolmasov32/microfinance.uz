@@ -1,5 +1,5 @@
 import type { LoanApplication } from '#shared/application'
-import { findLoanProduct } from '#shared/products'
+import { findLoanChoice } from '#shared/products'
 import uz from '../../i18n/locales/uz.json'
 
 const escapeHtml = (value: string) =>
@@ -7,7 +7,7 @@ const escapeHtml = (value: string) =>
 
 /** Notification email for the loan team, in Uzbek. */
 export function applicationEmail(application: LoanApplication, submittedAt: Date) {
-  const product = findLoanProduct(application.product)
+  const product = findLoanChoice(application.product)
   // Keeps a pasted multi-line name on one line in the subject.
   const name = application.name.replace(/\s+/g, ' ')
   const amount = `${application.amountMln} mln söm`
