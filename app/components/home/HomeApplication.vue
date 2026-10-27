@@ -46,11 +46,14 @@ const productItems = computed(() =>
   LOAN_CHOICES.map(item => ({ label: t(`products.${item.key}.name`), value: item.value })),
 )
 // Keep the amount and the collateral valid for the chosen product.
+// A product with a single collateral type gets it picked right away.
 watch(product, (p) => {
   state.amountMln = Math.min(p.maxAmountMln, Math.max(p.minAmountMln, state.amountMln))
-  if (state.collateral && !p.collateral.includes(state.collateral))
+  if (p.collateral.length === 1)
+    state.collateral = p.collateral[0]
+  else if (state.collateral && !p.collateral.includes(state.collateral))
     state.collateral = undefined
-})
+}, { immediate: true })
 
 const regionItems = computed(() => REGIONS.map(region => ({ label: t(`regions.${region}`), value: region })))
 
@@ -96,7 +99,14 @@ async function onSubmit() {
 }
 
 function reset() {
-  Object.assign(state, { product: initialProduct.value, name: '', phone: '', amountMln: initialProduct.defaultAmountMln, collateral: undefined, region: undefined })
+  Object.assign(state, {
+    product: initialProduct.value,
+    name: '',
+    phone: '',
+    amountMln: initialProduct.defaultAmountMln,
+    collateral: initialProduct.collateral.length === 1 ? initialProduct.collateral[0] : undefined,
+    region: undefined,
+  })
   status.value = 'idle'
 }
 

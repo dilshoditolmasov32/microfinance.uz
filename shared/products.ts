@@ -123,8 +123,8 @@ export const LOAN_PRODUCTS: readonly [LoanProduct, ...LoanProduct[]] = [
 ]
 
 /**
- * One entry of the "Kredit turi" select in the calculator and the application form.
- * Both mikroqarz products (with and without collateral) share one entry.
+ * One entry of the "Kredit turi" select in the calculator and the application form:
+ * one per product, with that product's amount limits and collateral types.
  */
 export interface LoanChoice {
   /** Sent with the application as `product`. */
@@ -139,31 +139,19 @@ export interface LoanChoice {
   collateral: readonly CollateralType[]
 }
 
-function loanChoice(products: readonly [LoanProduct, ...LoanProduct[]]): LoanChoice {
-  const [first] = products
-  return {
-    value: first.slug,
-    key: first.key,
-    minAmountMln: Math.min(...products.map(p => p.minAmountMln)),
-    maxAmountMln: Math.max(...products.map(p => p.maxAmountMln)),
-    defaultAmountMln: first.defaultAmountMln,
-    minTermMonths: Math.min(...products.map(p => p.minTermMonths)),
-    maxTermMonths: Math.max(...products.map(p => p.maxTermMonths)),
-    collateral: [...new Set(products.flatMap(p => p.collateral))],
-  }
-}
+const loanChoice = (product: LoanProduct): LoanChoice => ({
+  value: product.slug,
+  key: product.key,
+  minAmountMln: product.minAmountMln,
+  maxAmountMln: product.maxAmountMln,
+  defaultAmountMln: product.defaultAmountMln,
+  minTermMonths: product.minTermMonths,
+  maxTermMonths: product.maxTermMonths,
+  collateral: product.collateral,
+})
 
-const bySlug = (slug: string): LoanProduct => {
-  const product = findLoanProduct(slug)
-  if (!product)
-    throw new Error(`Unknown loan product: ${slug}`)
-  return product
-}
-
-export const LOAN_CHOICES: readonly [LoanChoice, ...LoanChoice[]] = [
-  loanChoice([bySlug('mikroqarz'), bySlug('garov-asosida-mikroqarz')]),
-  loanChoice([bySlug('mikrokredit')]),
-]
+/** Mikroqarz, garov asosida mikroqarz, mikrokredit. */
+export const LOAN_CHOICES = LOAN_PRODUCTS.map(loanChoice) as unknown as readonly [LoanChoice, ...LoanChoice[]]
 
 export function findLoanChoice(value: string): LoanChoice | undefined {
   return LOAN_CHOICES.find(choice => choice.value === value)
