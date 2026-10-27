@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { COMPANY, mailtoHref, telHref } from '#shared/company'
+import { COMPANY, telHref } from '#shared/company'
 import { findLoanProduct, loanProductPath, rateRangePct, type LoanProduct } from '#shared/products'
+import { DOCUMENT_ICON } from '~/utils/collateral'
 
 // Re-run setup when navigating between products.
 definePageMeta({ key: route => route.fullPath })
@@ -94,78 +95,67 @@ useJsonLd('ld-breadcrumbs', () =>
       </UContainer>
     </section>
 
+    <!-- The documents card stays pinned on the right while the terms scroll by. -->
     <section aria-labelledby="terms-title" class="py-16 sm:py-20">
       <UContainer class="grid gap-10 lg:grid-cols-12 lg:gap-8">
-        <div v-reveal class="lg:col-span-7">
-          <h2 id="terms-title" class="text-h2 font-extrabold">
-            {{ t('loan.terms.title') }}
-          </h2>
-          <dl class="mt-8 divide-y divide-ink-100 border-y border-ink-100">
-            <div v-for="row in terms" :key="row.key" class="grid gap-1 py-4 sm:grid-cols-5 sm:gap-6">
-              <dt class="text-ink-500 sm:col-span-2">
-                {{ row.label }}
-              </dt>
-              <dd class="font-bold text-ink-950 sm:col-span-3">
-                {{ row.value }}
-              </dd>
-            </div>
-            <div class="grid gap-1 py-4 sm:grid-cols-5 sm:gap-6">
-              <dt class="text-ink-500 sm:col-span-2">
-                {{ t('loan.terms.collateral') }}
-              </dt>
-              <dd class="sm:col-span-3">
-                <ul class="flex flex-wrap gap-2">
-                  <li
-                    v-for="item in product.collateral"
-                    :key="item"
-                    class="rounded-md border border-ink-200 px-2.5 py-1 text-sm font-bold text-ink-900"
-                  >
-                    {{ t(`collateral.${item}.title`) }}
-                  </li>
-                </ul>
-              </dd>
-            </div>
-          </dl>
-          <p class="mt-6 text-sm text-ink-500">
-            {{ t('loan.contractNote') }}
-          </p>
+        <div class="lg:col-span-7">
+          <div v-reveal>
+            <h2 id="terms-title" class="text-h2 font-extrabold">
+              {{ t('loan.terms.title') }}
+            </h2>
+            <dl class="mt-8 divide-y divide-ink-100 border-y border-ink-100">
+              <div v-for="row in terms" :key="row.key" class="grid gap-1 py-4 sm:grid-cols-5 sm:gap-6">
+                <dt class="text-ink-500 sm:col-span-2">
+                  {{ row.label }}
+                </dt>
+                <dd class="font-bold text-ink-950 sm:col-span-3">
+                  {{ row.value }}
+                </dd>
+              </div>
+              <div class="grid gap-1 py-4 sm:grid-cols-5 sm:gap-6">
+                <dt class="text-ink-500 sm:col-span-2">
+                  {{ t('loan.terms.collateral') }}
+                </dt>
+                <dd class="sm:col-span-3">
+                  <ul class="flex flex-wrap gap-2">
+                    <li
+                      v-for="item in product.collateral"
+                      :key="item"
+                      class="rounded-md border border-ink-200 px-2.5 py-1 text-sm font-bold text-ink-900"
+                    >
+                      {{ t(`collateral.${item}.title`) }}
+                    </li>
+                  </ul>
+                </dd>
+              </div>
+            </dl>
+          </div>
         </div>
 
-        <aside v-reveal="{ delay: 120, from: 'right' }" class="lg:col-span-4 lg:col-start-9">
+        <aside v-reveal="{ delay: 120, from: 'right' }" aria-labelledby="documents-title" class="lg:col-span-4 lg:col-start-9">
           <div class="rounded-xl border border-ink-200 bg-ink-50 p-6 sm:p-8 lg:sticky lg:top-24">
-            <h2 class="text-lg font-bold">
-              {{ t('loan.consultTitle') }}
+            <h2 id="documents-title" class="text-lg font-bold">
+              {{ t('loan.documentsTitle') }}
             </h2>
-            <p class="mt-2 leading-relaxed text-ink-600">
+            <ul class="mt-4 grid gap-3">
+              <li v-for="item in product.documents" :key="item" class="flex items-center gap-3">
+                <span class="grid size-9 shrink-0 place-items-center rounded-md bg-white text-brand-700">
+                  <UIcon :name="DOCUMENT_ICON[item]" class="size-5" />
+                </span>
+                <span class="font-semibold text-ink-900">{{ t(`documents.${item}`) }}</span>
+              </li>
+            </ul>
+            <p class="mt-5 leading-relaxed text-ink-600">
               {{ t('loan.consultText') }}
             </p>
-            <div class="mt-6 grid gap-3">
-              <UButton size="lg" :to="telHref()" external block leading-icon="i-lucide-phone">
-                {{ COMPANY.phone.display }}
-              </UButton>
-              <UButton size="lg" :to="mailtoHref()" external block color="neutral" variant="outline" leading-icon="i-lucide-mail">
-                {{ COMPANY.email }}
-              </UButton>
-            </div>
+            <UButton size="lg" :to="telHref()" external block leading-icon="i-lucide-phone" class="mt-6">
+              {{ COMPANY.phone.display }}
+            </UButton>
           </div>
         </aside>
       </UContainer>
     </section>
 
-    <section aria-labelledby="collateral-title" class="pb-20 sm:pb-24">
-      <UContainer>
-        <h2 id="collateral-title" v-reveal class="text-h2 font-extrabold">
-          {{ t('loan.collateralTitle') }}
-        </h2>
-        <p v-reveal="80" class="mt-3 text-lead text-ink-600">
-          {{ t(`products.${product.key}.collateralLead`) }}
-        </p>
-        <LoanCollateralList :items="product.collateral" layout="grid" class="mt-8" />
-      </UContainer>
-    </section>
-
     <LoanProcess />
-
-  
   </div>
 </template>

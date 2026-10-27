@@ -79,11 +79,9 @@
       "rateNote": "yillik, summa va muddatga qarab",
       "rateValue": "{min}–{max}%"
     },
-    "collateralTitle": "Taʼminot turlari",
+    "documentsTitle": "Kerakli hujjatlar",
     "allTerms": "Barça şartlar",
-    "contractNote": "Yakuniy kredit şartlari, jumladan yillik foiz stavkasi va tölov jadvali, kredit şartnomasida körsatiladi.",
-    "consultTitle": "Şartlarni aniqlaştiring",
-    "consultText": "Kerakli hujjatlar röyxati, qarz oluvçiga qöyiladigan talablar va foiz stavkasi böyiça mutaxassis maslahat beradi.",
+    "consultText": "Töliq maʼlumot oliş uçun pastdagi telefon raqamga murojaat qilişingiz mumkin.",
     "responsible": {
       "title": "Masʼuliyat bilan qarz oling",
       "text": "Kredit olişdan oldin oylik tölov miqdorini daromadingiz bilan soliştiring va şartnomadagi barça şartlar — yillik foiz stavkasi, tölov jadvali va tölov keçiktirilişi oqibatlari bilan tanişib çiqing."
@@ -91,44 +89,47 @@
   },
   "collateral": {
     "realEstate": {
-      "title": "Köçmas mulk",
-      "text": "Uy-joy va boşqa köçmas mulk"
+      "title": "Köçmas mulk"
     },
     "car": {
-      "title": "Avtomobil",
-      "text": "Transport vositasi garovi"
+      "title": "Avtomobil"
     },
     "gold": {
-      "title": "Tilla buyumlar",
-      "text": "Tilla zargarlik buyumlari"
-    },
-    "guarantor": {
-      "title": "Jismoniy şaxs kafilligi",
-      "text": "Qarzni jismoniy şaxs kafolatlaydi"
+      "title": "Tilla buyumlar"
     },
     "salary": {
-      "title": "Doimiy rasmiy oylik daromadga ega mijoz",
-      "text": "Rasmiy ish joyidan muntazam oylik maoş"
+      "title": "Rasmiy oylik daromad"
     },
     "pledge": {
-      "title": "Garov evaziga",
-      "text": "Qarz mol-mulk garovi asosida beriladi"
+      "title": "Garov evaziga"
     }
+  },
+  "documents": {
+    "identity": "Şaxsni tasdiqlovçi hujjat yoki ID karta",
+    "income": "Kamida 6 oylik rasmiy oylik daromad",
+    "collateral": "Garov hujjatlari",
+    "selfEmployed": "Özini özi band qilganlik töğrisida guvohnoma"
   },
   "products": {
     "mikroqarz": {
       "name": "Mikroqarz",
-      "summary": "Jismoniy şaxslar uçun garovsiz, kafillik asosidagi qulay moliyaviy yeçim.",
-      "collateralLead": "Mikroqarz quyidagi şartlar asosida beriladi.",
+      "summary": "Jismoniy şaxslar uçun garovsiz, qulay moliyaviy yeçim.",
       "purpose": "Şaxsiy ehtiyojlar: maişiy texnika, mebel, taʼmirlaş, sayohat va boşqalar",
       "metaTitle": "Mikroqarz — {amount} mln sömgaça, {months} oygaça",
-      "metaDescription": "Jismoniy şaxslar uçun garovsiz mikroqarz: {amount} mln sömgaça, {months} oygaça. Yillik foiz stavkasi {rateMin}% dan. Jismoniy şaxs kafilligi, doimiy rasmiy oylik daromadga ega mijozlar uçun.",
-      "metaKeywords": "mikroqarz, mikroqarz oliş, mikroqarz olish, garovsiz kredit, garovsiz qarz, kafillik asosida kredit, kafil bilan kredit, oylik maoşga kredit, oylik maoshga kredit, isteʼmol krediti, şaxsiy ehtiyojlar uçun kredit, shaxsiy ehtiyojlar uchun kredit, maişiy texnika uçun kredit, taʼmirlaş uçun kredit, jismoniy şaxslarga kredit, jismoniy shaxslarga kredit, {amount} mln sömgaça kredit, Toşkentda mikroqarz, микроқарз, гаровсиз кредит, кредит олиш"
+      "metaDescription": "Jismoniy şaxslar uçun garovsiz mikroqarz: {amount} mln sömgaça, {months} oygaça. Yillik foiz stavkasi {rateMin}% dan. Doimiy rasmiy oylik daromadga ega mijozlar uçun.",
+      "metaKeywords": "mikroqarz, mikroqarz oliş, mikroqarz olish, garovsiz kredit, garovsiz qarz, oylik maoşga kredit, oylik maoshga kredit, isteʼmol krediti, şaxsiy ehtiyojlar uçun kredit, shaxsiy ehtiyojlar uchun kredit, maişiy texnika uçun kredit, taʼmirlaş uçun kredit, jismoniy şaxslarga kredit, jismoniy shaxslarga kredit, {amount} mln sömgaça kredit, Toşkentda mikroqarz, микроқарз, гаровсиз кредит, кредит олиш"
+    },
+    "garovMikroqarz": {
+      "name": "Garov asosida mikroqarz",
+      "summary": "Jismoniy şaxslar uçun köçmas mulk, avtomobil yoki tilla buyumlar garovi asosidagi mikroqarz.",
+      "purpose": "Şaxsiy ehtiyojlar: maişiy texnika, mebel, taʼmirlaş, sayohat va boşqalar",
+      "metaTitle": "Garov asosida mikroqarz — {amount} mln sömgaça, {months} oygaça",
+      "metaDescription": "Jismoniy şaxslar uçun garov asosida mikroqarz: {amount} mln sömgaça, {months} oygaça. Yillik foiz stavkasi {rateMin}% dan. Köçmas mulk, avtomobil yoki tilla buyumlar garovi.",
+      "metaKeywords": "garov asosida mikroqarz, garovli mikroqarz, garov asosida kredit, garov asosida qarz, köçmas mulk garovi bilan kredit, avtomobil garovi bilan kredit, tilla garovi bilan kredit, oltin garoviga kredit, şaxsiy ehtiyojlar uçun kredit, shaxsiy ehtiyojlar uchun kredit, jismoniy şaxslarga kredit, jismoniy shaxslarga kredit, {amount} mln sömgaça kredit, Toşkentda mikroqarz, микроқарз, гаров асосида кредит"
     },
     "mikrokredit": {
       "name": "Mikrokredit",
       "summary": "Yakka tartibdagi tadbirkorlar va özini özi band qilganlar uçun garov asosidagi kredit.",
-      "collateralLead": "Kredit quyidagi taʼminot turlaridan biri asosida beriladi.",
       "purpose": "Tadbirkorlik faoliyatini rivojlantiriş",
       "metaTitle": "Mikrokredit — {amount} mln sömgaça, {months} oygaça",
       "metaDescription": "Yakka tartibdagi tadbirkorlar va özini özi band qilganlar uçun garov asosida mikrokredit: {amount} mln sömgaça, {months} oygaça. Yillik foiz stavkasi {rateMin}% dan.",
@@ -143,8 +144,8 @@
         "text": "Işonç telefoniga qönğiroq qiling yoki ofisimizga taşrif buyuring."
       },
       "consult": {
-        "title": "Maslahat",
-        "text": "Mutaxassis ehtiyojingizni aniqlab, kredit şartlari va taʼminot turlarini tuşuntiradi."
+        "title": "Ariza qabul qiliş",
+        "text": "Operator arizangizni qabul qilib, uni körib çiqişga yuboradi."
       },
       "review": {
         "title": "Körib çiqiş",
@@ -222,7 +223,7 @@
       "form": {
         "title": "Ariza qoldiriş",
         "name": "Ismingiz va familiyangiz",
-        "namePlaceholder": "Töliq ism-familiya",
+        "namePlaceholder": "F.I.O",
         "phone": "Telefon raqamingiz",
         "amount": "Kredit summasi",
         "decrease": "Summani kamaytiriş",
@@ -255,24 +256,19 @@
       "lead": "Javoblarni şu yerda toping",
       "items": {
         "documents": {
-          "q": "Kredit oliş uçun qanday hujjatlar kerak?",
-          "a": "Pasport, STIR raqami va daromadni tasdiqlovçi hujjat talab qilinadi. Mikrokreditlar (5 mln sömgaça) uçun faqat pasport va STIR yetarli."
+          "q": "Mikroqarz va Mikrokredit uçun qanday hujjatlar kerak?"
         },
         "timing": {
           "q": "Kredit qança vaqtda rasmiylaştiriladi?",
-          "a": "Standart kreditlar 24–48 soat içida, mikrokreditlar esa bir iş kuni içida rasmiylaştiriladi. Express xizmat orqali 4 soat içida ham oliş mumkin."
+          "a": "24 soat içida rasmiylaştiriladi."
         },
         "collateral": {
           "q": "Qanday garov turlari qabul qilinadi?",
-          "a": "Kreditlarimiz asosan garov asosida beriladi. Garov sifatida uy-joy (köçmas mulk), avtomobil yoki tilla (zargarlik buyumlari) qabul qilinadi. Garov qiymati kredit summasiga mos bölişi kerak."
+          "a": "Garov asosida mikroqarz va mikrokredit uçun köçmas mulk, avtomobil va tilla zargarlik buyumlari qabul qilinadi."
         },
         "earlyRepayment": {
-          "q": "Muddatidan oldin tölaş mumkinmi?",
-          "a": "Ha, istalgan vaqtda jarima yoki qöşimça tölovsiz muddatidan oldin tölaş mumkin."
-        },
-        "creditHistory": {
-          "q": "Kredit tarixi yomon bölsa ham ariza topşiriş mumkinmi?",
-          "a": "Ha, har bir ariza individual körib çiqiladi. Joriy daromad va biznes rejasi ham inobatga olinadi."
+          "q": "Muddatdan oldin kreditni söndiriş xizmati mavjudmi?",
+          "a": "Ha, albatta."
         }
       }
     },

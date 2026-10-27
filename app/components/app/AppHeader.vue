@@ -123,7 +123,7 @@ const mobileLinkClass = 'group/link flex items-center justify-between py-4 text-
             </nav>
 
             <div class="mt-auto space-y-3 px-4 pt-8 pb-6 sm:px-6">
-              <UButton :to="sectionLink('application')" size="xl" block trailing-icon="i-lucide-arrow-right" @click="menuOpen = false">
+              <UButton :to="sectionLink('application')" size="xl" block trailing-icon="i-lucide-arrow-right" :ui="{ trailingIcon: 'ms-0' }" @click="menuOpen = false">
                 {{ t('actions.apply') }}
               </UButton>
               <UButton :to="telHref()" external size="xl" color="neutral" variant="outline" block leading-icon="i-lucide-phone">

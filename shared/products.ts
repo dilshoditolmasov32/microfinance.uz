@@ -1,4 +1,7 @@
-export type CollateralType = 'realEstate' | 'car' | 'gold' | 'guarantor' | 'salary' | 'pledge'
+export type CollateralType = 'realEstate' | 'car' | 'gold' | 'salary' | 'pledge'
+
+/** Message key under `documents.*` in i18n/locales. */
+export type DocumentType = 'identity' | 'income' | 'collateral' | 'selfEmployed'
 
 export interface LoanProduct {
   /** URL segment: /{locale}/kredit/{slug}. */
@@ -14,6 +17,8 @@ export interface LoanProduct {
   /** 0 means no grace period. */
   gracePeriodMonths: number
   collateral: readonly CollateralType[]
+  /** Documents the borrower brings, in the order they are listed. */
+  documents: readonly DocumentType[]
   /** Starting amount of the calculator and the application form. */
   defaultAmountMln: number
 }
@@ -75,13 +80,28 @@ export const LOAN_PRODUCTS: readonly [LoanProduct, ...LoanProduct[]] = [
     borrower: 'individual',
     currency: 'UZS',
     minAmountMln: 1,
+    maxAmountMln: 50,
+    minTermMonths: 3,
+    maxTermMonths: 36,
+    gracePeriodMonths: 0,
+    collateral: ['salary'],
+    documents: ['identity', 'income'],
+    defaultAmountMln: 10,
+  },
+  {
+    slug: 'garov-asosida-mikroqarz',
+    key: 'garovMikroqarz',
+    borrower: 'individual',
+    currency: 'UZS',
+    minAmountMln: 1,
     maxAmountMln: 100,
     minTermMonths: 3,
     // Loans up to 100 mln are not issued for longer than 36 months (rate sheet).
     maxTermMonths: 36,
     gracePeriodMonths: 0,
-    collateral: ['guarantor', 'salary', 'pledge'],
-    defaultAmountMln: 10,
+    collateral: ['realEstate', 'car', 'gold'],
+    documents: ['identity', 'collateral'],
+    defaultAmountMln: 30,
   },
   {
     slug: 'mikrokredit',
@@ -94,6 +114,7 @@ export const LOAN_PRODUCTS: readonly [LoanProduct, ...LoanProduct[]] = [
     maxTermMonths: 60,
     gracePeriodMonths: 0,
     collateral: ['realEstate', 'car', 'gold'],
+    documents: ['identity', 'collateral', 'selfEmployed'],
     defaultAmountMln: 50,
   },
 ]

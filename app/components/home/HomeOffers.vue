@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { LOAN_PRODUCTS, loanProductPath } from '#shared/products'
+import { LOAN_PRODUCTS, findLoanProduct, loanProductPath } from '#shared/products'
 
 const { t } = useI18n()
 const localePath = useLocalePath()
 const toast = useToast()
 
-const [microloan, microcredit] = LOAN_PRODUCTS
+/** Mikroqarz comes in two products (with and without collateral); the card shows the larger limit. */
+const microloanMaxMln = Math.max(...LOAN_PRODUCTS.filter(p => p.borrower === 'individual').map(p => p.maxAmountMln))
+const microcredit = findLoanProduct('mikrokredit')!
 
 /** Murobaha is not open yet, so the card tells the user instead of leaving for the marketplace. */
 function notifyMurobahaSoon() {
@@ -46,9 +48,9 @@ function notifyMurobahaSoon() {
           :image-size="[1536, 1024]"
           :title="t('home.offers.microloan.title')"
           :text="t('home.offers.microloan.text')"
-          :max-amount-mln="microloan.maxAmountMln"
+          :max-amount-mln="microloanMaxMln"
           :cta-label="t('home.offers.cta')"
-          :to="localePath(loanProductPath(microloan.slug))"
+          :to="{ hash: '#products' }"
         />
 
         <HomeOfferCard
@@ -60,9 +62,9 @@ function notifyMurobahaSoon() {
           photo-class="sm:right-0 sm:w-[65%] xl:right-[-18%] xl:w-full"
           :title="t('home.offers.microcredit.title')"
           :text="t('home.offers.microcredit.text')"
-          :max-amount-mln="microcredit!.maxAmountMln"
+          :max-amount-mln="microcredit.maxAmountMln"
           :cta-label="t('home.offers.cta')"
-          :to="localePath(loanProductPath(microcredit!.slug))"
+          :to="localePath(loanProductPath(microcredit.slug))"
         />
       </div>
     </UContainer>

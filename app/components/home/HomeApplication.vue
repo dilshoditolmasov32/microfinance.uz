@@ -30,6 +30,16 @@ const website = ref('')
 const status = ref<'idle' | 'pending' | 'success' | 'error'>('idle')
 /** Receives focus after sending, since the submit button it was on disappears. */
 const successTitle = useTemplateRef<HTMLElement>('successTitle')
+const phoneInput = useTemplateRef<{ inputRef: HTMLInputElement | null }>('phoneInput')
+
+function onPhoneInput(value: unknown) {
+  state.phone = formatUzPhone(String(value ?? ''))
+  // When the number is already full, an extra digit formats to the same value, so Vue
+  // does not redraw the field and the digit stays visible. Put the formatted value back.
+  const el = phoneInput.value?.inputRef
+  if (el && el.value !== state.phone)
+    el.value = state.phone
+}
 
 const product = computed(() => findLoanProduct(state.product) ?? initialProduct)
 const productItems = computed(() =>
@@ -167,6 +177,7 @@ const fieldUi = { label: 'text-sm font-semibold text-ink-700', container: 'mt-1.
 
               <UFormField name="phone" :label="t('home.application.form.phone')" :ui="fieldUi">
                 <UInput
+                  ref="phoneInput"
                   :model-value="state.phone"
                   type="tel"
                   inputmode="tel"
@@ -176,7 +187,7 @@ const fieldUi = { label: 'text-sm font-semibold text-ink-700', container: 'mt-1.
                   size="lg"
                   class="w-full"
                   :ui="inputUi"
-                  @update:model-value="state.phone = formatUzPhone(String($event ?? ''))"
+                  @update:model-value="onPhoneInput"
                 />
               </UFormField>
             </div>

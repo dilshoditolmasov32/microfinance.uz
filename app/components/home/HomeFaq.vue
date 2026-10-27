@@ -1,14 +1,19 @@
 <script setup lang="ts">
+import { LOAN_PRODUCTS } from '#shared/products'
+
 /** Questions and answers as published on the organization's current site. */
-const QUESTIONS = ['documents', 'timing', 'collateral', 'earlyRepayment', 'creditHistory'] as const
+const QUESTIONS = ['documents', 'timing', 'collateral', 'earlyRepayment'] as const
 
 const { t } = useI18n()
 
+// The documents answer is built from the product list, so it matches the product pages.
 const items = computed(() =>
   QUESTIONS.map(key => ({
     value: key,
     label: t(`home.faq.items.${key}.q`),
-    content: t(`home.faq.items.${key}.a`),
+    // Each item names its own slot; only `documents-body` is filled, the rest show `content`.
+    slot: key,
+    content: key === 'documents' ? '' : t(`home.faq.items.${key}.a`),
   })),
 )
 </script>
@@ -36,6 +41,21 @@ const items = computed(() =>
           body: 'px-6 pb-6 text-[0.9375rem] leading-relaxed text-ink-600 sm:px-7',
         }"
       >
+        <template #documents-body>
+          <ul class="grid gap-4">
+            <li v-for="product in LOAN_PRODUCTS" :key="product.slug">
+              <p class="font-bold text-ink-950">
+                {{ t(`products.${product.key}.name`) }} ({{ t('loan.values.amountUpTo', { amount: product.maxAmountMln }) }})
+              </p>
+              <ul class="mt-1 list-disc ps-5">
+                <li v-for="doc in product.documents" :key="doc">
+                  {{ t(`documents.${doc}`) }}
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </template>
+
         <template #trailing="{ open }">
           <span
             class="ms-auto grid size-9 shrink-0 place-items-center rounded-full transition-colors"
