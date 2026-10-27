@@ -33,7 +33,7 @@ export const COMPANY: CompanyInfo = {
   brandName: SITE_NAME,
   legalName: {
     uz: '«Biznesni rivojlantiriş» mikromoliya taşkiloti',
-    ru: 'Микрофинансовая организация «Biznesni rivojlantirish»',
+    ru: 'Микрофинансовая организация «Развитие бизнеса»',
   },
   phone: {
     e164: '+998712027575',
@@ -48,11 +48,11 @@ export const COMPANY: CompanyInfo = {
   address: {
     display: {
       uz: 'Toşkent ş., Laylitöğon köçasi, 266-A-uy',
-      ru: 'г. Ташкент, ул. Laylitoʻgʻon, дом 266-A',
+      ru: 'г. Ташкент, ул. Лайлитугон, д. 266-А',
     },
     street: {
       uz: 'Laylitöğon köçasi, 266-A-uy',
-      ru: 'ул. Laylitoʻgʻon, дом 266-A',
+      ru: 'ул. Лайлитугон, д. 266-А',
     },
     locality: {
       uz: 'Toşkent',
