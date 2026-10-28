@@ -5,10 +5,10 @@ import uz from '../../i18n/locales/uz.json'
 const escapeHtml = (value: string) =>
   value.replace(/[&<>"']/g, char => `&#${char.charCodeAt(0)};`)
 
-/** Notification email for the loan team, in Uzbek. */
-export function applicationEmail(application: LoanApplication, submittedAt: Date) {
+/** Application fields as [label, value] rows in Uzbek. Shared by the email and the Bitrix24 lead. */
+export function applicationRows(application: LoanApplication, submittedAt: Date) {
   const product = findLoanChoice(application.product)
-  // Keeps a pasted multi-line name on one line in the subject.
+  // Keeps a pasted multi-line name on one line.
   const name = application.name.replace(/\s+/g, ' ')
   const amount = `${application.amountMln} mln söm`
   const time = submittedAt.toLocaleString('uz-UZ', { timeZone: 'Asia/Tashkent' })
@@ -23,6 +23,12 @@ export function applicationEmail(application: LoanApplication, submittedAt: Date
     ['Sayt tili', application.locale],
     ['Vaqt (Toşkent)', time],
   ]
+  return { name, amount, rows }
+}
+
+/** Notification email for the loan team, in Uzbek. */
+export function applicationEmail(application: LoanApplication, submittedAt: Date) {
+  const { name, amount, rows } = applicationRows(application, submittedAt)
 
   const html = `<h2 style="margin:0 0 16px">Yangi kredit arizasi</h2>
 <table cellpadding="6" style="border-collapse:collapse;font:15px/1.4 sans-serif">

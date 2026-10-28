@@ -72,6 +72,9 @@ export default defineNuxtConfig({
     resendApiKey: '',
     applicationsEmailTo: '',
     applicationsEmailFrom: 'Microfinance.uz <onboarding@resend.dev>',
+    // Loan applications become Bitrix24 CRM leads (NUXT_BITRIX_WEBHOOK_URL): an inbound webhook with the
+    // "crm" scope, e.g. https://<portal>.bitrix24.uz/rest/1/<secret>/. It is a credential: server-only.
+    bitrixWebhookUrl: '',
     public: {
       // Override per environment with NUXT_PUBLIC_SITE_URL.
       siteUrl: SITE_URL,
