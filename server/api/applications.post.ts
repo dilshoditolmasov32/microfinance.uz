@@ -2,7 +2,7 @@ import { invalidApplicationFields, type LoanApplication } from '#shared/applicat
 
 /**
  * Receives a loan application from the homepage form and delivers it to every configured channel:
- * a Bitrix24 CRM lead (NUXT_BITRIX_WEBHOOK_URL), an email through Resend
+ * a Bitrix24 CRM deal (NUXT_BITRIX_WEBHOOK_URL), an email through Resend
  * (NUXT_RESEND_API_KEY + NUXT_APPLICATIONS_EMAIL_TO) and/or the processing system
  * (NUXT_APPLICATIONS_ENDPOINT). With none configured it answers 503, so the form never reports a
  * success that nobody receives. See docs/INTEGRATION.md.
@@ -31,6 +31,7 @@ export default defineEventHandler(async (event) => {
 
   const config = useRuntimeConfig(event)
   const emailTo = config.applicationsEmailTo.split(',').map(address => address.trim()).filter(Boolean)
+  const bitrixAssignees = config.bitrixAssignedByIds.split(',').map(Number).filter(id => Number.isInteger(id) && id > 0)
 
   const application: LoanApplication = {
     product: body.product!,
@@ -45,7 +46,7 @@ export default defineEventHandler(async (event) => {
 
   const deliveries: Promise<unknown>[] = []
   if (config.bitrixWebhookUrl)
-    deliveries.push(createBitrixLead(config.bitrixWebhookUrl, application, submittedAt))
+    deliveries.push(createBitrixDeal(config.bitrixWebhookUrl, bitrixAssignees, application, submittedAt))
   if (config.resendApiKey && emailTo.length) {
     deliveries.push($fetch('https://api.resend.com/emails', {
       method: 'POST',

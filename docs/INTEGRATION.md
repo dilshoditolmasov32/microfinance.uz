@@ -118,12 +118,15 @@ phone, loan product, region, amount and collateral type. The browser posts to `/
 - **Bitrix24 CRM:** set `NUXT_BITRIX_WEBHOOK_URL` to an inbound webhook. In Bitrix24 open
   *Developer resources → Other → Inbound webhook* (*Разработчикам → Другое → Входящий вебхук*),
   tick the **CRM (crm)** scope, save and copy the URL
-  (`https://<portal>.bitrix24.uz/rest/<user id>/<secret>/`). Each application becomes a lead
-  (`crm.lead.add`, `server/utils/bitrixLead.ts`): title, name, mobile phone, amount in UZS, source
-  "Web site", region in the address and all fields in the comment. The webhook acts with the rights
-  of the user who created it, so create it under an account that may add leads, and treat the URL
-  as a password. If the portal runs CRM without leads (simple mode), leads are switched off: turn
-  them on or switch the call to deals.
+  (`https://brm.icorp.uz/rest/<user id>/<secret>/`). The portal runs CRM without leads, so each
+  application becomes a contact (reused when the phone is already in the CRM) and a deal
+  (`server/utils/bitrixDeal.ts`) in "Общая воронка" → "Первичный контакт", next to the
+  organization's own CRM forms. The deal has the amount in UZS, source "Веб-сайт" (the CRM forms use
+  "CRM-форма"), the "Худуди", "Гаров тури" and "Кредит микдори" fields and all fields in the
+  comment. Pipeline, stage and field ids are constants in that file; update them if the portal
+  changes. `NUXT_BITRIX_ASSIGNED_BY_IDS` (comma-separated user ids) picks the responsible employee
+  at random; empty means the webhook's owner. The webhook acts with the rights of the user who
+  created it, so create it under an account with CRM access, and treat the URL as a password.
 - **Email via [Resend](https://resend.com):** set `NUXT_RESEND_API_KEY` and
   `NUXT_APPLICATIONS_EMAIL_TO` (comma-separated). The message is in Uzbek
   (`server/utils/applicationEmail.ts`). Until a sending domain is verified in Resend, the default
@@ -157,7 +160,8 @@ income or card data through the website.
 | `NUXT_PUBLIC_I18N_BASE_URL` | `https://microfinance.uz` | Origin for canonical and hreflang links |
 | `NUXT_APPLICATIONS_ENDPOINT` | (empty) | Server-only URL that receives loan applications |
 | `NUXT_APPLICATIONS_TOKEN` | (empty) | Optional bearer token for that URL |
-| `NUXT_BITRIX_WEBHOOK_URL` | (empty) | Server-only Bitrix24 inbound webhook (scope `crm`); applications become CRM leads |
+| `NUXT_BITRIX_WEBHOOK_URL` | (empty) | Server-only Bitrix24 inbound webhook (scope `crm`); applications become CRM deals |
+| `NUXT_BITRIX_ASSIGNED_BY_IDS` | (empty) | Bitrix24 user ids responsible for new deals, picked at random; empty = webhook owner |
 | `NUXT_RESEND_API_KEY` | (empty) | Server-only Resend API key for application emails |
 | `NUXT_APPLICATIONS_EMAIL_TO` | (empty) | Comma-separated recipients of application emails |
 | `NUXT_APPLICATIONS_EMAIL_FROM` | `Microfinance.uz <onboarding@resend.dev>` | Sender; must be on a domain verified in Resend |
