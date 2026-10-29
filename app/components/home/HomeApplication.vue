@@ -98,18 +98,6 @@ async function onSubmit() {
   }
 }
 
-function reset() {
-  Object.assign(state, {
-    product: initialProduct.value,
-    name: '',
-    phone: '',
-    amountMln: initialProduct.defaultAmountMln,
-    collateral: initialProduct.collateral.length === 1 ? initialProduct.collateral[0] : undefined,
-    region: undefined,
-  })
-  status.value = 'idle'
-}
-
 const inputUi = {
   base: 'h-11 rounded-lg bg-ink-50 text-ink-950 ring-ink-100 placeholder:text-ink-500 hover:ring-ink-200',
   leadingIcon: 'text-ink-500',
@@ -162,9 +150,6 @@ const fieldUi = { label: 'text-sm font-semibold text-ink-700', container: 'mt-1.
           <p class="mx-auto mt-2 max-w-xs text-ink-600">
             {{ t('home.application.success.text') }}
           </p>
-          <UButton color="neutral" variant="outline" size="lg" class="mt-8" @click="reset">
-            {{ t('home.application.success.again') }}
-          </UButton>
         </div>
 
         <template v-else>

@@ -239,9 +239,8 @@
         "text": "Birozdan söng qayta urinib köring yoki aloqa markaziga qönğiroq qiling:"
       },
       "success": {
-        "title": "Arizangiz qabul qilindi",
-        "text": "Mutaxassisimiz tez orada siz bilan boğlanadi.",
-        "again": "Yangi ariza"
+        "title": "Arizangiz yuborildi",
+        "text": "Yaqin vaqt içida mutaxassislarimiz siz bilan boğlanişadi."
       }
     },
     "faq": {
