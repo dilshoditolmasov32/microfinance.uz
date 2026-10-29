@@ -8,7 +8,6 @@ export interface LoanApplication {
   phone: string
   amountMln: number
   collateral: CollateralType
-  /** Where the applicant is applying from. */
   region: Region
   locale: AppLocale
 }
@@ -24,7 +23,6 @@ export function uzPhoneNational(value: string): string {
   return digits.slice(0, 9)
 }
 
-/** Formats input as "+998 90 123 45 67" while typing. */
 export function formatUzPhone(value: string): string {
   const n = uzPhoneNational(value)
   if (!n)
@@ -34,7 +32,6 @@ export function formatUzPhone(value: string): string {
 
 export const toUzE164 = (value: string): string => `+998${uzPhoneNational(value)}`
 
-/** Fields that fail validation. Shared by the form and the server route. */
 export function invalidApplicationFields(input: Partial<Record<ApplicationField, unknown>>): ApplicationField[] {
   const invalid: ApplicationField[] = []
   const product = typeof input.product === 'string' ? findLoanChoice(input.product) : undefined

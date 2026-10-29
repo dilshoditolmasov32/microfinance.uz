@@ -5,37 +5,25 @@ type Tone = 'green' | 'rose' | 'blue'
 
 const props = defineProps<{
   tone: Tone
-  /** Iconify name, e.g. i-lucide-user */
   icon: string
   title: string
   text: string
   ctaLabel: string
-  /** Card illustration; the subject sits on the right. */
   image: string
-  /** Intrinsic size of `image`, [width, height]. */
   imageSize: [number, number]
-  /** Cutout illustration: shown whole on the right instead of filling the card. */
   cutout?: boolean
-  /** Photo box size and offset from sm up; replaces the default. */
   photoClass?: string
-  /** object-position of the photo; defaults to the bottom-right corner. */
   photoPosition?: string
-  /** Shows the "Maksimal miqdor" box. */
   maxAmountMln?: number
-  /** Internal destination */
   to?: RouteLocationRaw
-  /** External destination, opened in a new tab */
   href?: string
 }>()
 
-/** Fired by the button when the card has neither `to` nor `href`. */
 const emit = defineEmits<{ select: [] }>()
 
 const { t } = useI18n()
 
-/** Static class strings per tone so Tailwind can see them. */
 const TONES = {
-  // White text stays on the green-700 side of the gradient (5:1).
   green: {
     card: 'border-green-700 bg-linear-to-br from-green-700 via-green-600 to-green-500 text-white',
     iconBox: 'bg-white text-green-700',
@@ -70,7 +58,6 @@ const tone = computed(() => TONES[props.tone])
     class="group/card relative isolate flex flex-col overflow-hidden rounded-xl border transition-[translate,box-shadow] duration-300 ease-smooth hover:-translate-y-1 hover:shadow-raised sm:min-h-104"
     :class="tone.card"
   >
-    <!-- Visual: on top on phones, behind the content on the right from sm up -->
     <div
       class="relative h-56 sm:absolute sm:-z-10 sm:h-auto"
       :class="cutout
@@ -133,7 +120,6 @@ const tone = computed(() => TONES[props.tone])
 </template>
 
 <style scoped>
-/* Fade the photo into the card: towards the content below on phones, to the left from sm up. */
 .card-photo {
   mask-image: linear-gradient(to bottom, #000 60%, transparent);
 }

@@ -5,13 +5,11 @@ const { t } = useI18n()
 const localePath = useLocalePath()
 const toast = useToast()
 
-/** Mikroqarz comes in two products (with and without collateral): the card opens a window with both. */
 const microloans = LOAN_PRODUCTS.filter(p => p.borrower === 'individual')
 const microloanMaxMln = Math.max(...microloans.map(p => p.maxAmountMln))
 const microloanChooserOpen = ref(false)
 const microcredit = findLoanProduct('mikrokredit')!
 
-/** Murobaha is not open yet, so the card tells the user instead of leaving for the marketplace. */
 function notifyMurobahaSoon() {
   toast.add({
     id: 'murobaha-soon',

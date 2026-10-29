@@ -1,7 +1,6 @@
 import { DEFAULT_LOCALE, LOCALE_LANGUAGE, LOCALES } from '#shared/locales'
 import { LOAN_PRODUCTS, loanProductPath } from '#shared/products'
 
-/** Locale-less paths of every indexable page. Add new pages here. */
 const PAGE_PATHS = ['', ...LOAN_PRODUCTS.map(product => loanProductPath(product.slug))]
 
 export default defineEventHandler((event) => {

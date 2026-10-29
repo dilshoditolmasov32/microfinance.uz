@@ -1,5 +1,4 @@
 <script setup lang="ts">
-/** Faint repeating eight-point star (girih-style) pattern. Decorative; colour comes from `currentColor`. */
 withDefaults(defineProps<{ size?: number }>(), { size: 44 })
 
 const patternId = useId()

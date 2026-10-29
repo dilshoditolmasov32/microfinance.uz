@@ -5,10 +5,8 @@ import type { Region } from '#shared/regions'
 import type { Ymaps } from '~/utils/yandexMaps'
 
 const props = defineProps<{
-  /** Branches that pass the search and region filters; the others are hidden. */
   visibleIds: readonly string[]
   selectedId: string | null
-  /** Region chosen in the filter; it is coloured stronger than the rest. */
   region: Region | 'all'
 }>()
 const emit = defineEmits<{ select: [id: string] }>()
@@ -20,7 +18,6 @@ const apiKey = useRuntimeConfig().public.yandexMapsApiKey
 const container = useTemplateRef<HTMLElement>('container')
 const status = ref<'loading' | 'ready' | 'error'>('loading')
 
-/** Pastel fill per region, after the design; neighbours get different hues. */
 const REGION_COLORS: Record<Region, string> = {
   karakalpakstan: '#38bdf8',
   khorezm: '#f9a8d4',
@@ -38,37 +35,27 @@ const REGION_COLORS: Record<Region, string> = {
   fergana: '#2dd4bf',
 }
 const REGION_OPACITY = { normal: 0.5, chosen: 0.6, other: 0.15 }
-/** From this zoom on (city streets) the fills fade so the map stays readable. */
 const STREET_ZOOM = 9
 
 let ymaps: Ymaps
 let map: Ymaps
 const placemarks = new Map<string, Ymaps>()
-/** Region polygons by region; Yandex 2.1 has no MultiPolygon, so a region may have several parts. */
 const regionShapes = new Map<Region, Ymaps[]>()
 let resizeObserver: ResizeObserver | undefined
 
-/**
- * Label side per branch (default: right). Toshkent, Namangan, Chortoq and Andijon are close at
- * country zoom, so their labels fan out around the pins.
- */
 const LABEL_PLACEMENT: Record<string, 'left' | 'top'> = { toshkent: 'top', namangan: 'left', chortoq: 'top' }
-/** Below this zoom only the selected branch keeps its label (phones show the whole country small). */
 const LABELS_MIN_ZOOM = 5.5
-/** Clickable area around the pin tip (on the point) and its label, in pixels. */
 const ICON_SHAPE = {
   right: [[-14, -38], [120, 0]],
   left: [[-120, -38], [14, 0]],
   top: [[-60, -66], [60, 0]],
 }
 
-/** Yandex takes [latitude, longitude]; the data is [longitude, latitude]. */
 const toLatLng = (branch: Branch) => [branch.coordinates[1], branch.coordinates[0]]
 
 const FIT_MARGIN = [70, 40, 110, 72]
 
 function fitVisible() {
-  // A region chosen in the filter: show the whole region, not just its branches.
   const regionParts = props.region === 'all' ? undefined : regionShapes.get(props.region)
   if (regionParts?.length) {
     const ring = regionParts.flatMap(part => part.geometry.getCoordinates()[0])
@@ -99,24 +86,15 @@ function syncSelection(focus: boolean) {
   if (focus && branch) map.setCenter(toLatLng(branch), 15, { duration: 500 })
 }
 
-/**
- * Area covered by the veil ([south, west], [north, east]); kept under 180° wide so Yandex draws it
- * the short way round. The map cannot be panned past VIEW_LIMIT, which lies inside it.
- */
 const MASK_AREA: [[number, number], [number, number]] = [[-10, 0], [80, 140]]
 const VIEW_LIMIT = [[15, 25], [65, 105]]
 
-/**
- * Sets Uzbekistan apart: everything outside the border is veiled and the border is drawn in brand
- * red. The outline (public/geo/uzbekistan.json) is Natural Earth 1:10m, so it needs no API key.
- */
 async function highlightUzbekistan() {
   try {
     const { rings } = await $fetch<{ rings: [number, number][][] }>('/geo/uzbekistan.json')
     const latLngRings = rings.map(ring => ring.map(([lng, lat]) => [lat, lng]))
     const [[south, west], [north, east]] = MASK_AREA
     const outer = [[south, west], [north, west], [north, east], [south, east], [south, west]]
-    // Even-odd fill: the country rings become holes in the veil.
     map.geoObjects.add(new ymaps.Polygon([outer, ...latLngRings], {}, {
       fillColor: '#f7f7f8',
       fillOpacity: 0.72,
@@ -142,14 +120,9 @@ async function highlightUzbekistan() {
 
 interface RegionShape {
   id: Region
-  /** Polygons of [outer ring, ...holes], each point [longitude, latitude]. */
   polygons: [number, number][][][]
 }
 
-/**
- * Colours each region like the design. Outlines: public/geo/uzbekistan-regions.json (Natural Earth
- * 1:10m admin-1), so this needs no API key either. Tashkent city sits on top of Tashkent region.
- */
 async function colorRegions() {
   try {
     const { regions } = await $fetch<{ regions: RegionShape[] }>('/geo/uzbekistan-regions.json')
@@ -161,7 +134,6 @@ async function colorRegions() {
           fillColor: REGION_COLORS[region.id],
           strokeColor: '#ffffff',
           strokeWidth: 1.5,
-          // Clicks and drags pass through to the map; the hint still shows on hover.
           interactivityModel: 'default#transparent',
           zIndex: region.id === 'tashkentCity' ? 3 : 2,
         },
@@ -204,7 +176,6 @@ onMounted(async () => {
   })
   map.controls.add('zoomControl', { size: 'small', position: { left: 16, top: 16 } })
   map.controls.add('geolocationControl', { position: { left: 16, top: 96 } })
-  // The page scrolls over the map; zoom with the buttons, a pinch or a double click.
   map.behaviors.disable('scrollZoom')
 
   const PinLayout = ymaps.templateLayoutFactory.createClass(
@@ -221,7 +192,6 @@ onMounted(async () => {
       hintContent: t('home.contact.branchName', { city: branch.city[locale.value] }),
     }, {
       iconLayout: PinLayout,
-      // Clickable area: the pin (tip on the point) and its label to the right.
       iconShape: { type: 'Rectangle', coordinates: ICON_SHAPE[placement] },
     })
     placemark.events.add('click', () => emit('select', branch.id))
@@ -235,8 +205,6 @@ onMounted(async () => {
     syncRegion()
   })
 
-  // The map panel is hidden in list view; re-measure when it comes back or the layout changes,
-  // and re-fit the branches unless one is being looked at.
   resizeObserver = new ResizeObserver(() => {
     map.container.fitToViewport()
     if (!props.selectedId) fitVisible()
@@ -288,7 +256,6 @@ onBeforeUnmount(() => {
 </template>
 
 <style>
-/* Placemark markup lives inside the Yandex map DOM, so these styles are global (mf- prefix). */
 .mf-pin {
   position: absolute;
   bottom: 0;

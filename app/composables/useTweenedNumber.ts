@@ -1,7 +1,3 @@
-/**
- * A number that glides to its new value instead of jumping (ease-out, `duration` ms).
- * The server and the first client render use the exact value; reduced motion skips the animation.
- */
 export function useTweenedNumber(source: MaybeRefOrGetter<number>, duration = 450) {
   const value = ref(toValue(source))
   let frame = 0

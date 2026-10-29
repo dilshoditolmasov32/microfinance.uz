@@ -10,10 +10,8 @@ const limits = computed(() => LOAN_CHOICES.find(option => option.value === produ
 const amountMln = ref(limits.value.defaultAmountMln)
 const months = ref(12)
 
-/** Loans up to 100 mln run at most 36 months. */
 const maxTerm = computed(() => maxTermForAmount(amountMln.value, limits.value.maxTermMonths))
 
-// Keep the values inside the selected option's limits.
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value))
 watch(limits, (l) => {
   amountMln.value = clamp(amountMln.value, l.minAmountMln, l.maxAmountMln)
@@ -22,7 +20,6 @@ watch(maxTerm, (max) => {
   months.value = clamp(months.value, limits.value.minTermMonths, max)
 })
 
-/** Clamped here as well, so the result never renders an out-of-range term between watcher runs. */
 const term = computed(() => clamp(months.value, limits.value.minTermMonths, maxTerm.value))
 const ratePct = computed(() => annualRatePct(amountMln.value, term.value) ?? 0)
 
@@ -31,7 +28,6 @@ const monthly = computed(() => annuityPayment(principal.value, ratePct.value, te
 const total = computed(() => monthly.value * term.value)
 const overpayment = computed(() => total.value - principal.value)
 
-// Shown values glide to the new result; screen readers get the exact one.
 const monthlyShown = useTweenedNumber(monthly)
 const totalShown = useTweenedNumber(total)
 const overpaymentShown = useTweenedNumber(overpayment)
@@ -53,7 +49,6 @@ const rateSheetDate = RATE_SHEET.effectiveFrom.split('-').reverse().join('.')
       />
 
       <div class="mx-auto mt-12 grid max-w-6xl gap-6 lg:grid-cols-12 lg:gap-8">
-        <!-- Inputs -->
         <div v-reveal="{ from: 'left' }" class="rounded-xl border border-ink-200 bg-white p-6 shadow-card sm:p-10 lg:col-span-7">
           <UFormField :label="t('home.calculator.product')" size="xl" :ui="{ label: 'font-semibold text-ink-700', container: 'mt-3' }">
             <USelect
@@ -88,7 +83,6 @@ const rateSheetDate = RATE_SHEET.effectiveFrom.split('-').reverse().join('.')
           />
         </div>
 
-        <!-- Result -->
         <div v-reveal="{ delay: 120, from: 'right' }" class="flex flex-col rounded-xl bg-brand-600 p-6 text-white shadow-raised sm:p-10 lg:col-span-5">
           <p class="font-semibold">
             {{ t('home.calculator.monthly') }}

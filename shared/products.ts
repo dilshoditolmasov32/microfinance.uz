@@ -1,12 +1,9 @@
 export type CollateralType = 'realEstate' | 'car' | 'gold' | 'salary' | 'pledge'
 
-/** Message key under `documents.*` in i18n/locales. */
 export type DocumentType = 'identity' | 'income' | 'collateral' | 'selfEmployed'
 
 export interface LoanProduct {
-  /** URL segment: /{locale}/kredit/{slug}. */
   slug: string
-  /** Message key under `products.*` in i18n/locales. */
   key: string
   borrower: 'individual' | 'entrepreneur'
   currency: 'UZS'
@@ -14,24 +11,15 @@ export interface LoanProduct {
   maxAmountMln: number
   minTermMonths: number
   maxTermMonths: number
-  /** 0 means no grace period. */
   gracePeriodMonths: number
   collateral: readonly CollateralType[]
-  /** Documents the borrower brings, in the order they are listed. */
   documents: readonly DocumentType[]
-  /** Starting amount of the calculator and the application form. */
   defaultAmountMln: number
 }
 
-/**
- * Annual interest rates for all collateral loans, in force from 2026-06-01 (the organization's
- * rate sheet). Rows are term tiers, columns are amount tiers; null means the loan is not issued.
- */
 export const RATE_SHEET = {
   effectiveFrom: '2026-06-01',
-  /** Upper bound of each amount column, mln so'm, inclusive. */
   amountTiersMln: [100, 200, 300],
-  /** Upper bound of each term row, months, inclusive. */
   termTiersMonths: [12, 24, 36, 60],
   ratesPct: [
     [45, 47, 48],
@@ -46,20 +34,17 @@ const tierIndex = (tiers: readonly number[], value: number) => {
   return index === -1 ? tiers.length - 1 : index
 }
 
-/** Annual rate for the amount and term, or null when that combination is not issued. */
 export function annualRatePct(amountMln: number, months: number): number | null {
   const row = RATE_SHEET.ratesPct[tierIndex(RATE_SHEET.termTiersMonths, months)]!
   return row[tierIndex(RATE_SHEET.amountTiersMln, amountMln)] ?? null
 }
 
-/** Longest term issued for the amount: loans up to 100 mln run at most 36 months. */
 export function maxTermForAmount(amountMln: number, productMaxTermMonths: number): number {
   const column = tierIndex(RATE_SHEET.amountTiersMln, amountMln)
   const lastRow = RATE_SHEET.ratesPct.findLastIndex(row => row[column] != null)
   return Math.min(productMaxTermMonths, RATE_SHEET.termTiersMonths[lastRow]!)
 }
 
-/** Lowest and highest rate a product can carry, for "45–48%" labels. */
 export function rateRangePct(product: LoanProduct): [number, number] {
   const rates: number[] = []
   RATE_SHEET.termTiersMonths.forEach((_, row) => {
@@ -67,7 +52,6 @@ export function rateRangePct(product: LoanProduct): [number, number] {
       const rate = RATE_SHEET.ratesPct[row]![column]
       const columnFrom = column === 0 ? 0 : RATE_SHEET.amountTiersMln[column - 1]! + 1
       const columnTo = RATE_SHEET.amountTiersMln[column]!
-      // Only columns that overlap the product's amount range.
       if (rate != null && columnFrom <= product.maxAmountMln && columnTo >= product.minAmountMln)
         rates.push(rate)
     })
@@ -98,7 +82,6 @@ export const LOAN_PRODUCTS: readonly [LoanProduct, ...LoanProduct[]] = [
     minAmountMln: 1,
     maxAmountMln: 100,
     minTermMonths: 3,
-    // Loans up to 100 mln are not issued for longer than 36 months (rate sheet).
     maxTermMonths: 36,
     gracePeriodMonths: 0,
     collateral: ['realEstate', 'car', 'gold'],
@@ -110,7 +93,6 @@ export const LOAN_PRODUCTS: readonly [LoanProduct, ...LoanProduct[]] = [
     key: 'mikrokredit',
     borrower: 'entrepreneur',
     currency: 'UZS',
-    // Above 100 mln only: 100 mln itself is a mikroqarz.
     minAmountMln: 101,
     maxAmountMln: 300,
     minTermMonths: 3,
@@ -122,14 +104,8 @@ export const LOAN_PRODUCTS: readonly [LoanProduct, ...LoanProduct[]] = [
   },
 ]
 
-/**
- * One entry of the "Kredit turi" select in the calculator and the application form:
- * one per product, with that product's amount limits and collateral types.
- */
 export interface LoanChoice {
-  /** Sent with the application as `product`. */
   value: string
-  /** Message key under `products.*` for the label. */
   key: string
   minAmountMln: number
   maxAmountMln: number
@@ -150,7 +126,6 @@ const loanChoice = (product: LoanProduct): LoanChoice => ({
   collateral: product.collateral,
 })
 
-/** Mikroqarz, garov asosida mikroqarz, mikrokredit. */
 export const LOAN_CHOICES = LOAN_PRODUCTS.map(loanChoice) as unknown as readonly [LoanChoice, ...LoanChoice[]]
 
 export function findLoanChoice(value: string): LoanChoice | undefined {
@@ -161,5 +136,4 @@ export function findLoanProduct(slug: string): LoanProduct | undefined {
   return LOAN_PRODUCTS.find(product => product.slug === slug)
 }
 
-/** Locale-less path; wrap with useLocalePath() in the app. */
 export const loanProductPath = (slug: string): string => `/kredit/${slug}`

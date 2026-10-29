@@ -6,10 +6,6 @@ import { type CollateralType, LOAN_CHOICES, findLoanChoice } from '#shared/produ
 import { REGIONS, type Region } from '#shared/regions'
 import { COLLATERAL_ICON } from '~/utils/collateral'
 
-/**
- * Full-section background on desktop (1536×1024; the artwork fills the left ~58 %, light waves
- * the rest). Set to null to drop it.
- */
 const ILLUSTRATION = '/images/forma-image.webp' as string | null
 
 const { t } = useI18n()
@@ -25,17 +21,13 @@ const state = reactive({
   collateral: undefined as CollateralType | undefined,
   region: undefined as Region | undefined,
 })
-/** Honeypot, hidden from people. */
 const website = ref('')
 const status = ref<'idle' | 'pending' | 'success' | 'error'>('idle')
-/** Receives focus after sending, since the submit button it was on disappears. */
 const successTitle = useTemplateRef<HTMLElement>('successTitle')
 const phoneInput = useTemplateRef<{ inputRef: HTMLInputElement | null }>('phoneInput')
 
 function onPhoneInput(value: unknown) {
   state.phone = formatUzPhone(String(value ?? ''))
-  // When the number is already full, an extra digit formats to the same value, so Vue
-  // does not redraw the field and the digit stays visible. Put the formatted value back.
   const el = phoneInput.value?.inputRef
   if (el && el.value !== state.phone)
     el.value = state.phone
@@ -45,8 +37,6 @@ const product = computed(() => findLoanChoice(state.product) ?? initialProduct)
 const productItems = computed(() =>
   LOAN_CHOICES.map(item => ({ label: t(`products.${item.key}.name`), value: item.value })),
 )
-// Keep the amount and the collateral valid for the chosen product.
-// A product with a single collateral type gets it picked right away.
 watch(product, (p) => {
   state.amountMln = Math.min(p.maxAmountMln, Math.max(p.minAmountMln, state.amountMln))
   if (p.collateral.length === 1)
@@ -112,7 +102,6 @@ const fieldUi = { label: 'text-sm font-semibold text-ink-700', container: 'mt-1.
     class="anchor-16 sm:anchor-20 relative isolate overflow-hidden border-t border-ink-100 bg-linear-to-br from-white via-white to-brand-50 py-16 sm:py-20 lg:flex lg:min-h-[calc(100dvh-var(--header-height))] lg:scroll-mt-(--header-height) lg:items-center lg:py-8"
   >
     <span class="application-glow absolute -top-40 -left-40 -z-10 size-160 rounded-full" aria-hidden="true" />
-    <!-- Full-bleed background on desktop; the artwork is on the left, so keep the left edge in view. -->
     <NuxtImg
       v-if="ILLUSTRATION"
       :src="ILLUSTRATION"
@@ -125,9 +114,7 @@ const fieldUi = { label: 'text-sm font-semibold text-ink-700', container: 'mt-1.
       class="pointer-events-none absolute inset-0 -z-10 hidden size-full object-cover object-[0%_70%] lg:block"
     />
 
-    <!-- On desktop the section fills the viewport below the sticky header. -->
     <UContainer class="grid w-full gap-12 lg:grid-cols-12 lg:items-center lg:gap-8">
-      <!-- Copy: pinned to the top on desktop, on a translucent panel so it reads over the artwork. -->
       <div v-reveal="{ from: 'left' }" class="lg:col-span-5 lg:self-start lg:rounded-2xl lg:bg-white/80 lg:p-8 lg:shadow-card lg:backdrop-blur-sm">
         <h2 id="application-title" class="text-h2 font-extrabold lg:text-[clamp(2.25rem,2.9vw,2.875rem)] lg:leading-[1.08]">
           {{ t('home.application.titleLead') }}
@@ -138,7 +125,6 @@ const fieldUi = { label: 'text-sm font-semibold text-ink-700', container: 'mt-1.
         </p>
       </div>
 
-      <!-- Form card -->
       <div v-reveal="{ delay: 120, from: 'right' }" class="rounded-2xl border border-ink-100 bg-white p-6 shadow-raised sm:p-8 lg:col-span-7 lg:col-start-6 xl:col-span-6 xl:col-start-7">
         <div v-if="status === 'success'" class="py-10 text-center" role="status">
           <span class="mx-auto grid size-16 place-items-center rounded-full bg-brand-50 text-brand-600">
@@ -238,7 +224,6 @@ const fieldUi = { label: 'text-sm font-semibold text-ink-700', container: 'mt-1.
               />
             </UFormField>
 
-            <!-- Honeypot -->
             <div class="hidden" aria-hidden="true">
               <label>Website <input v-model="website" type="text" name="website" tabindex="-1" autocomplete="off"></label>
             </div>

@@ -1,15 +1,7 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
 
-/*
- * Design tokens.
- * Use the brand and ink scales for UI; they are contrast-checked. Nuxt UI maps them to its
- * `primary` and `neutral` colours (app/app.config.ts). `static` makes Tailwind emit every shade,
- * which Nuxt UI needs because it reads them at runtime.
- */
 @theme static {
-  /* Brand red, from the current microfinance.uz palette (#DC2626 / #B91C1C / #991B1B).
-     brand-600 on white is 4.8:1, brand-700 on white is 6.5:1. */
   --color-brand-50: #fef2f2;
   --color-brand-100: #fee2e2;
   --color-brand-200: #fecaca;
@@ -22,8 +14,6 @@
   --color-brand-900: #7f1d1d;
   --color-brand-950: #450a0a;
 
-  /* Neutral ink. ink-500 is the lightest shade allowed for text on white (5:1);
-     ink-400 and lighter are for borders and decoration only. */
   --color-ink-50: #f7f7f8;
   --color-ink-100: #eeeef0;
   --color-ink-200: #dcdde1;
@@ -36,14 +26,12 @@
   --color-ink-900: #16171c;
   --color-ink-950: #0c0d10;
 
-  /* Warm neutral for the Islamic finance card and the hero pattern */
   --color-sand-50: #fbf7f1;
   --color-sand-100: #f4ece0;
   --color-sand-200: #e9dcc7;
 
   --font-sans: "Manrope Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 
-  /* Fluid type scale */
   --text-display: clamp(2.25rem, 1.55rem + 2.9vw, 3.75rem);
   --text-display--line-height: 1.06;
   --text-display--letter-spacing: -0.035em;
@@ -56,32 +44,21 @@
   --text-lead: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
   --text-lead--line-height: 1.6;
 
-
-  /* Soft ease-out used by every animation on the site (`ease-smooth`). */
   --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
 
   --shadow-card: 0 1px 2px 0 rgb(12 13 16 / 0.04), 0 1px 3px 0 rgb(12 13 16 / 0.06);
   --shadow-raised: 0 1px 2px 0 rgb(12 13 16 / 0.04), 0 18px 40px -18px rgb(12 13 16 / 0.22);
 }
 
-/*
- * Anchor offset for homepage sections: the section heading lands 2rem below the sticky header
- * instead of showing the whole top padding. Pass the section's padding step: py-20 → anchor-20.
- */
 @utility anchor-* {
   scroll-margin-top: calc(var(--header-height) + 2rem - --spacing(--value(integer)));
 }
 
 :root {
-  /* Sticky header height (AppHeader: h-16 lg:h-20). */
   --header-height: 4rem;
-  /* Page container width used by <UContainer> (1440px). */
   --ui-container: 90rem;
-  /* Nuxt UI uses shade 500 by default; brand-500 with white text is only 3.8:1.
-     brand-600 (#DC2626) gives 4.8:1 and is the existing button colour. */
   --ui-primary: var(--ui-color-primary-600);
   --ui-error: var(--ui-color-error-700);
-  /* Placeholders and other "dimmed" text: Nuxt UI's ink-400 is 2.6:1 on the light inputs; ink-500 passes AA. */
   --ui-text-dimmed: var(--ui-color-neutral-500);
 }
 
@@ -117,7 +94,6 @@
     text-wrap: pretty;
   }
 
-  /* Tailwind v4 leaves buttons on the default arrow; show the hand on everything clickable. */
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
   [role="option"]:not([data-disabled]),
@@ -150,12 +126,6 @@
   }
 }
 
-/*
- * Motion. Unlayered on purpose: while an element is being revealed these rules beat its utility
- * classes; app/plugins/reveal.ts removes the attributes afterwards, so hover transforms work again.
- */
-
-/* Scroll reveal (v-reveal) */
 [data-reveal] {
   opacity: 0;
   transition:
@@ -174,7 +144,6 @@
   scale: 0.96;
 }
 
-/* Sideways only on desktop; on phones it would push past the screen edge. */
 @media (min-width: 64rem) {
   [data-reveal="left"] {
     translate: -2.5rem 0;
@@ -191,7 +160,6 @@
   scale: none;
 }
 
-/* Printing does not scroll, so print everything that has not been revealed yet. */
 @media print {
   [data-reveal] {
     opacity: 1 !important;
@@ -200,7 +168,6 @@
   }
 }
 
-/* Typing effect (UiTypewriter) */
 .typewriter {
   position: relative;
   display: block;
@@ -211,13 +178,11 @@
   inset: 0;
 }
 
-/* Opacity, not visibility: the text stays in the accessibility tree while the overlay types it. */
 .typewriter.is-typing .typewriter-text {
   opacity: 0;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  /* Transparent until the script starts typing; shown anyway if it never does. */
   .js .typewriter.is-idle .typewriter-text {
     opacity: 0;
     animation: typewriter-fallback 0s 3s forwards;
@@ -247,12 +212,10 @@
   }
 }
 
-/* Page-load entrance for above-the-fold content (`enter`, stagger with `enter-delay-*`). */
 @utility enter {
   animation: enter-up 800ms var(--ease-smooth) var(--enter-delay, 0ms) both;
 }
 
-/* A variable, not animation-delay, so it works whatever order the two utilities are emitted in. */
 @utility enter-delay-* {
   --enter-delay: calc(--value(integer) * 1ms);
 }
@@ -268,7 +231,6 @@
   }
 }
 
-/* Only a slow settle, no fade: the hero photo is the LCP image and must paint at once. */
 @keyframes enter-photo {
   from {
     scale: 1.06;

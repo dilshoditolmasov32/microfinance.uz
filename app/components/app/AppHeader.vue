@@ -9,7 +9,6 @@ const sectionLink = useSectionLink()
 
 const menuOpen = ref(false)
 
-/** Homepage sections linked from the navigation. */
 const sections = computed(() => [
   { id: 'offers', label: t('nav.packages') },
   { id: 'calculator', label: t('nav.calculator') },
@@ -27,7 +26,6 @@ watch(() => route.fullPath, () => {
   menuOpen.value = false
 })
 
-// Border appears once the page scrolls under the sticky header.
 const isScrolled = ref(false)
 const onScroll = () => {
   isScrolled.value = window.scrollY > 4
@@ -38,7 +36,6 @@ onMounted(() => {
 })
 onBeforeUnmount(() => window.removeEventListener('scroll', onScroll))
 
-// Underline draws in from the left on hover.
 const navLinkClass = 'relative rounded-md px-3 py-2 text-[0.9375rem] font-semibold text-ink-700 transition-colors duration-200 hover:text-brand-700 after:absolute after:inset-x-3 after:bottom-1 after:h-0.5 after:origin-left after:scale-x-0 after:rounded-full after:bg-brand-600 after:transition-transform after:duration-300 after:ease-smooth hover:after:scale-x-100'
 const mobileLinkClass = 'group/link flex items-center justify-between py-4 text-lg font-bold text-ink-950 transition-colors duration-200 hover:text-brand-700'
 </script>
@@ -48,7 +45,6 @@ const mobileLinkClass = 'group/link flex items-center justify-between py-4 text-
     class="sticky top-0 z-40 border-b bg-white/95 backdrop-blur-sm transition-[border-color,box-shadow] duration-300 ease-smooth"
     :class="isScrolled ? 'border-ink-200 shadow-[0_6px_24px_-12px_rgb(12_13_16/0.18)]' : 'border-ink-100'"
   >
-    <!-- Three parts: brand · navigation · language and call to action -->
     <UContainer class="flex h-16 items-center justify-between gap-3 sm:gap-5 lg:h-20">
       <AppLogo class="min-w-0" />
 
@@ -74,7 +70,6 @@ const mobileLinkClass = 'group/link flex items-center justify-between py-4 text-
           {{ t('actions.apply') }}
         </UButton>
 
-        <!-- Mobile and tablet menu: Nuxt UI handles focus trap, Escape, scroll lock and aria. -->
         <USlideover
           v-model:open="menuOpen"
           :title="t('a11y.mobileNav')"
@@ -83,7 +78,6 @@ const mobileLinkClass = 'group/link flex items-center justify-between py-4 text-
           :close="{ size: 'xl', color: 'neutral', variant: 'soft', square: true, class: '-mr-1 rounded-full bg-ink-100 text-ink-950 hover:bg-ink-200 active:bg-ink-200' }"
           :ui="{
             content: 'max-w-sm',
-            // Same height as the site header; title and description stay for screen readers only.
             header: 'h-16 min-h-0 justify-between gap-3 border-b border-ink-100 px-4 py-0 sm:px-6',
             wrapper: 'sr-only',
             close: 'static',

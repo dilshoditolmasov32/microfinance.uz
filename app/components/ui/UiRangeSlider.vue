@@ -1,5 +1,4 @@
 <script setup lang="ts">
-/** Labelled Nuxt UI slider with the formatted value and min/max captions (calculator, application form). */
 const model = defineModel<number>({ required: true })
 
 const props = withDefaults(defineProps<{
@@ -7,13 +6,10 @@ const props = withDefaults(defineProps<{
   min: number
   max: number
   step?: number
-  /** Formatted current value, shown next to the label and announced by screen readers. */
   display: string
   minLabel: string
   maxLabel: string
-  /** Shows − / + buttons around the slider; the labels name them for screen readers. */
   stepLabels?: { decrease: string, increase: string }
-  /** Smaller text and spacing, for compact forms. */
   dense?: boolean
 }>(), {
   step: 1,

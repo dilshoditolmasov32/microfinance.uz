@@ -6,10 +6,6 @@ type JsonLdNode = Record<string, unknown>
 const organizationId = (siteUrl: string) => absoluteUrl(siteUrl, '/#organization')
 const websiteId = (siteUrl: string) => absoluteUrl(siteUrl, '/#website')
 
-/**
- * schema.org Organization built only from verified company facts.
- * `logo` is omitted until an official logo file is provided.
- */
 export function organizationSchema(siteUrl: string, locale: AppLocale): JsonLdNode {
   return {
     '@type': 'Organization',

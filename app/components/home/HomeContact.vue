@@ -12,10 +12,6 @@ const selectedId = ref<string | null>(null)
 
 const mapPanel = useTemplateRef<HTMLElement>('mapPanel')
 
-/**
- * Case-, apostrophe- and alphabet-insensitive: the site writes the new Uzbek alphabet, but visitors
- * may type the old one, so "toshkent", "Toşkent" and "fargona" all match.
- */
 const normalize = (value: string) => value.toLocaleLowerCase()
   .replace(/ş/g, 'sh')
   .replace(/ç/g, 'ch')
@@ -51,7 +47,6 @@ const scopeLabel = computed(() => (region.value === 'all' ? t('home.contact.acro
 function showOnMap(id: string) {
   selectedId.value = id
   view.value = 'map'
-  // On phones the list sits under the map: bring the map back into view.
   nextTick(() => {
     const panel = mapPanel.value
     if (panel && panel.getBoundingClientRect().top < 0)
@@ -61,7 +56,6 @@ function showOnMap(id: string) {
 
 const listItem = (id: string) => document.getElementById(`branch-${id}`)
 
-/** A pin click highlights its card and scrolls the side list to it. */
 function selectFromMap(id: string) {
   selectedId.value = id
   nextTick(() => listItem(id)?.scrollIntoView({ block: 'nearest' }))
@@ -74,15 +68,12 @@ const toolbarInputUi = {
 </script>
 
 <template>
-  <!-- On desktop the section fills the viewport below the sticky header. -->
   <section id="contacts" aria-labelledby="contacts-title" class="anchor-12 lg:anchor-8 border-t border-ink-100 bg-ink-50 py-12 lg:py-8">
     <UContainer>
-      <!-- The design has no visible heading; keep one for screen readers and the section landmark. -->
       <h2 id="contacts-title" class="sr-only">
         {{ t('home.contact.title') }}
       </h2>
 
-      <!-- Toolbar: search, region filter, map/list switch -->
       <div class="grid gap-3 rounded-2xl border border-ink-100 bg-white p-3 shadow-card sm:grid-cols-2 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto]">
         <UInput
           v-model="query"
@@ -129,10 +120,6 @@ const toolbarInputUi = {
         </div>
       </div>
 
-      <!--
-        Map with the branch list beside it. The map stays mounted in list view, so it loads once.
-        Desktop height: viewport minus header, section padding (4rem), toolbar (~4.6rem) and gap (1rem).
-      -->
       <div v-show="view === 'map'" class="mt-4 grid gap-4 lg:h-[calc(100dvh-var(--header-height)-9.75rem)] lg:min-h-120 lg:grid-cols-12">
         <div ref="mapPanel" class="relative h-104 scroll-mt-24 overflow-hidden rounded-2xl border border-ink-200 sm:h-128 lg:col-span-8 lg:h-full">
           <ClientOnly>
@@ -183,7 +170,6 @@ const toolbarInputUi = {
         </div>
       </div>
 
-      <!-- List view -->
       <div v-if="view === 'list'" class="mt-4">
         <ul v-if="branches.length" class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           <li v-for="branch in branches" :key="branch.id">

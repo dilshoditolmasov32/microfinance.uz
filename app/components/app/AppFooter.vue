@@ -9,7 +9,6 @@ const sectionLink = useSectionLink()
 
 const year = new Date().getFullYear()
 
-/** Same destinations as the offer cards on the homepage. */
 const productLinks = computed<{ label: string, to?: string, href?: string }[]>(() => [
   { label: t('footer.islamic'), href: MARKETPLACE_URL[locale.value] },
   ...LOAN_PRODUCTS.map(product => ({ label: t(`products.${product.key}.name`), to: localePath(loanProductPath(product.slug)) })),
@@ -27,7 +26,6 @@ const contacts = computed(() => [
   { icon: 'i-lucide-map-pin', label: COMPANY.address.display[locale.value], note: t('footer.addressNote'), to: mapHref(), newTab: true },
 ])
 
-/** Icon and brand colour per network; white on the red hover background. */
 const SOCIAL_ICONS: Record<SocialNetwork, { icon: string, color: string }> = {
   instagram: { icon: 'i-lucide-instagram', color: 'text-pink-500' },
   telegram: { icon: 'i-lucide-send', color: 'text-sky-400' },

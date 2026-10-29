@@ -3,7 +3,6 @@ import { COMPANY, telHref } from '#shared/company'
 import { findLoanProduct, loanProductPath, rateRangePct, type LoanProduct } from '#shared/products'
 import { DOCUMENT_ICON } from '~/utils/collateral'
 
-// Re-run setup when navigating between products.
 definePageMeta({ key: route => route.fullPath })
 
 const route = useRoute()
@@ -42,11 +41,9 @@ const terms = computed(() => [
 
 const breadcrumbs = computed(() => [
   { label: t('nav.home'), to: localePath('/') },
-  // `active` makes UBreadcrumb mark the current page with aria-current="page".
   { label: msg('name'), active: true },
 ])
 
-// minAmount is the limit the loan must exceed ("100 mln dan ortiq"), hence the - 1.
 const metaParams = { minAmount: product.minAmountMln - 1, amount: product.maxAmountMln, months: product.maxTermMonths, rateMin }
 
 usePageSeo(() => ({
@@ -95,7 +92,6 @@ useJsonLd('ld-breadcrumbs', () =>
       </UContainer>
     </section>
 
-    <!-- The documents card stays pinned on the right while the terms scroll by. -->
     <section aria-labelledby="terms-title" class="py-16 sm:py-20">
       <UContainer class="grid gap-10 lg:grid-cols-12 lg:gap-8">
         <div class="lg:col-span-7">

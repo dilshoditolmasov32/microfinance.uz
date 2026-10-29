@@ -1,18 +1,15 @@
 <script setup lang="ts">
 import { LOAN_PRODUCTS } from '#shared/products'
 
-/** Questions and answers as published on the organization's current site. */
 const QUESTIONS = ['documents', 'timing', 'collateral', 'earlyRepayment'] as const
 
 const { t } = useI18n()
 const amountLabel = useLoanAmountLabel()
 
-// The documents answer is built from the product list, so it matches the product pages.
 const items = computed(() =>
   QUESTIONS.map(key => ({
     value: key,
     label: t(`home.faq.items.${key}.q`),
-    // Each item names its own slot; only `documents-body` is filled, the rest show `content`.
     slot: key,
     content: key === 'documents' ? '' : t(`home.faq.items.${key}.a`),
   })),
@@ -28,7 +25,6 @@ const items = computed(() =>
         :lead="t('home.faq.lead')"
       />
 
-      <!-- unmount-on-hide=false keeps every answer in the HTML (search engines, find-in-page). -->
       <UAccordion
         v-reveal
         :items="items"

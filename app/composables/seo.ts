@@ -1,9 +1,5 @@
 import { SITE_NAME } from '#shared/company'
 
-/**
- * Site-wide head: <html lang>, canonical, hreflang alternates and og:locale (from @nuxtjs/i18n),
- * plus the title template. Called from app.vue and error.vue (the error page replaces app.vue).
- */
 export function useAppHead() {
   const i18nHead = useLocaleHead({ dir: true, lang: true, seo: true })
 
@@ -14,7 +10,6 @@ export function useAppHead() {
     titleTemplate: (title?: string) => (title ? `${title} — ${SITE_NAME}` : SITE_NAME),
   }))
 
-  // Link previews (Telegram, Facebook, WhatsApp): the head office photo, 1200×630 in public/.
   const { t } = useI18n()
   const ogImage = absoluteUrl(useRuntimeConfig().public.siteUrl, '/og-image.jpg')
   useSeoMeta({
@@ -32,9 +27,7 @@ export function useAppHead() {
 interface PageSeo {
   title: string
   description: string
-  /** Comma-separated search phrases for <meta name="keywords">. Google ignores the tag; Yandex gives it little weight. */
   keywords?: string
-  /** Use the title as-is instead of appending the site name. */
   fullTitle?: boolean
 }
 
@@ -52,7 +45,6 @@ export function usePageSeo(input: () => PageSeo) {
   })
 }
 
-/** Adds a JSON-LD script. `<` is escaped so the payload can never close the script tag. */
 export function useJsonLd(key: string, data: () => Record<string, unknown>) {
   useHead(() => ({
     script: [

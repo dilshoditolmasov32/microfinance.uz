@@ -1,5 +1,4 @@
 <script setup lang="ts">
-/** Office photo supplied by the organization (1672×941), in public/images/. */
 const BUILDING_PHOTO = '/images/hero-image.webp'
 
 const { t, te } = useI18n()
@@ -11,7 +10,6 @@ const hasTitleTail = computed(() => te('home.hero.titleTail') && t('home.hero.ti
   <section aria-labelledby="hero-title" class="relative isolate overflow-hidden border-b border-ink-100 bg-white">
     <UiGirihPattern class="hero-pattern absolute top-0 left-0 -z-10 h-112 w-xl text-sand-200" />
 
-    <!-- Office photo inside a large arch. The SVG ellipses share the clip-path geometry and draw the red edge line. -->
     <div class="relative h-64 sm:h-80 lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-[60%]">
       <div class="hero-photo absolute inset-0 overflow-hidden">
         <NuxtImg
@@ -62,7 +60,6 @@ const hasTitleTail = computed(() => te('home.hero.titleTail') && t('home.hero.ti
   mask-image: radial-gradient(ellipse at top left, #000 10%, transparent 70%);
 }
 
-/* Curved bottom edge on small screens, large left-facing arch on desktop. */
 .hero-photo {
   clip-path: ellipse(95% 100% at 50% 0%);
 }

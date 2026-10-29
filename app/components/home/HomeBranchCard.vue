@@ -31,7 +31,6 @@ const name = computed(() => t('home.contact.branchName', { city: props.branch.ci
       loading="lazy"
       class="size-20 shrink-0 self-start rounded-lg object-cover sm:size-24"
     />
-    <!-- Placeholder until the branch has a photo. -->
     <span v-else class="grid size-20 shrink-0 place-items-center self-start rounded-lg bg-linear-to-br from-brand-50 to-brand-100 text-brand-600 sm:size-24">
       <UIcon name="i-lucide-building-2" class="size-8" />
     </span>

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 withDefaults(defineProps<{
-  /** Applied to the heading so sections can use aria-labelledby. */
   id?: string
   title: string
   lead?: string

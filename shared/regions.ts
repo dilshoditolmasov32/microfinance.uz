@@ -1,4 +1,3 @@
-/** Regions of Uzbekistan for the application form; names are in `regions.*` in i18n/locales. */
 export const REGIONS = [
   'tashkentCity',
   'tashkent',

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 withDefaults(defineProps<{
   inverse?: boolean
-  /** Show the organization name under the wordmark. */
   tagline?: boolean
 }>(), { inverse: false, tagline: true })
 
@@ -11,7 +10,6 @@ const localePath = useLocalePath()
 
 <template>
   <NuxtLink :to="localePath('/')" class="inline-flex items-center gap-2 rounded-md sm:gap-3">
-    <!-- Logo mark cleaned from the organization's header logo: checkerboard removed, cropped, resized. -->
     <NuxtImg
       format="webp"
       src="/images/logo-mark.png"

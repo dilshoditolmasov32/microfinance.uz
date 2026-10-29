@@ -47,7 +47,6 @@ const amountLabel = useLoanAmountLabel()
     </dl>
 
     <div class="mt-auto grid gap-3 pt-8">
-      <!-- Keep the arrow next to the label; `block` pushes it to the far edge by default. -->
       <UButton size="lg" block :to="localePath(loanProductPath(product.slug))" trailing-icon="i-lucide-arrow-right" :ui="{ trailingIcon: 'ms-0' }">
         {{ t('actions.details') }}
         <span class="sr-only">— {{ t(`products.${product.key}.name`) }}</span>

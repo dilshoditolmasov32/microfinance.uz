@@ -2,18 +2,12 @@ import type { LoanApplication } from '#shared/application'
 import type { CollateralType } from '#shared/products'
 import uz from '../../i18n/locales/uz.json'
 
-/**
- * The organization's Bitrix24 (brm.icorp.uz) runs CRM without leads, so an application becomes a
- * contact plus a deal, placed where the organization's own CRM forms put theirs.
- * Pipeline, stage and custom field ids belong to that portal (read on 2026-10-29).
- */
-const DEAL_CATEGORY_ID = 0 // "Общая воронка"
-const DEAL_STAGE_ID = 'NEW' // "Первичный контакт"
-const UF_REGION = 'UF_CRM_1784787693457' // "Худуди", text
-const UF_COLLATERAL = 'UF_CRM_1784789211337' // "Гаров тури", text
-const UF_AMOUNT = 'UF_CRM_1784787471084' // "Кредит микдори", text
+const DEAL_CATEGORY_ID = 0
+const DEAL_STAGE_ID = 'NEW'
+const UF_REGION = 'UF_CRM_1784787693457'
+const UF_COLLATERAL = 'UF_CRM_1784789211337'
+const UF_AMOUNT = 'UF_CRM_1784787471084'
 
-/** Values the CRM forms already write into "Гаров тури"; other types fall back to their Uzbek title. */
 const COLLATERAL_CODES: Partial<Record<CollateralType, string>> = {
   realEstate: 'ko\'chmas_mul',
   car: 'avtomobil',
@@ -22,12 +16,6 @@ const COLLATERAL_CODES: Partial<Record<CollateralType, string>> = {
 
 type BitrixResponse<T> = { result?: T, error?: string, error_description?: string }
 
-/**
- * Creates the deal through an inbound webhook with the "crm" scope
- * (https://<portal>/rest/<user id>/<secret>/). Reuses the contact with the same phone if there is one.
- * `assignees` are Bitrix24 user ids; one is picked at random. Empty = the webhook's owner.
- * Resolves to the new deal id; throws when Bitrix24 refuses.
- */
 export async function createBitrixDeal(
   webhookUrl: string,
   assignees: number[],
@@ -67,7 +55,6 @@ export async function createBitrixDeal(
       CONTACT_ID: contactId,
       OPPORTUNITY: application.amountMln * 1_000_000,
       CURRENCY_ID: 'UZS',
-      // "WEB" is "Веб-сайт", which keeps site applications apart from the CRM forms ("WEBFORM").
       SOURCE_ID: 'WEB',
       SOURCE_DESCRIPTION: 'microfinance.uz ariza formasi',
       COMMENTS: rows.map(([label, value]) => `${label}: ${value}`).join('\n'),
@@ -76,7 +63,6 @@ export async function createBitrixDeal(
       [UF_AMOUNT]: amount,
       ...(assignedById && { ASSIGNED_BY_ID: assignedById }),
     },
-    // Notifies the responsible employee.
     params: { REGISTER_SONET_EVENT: 'Y' },
   })
 }

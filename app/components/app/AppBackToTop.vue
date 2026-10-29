@@ -1,7 +1,6 @@
 <script setup lang="ts">
 const { t } = useI18n()
 
-/** Shown once the visitor has scrolled past the first screen. */
 const visible = ref(false)
 const update = () => {
   visible.value = window.scrollY > window.innerHeight
@@ -14,9 +13,7 @@ onMounted(() => {
 onBeforeUnmount(() => window.removeEventListener('scroll', update))
 
 function toTop() {
-  // Smooth unless the visitor prefers reduced motion (`scroll-behavior` in main.css).
   window.scrollTo({ top: 0 })
-  // The button hides at the top, so hand keyboard focus to the start of the page.
   document.getElementById('main')?.focus({ preventScroll: true })
 }
 </script>

@@ -1,13 +1,5 @@
 import { invalidApplicationFields, type LoanApplication } from '#shared/application'
 
-/**
- * Receives a loan application from the homepage form and delivers it to every configured channel:
- * a Bitrix24 CRM deal (NUXT_BITRIX_WEBHOOK_URL), an email through Resend
- * (NUXT_RESEND_API_KEY + NUXT_APPLICATIONS_EMAIL_TO) and/or the processing system
- * (NUXT_APPLICATIONS_ENDPOINT). With none configured it answers 503, so the form never reports a
- * success that nobody receives. See docs/INTEGRATION.md.
- */
-/** A real application is ~300 bytes; refuse anything far larger before reading it. */
 const MAX_BODY_BYTES = 8 * 1024
 
 export default defineEventHandler(async (event) => {
@@ -21,7 +13,6 @@ export default defineEventHandler(async (event) => {
 
   const body = await readBody<Partial<LoanApplication> & { website?: unknown }>(event)
 
-  // Honeypot: the hidden "website" field is filled only by bots.
   if (body?.website)
     return { ok: true }
 
@@ -66,7 +57,6 @@ export default defineEventHandler(async (event) => {
   if (!deliveries.length)
     throw createError({ statusCode: 503, statusMessage: 'Applications are not configured' })
 
-  // Delivered once any channel accepted it; failures are logged for the operator.
   const results = await Promise.allSettled(deliveries)
   for (const result of results) {
     if (result.status === 'rejected')
