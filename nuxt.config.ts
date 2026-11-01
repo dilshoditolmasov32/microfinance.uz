@@ -41,6 +41,8 @@ export default defineNuxtConfig({
       ],
       script: [
         { innerHTML: 'document.documentElement.classList.add(\'js\')' },
+        
+        { src: '//code.jivosite.com/widget/NNT47XyPI7', async: true },
       ],
     },
   },
