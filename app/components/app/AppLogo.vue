@@ -2,7 +2,8 @@
 withDefaults(defineProps<{
   inverse?: boolean
   tagline?: boolean
-}>(), { inverse: false, tagline: true })
+  taglineAlways?: boolean
+}>(), { inverse: false, tagline: true, taglineAlways: false })
 
 const { t } = useI18n()
 const localePath = useLocalePath()
@@ -27,8 +28,8 @@ const localePath = useLocalePath()
       >Microfinance<span :class="inverse ? 'text-brand-400' : 'text-brand-600'">.uz</span></span>
       <span
         v-if="tagline"
-        class="mt-0.5 hidden text-xs leading-tight font-medium text-balance sm:block"
-        :class="inverse ? 'text-ink-400' : 'text-ink-500'"
+        class="mt-0.5 text-xs leading-tight font-medium text-balance"
+        :class="[inverse ? 'text-ink-400' : 'text-ink-500', taglineAlways ? 'block' : 'hidden sm:block']"
       >{{ t('brand.descriptor') }}</span>
     </span>
   </NuxtLink>

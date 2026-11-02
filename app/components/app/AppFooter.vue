@@ -42,9 +42,9 @@ const linkClass = 'rounded-sm text-[0.9375rem] text-ink-300 transition-colors ho
   <footer class="bg-ink-950 text-sm text-ink-300">
     <UContainer class="grid gap-12 py-14 sm:py-16 md:grid-cols-2 xl:grid-cols-[minmax(0,1fr)_auto_auto_14rem] xl:gap-10">
       <div>
-        <AppLogo inverse :tagline="false" class="focus-visible:outline-white" />
+        <AppLogo inverse tagline-always class="focus-visible:outline-white" />
         <p class="mt-5 max-w-sm text-[0.9375rem] leading-6">
-          {{ COMPANY.legalName[locale] }}. {{ t('footer.tagline') }}
+          {{ t('footer.tagline') }}
         </p>
         <ul v-if="SOCIAL_LINKS.length" class="mt-6 flex flex-wrap gap-3" :aria-label="t('a11y.social')">
           <li v-for="link in SOCIAL_LINKS" :key="link.name">

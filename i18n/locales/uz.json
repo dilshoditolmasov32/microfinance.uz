@@ -36,7 +36,7 @@
     "apply": "Ariza qoldiriş"
   },
   "contact": {
-    "trustLine": "Aloqa markazi",
+    "trustLine": "Işonç telefoni",
     "email": "Elektron poçta",
     "address": "Manzil",
     "mapTitle": "Ofisimiz xaritada"
@@ -57,7 +57,7 @@
       "individuals": "Jismoniy şaxslar",
       "uzs": "Milliy valyuta (söm)",
       "amountUpTo": "{amount} mln sömgaça",
-      "amountRange": "{min} mln dan ortiq, {max} mln sömgaça",
+      "amountRange": "{min} mln dan {max} mln sömgaça",
       "termUpTo": "{months} oygaça",
       "gracePeriodUpTo": "{months} oygaça",
       "noGracePeriod": "Nazarda tutilmagan",
@@ -110,7 +110,6 @@
     "mikroqarz": {
       "name": "Mikroqarz",
       "summary": "Jismoniy şaxslar uçun garovsiz, qulay moliyaviy yeçim.",
-      "processButton": "Mikroqarz oliş tartibi",
       "metaTitle": "Mikroqarz — {amount} mln sömgaça, {months} oygaça",
       "metaDescription": "Jismoniy şaxslar uçun garovsiz mikroqarz: {amount} mln sömgaça, {months} oygaça. Yillik foiz stavkasi {rateMin}% dan. Doimiy rasmiy oylik daromadga ega mijozlar uçun.",
       "metaKeywords": "mikroqarz, mikroqarz oliş, mikroqarz olish, garovsiz kredit, garovsiz qarz, oylik maoşga kredit, oylik maoshga kredit, isteʼmol krediti, şaxsiy ehtiyojlar uçun kredit, shaxsiy ehtiyojlar uchun kredit, maişiy texnika uçun kredit, taʼmirlaş uçun kredit, jismoniy şaxslarga kredit, jismoniy shaxslarga kredit, {amount} mln sömgaça kredit, Toşkentda mikroqarz, микроқарз, гаровсиз кредит, кредит олиш"
@@ -118,7 +117,6 @@
     "garovMikroqarz": {
       "name": "Garov asosida mikroqarz",
       "summary": "Jismoniy şaxslar uçun köçmas mulk, avtomobil yoki tilla buyumlar garovi asosidagi mikroqarz.",
-      "processButton": "Mikroqarz oliş tartibi",
       "metaTitle": "Garov asosida mikroqarz — {amount} mln sömgaça, {months} oygaça",
       "metaDescription": "Jismoniy şaxslar uçun garov asosida mikroqarz: {amount} mln sömgaça, {months} oygaça. Yillik foiz stavkasi {rateMin}% dan. Köçmas mulk, avtomobil yoki tilla buyumlar garovi.",
       "metaKeywords": "garov asosida mikroqarz, garovli mikroqarz, garov asosida kredit, garov asosida qarz, köçmas mulk garovi bilan kredit, avtomobil garovi bilan kredit, tilla garovi bilan kredit, oltin garoviga kredit, şaxsiy ehtiyojlar uçun kredit, shaxsiy ehtiyojlar uchun kredit, jismoniy şaxslarga kredit, jismoniy shaxslarga kredit, {amount} mln sömgaça kredit, Toşkentda mikroqarz, микроқарз, гаров асосида кредит"
@@ -126,9 +124,8 @@
     "mikrokredit": {
       "name": "Mikrokredit",
       "summary": "Özini-özi band qilgan fuqarolar uçun garov asosidagi mikrokredit.",
-      "processButton": "Mikrokredit oliş tartibi",
-      "metaTitle": "Mikrokredit — {minAmount} mln sömdan ortiq, {amount} mln sömgaça, {months} oygaça",
-      "metaDescription": "Özini-özi band qilgan fuqarolar uçun garov asosida mikrokredit: {minAmount} mln sömdan ortiq, {amount} mln sömgaça, {months} oygaça. Yillik foiz stavkasi {rateMin}% dan.",
+      "metaTitle": "Mikrokredit — {minAmount} mln sömdan {amount} mln sömgaça, {months} oygaça",
+      "metaDescription": "Özini-özi band qilgan fuqarolar uçun garov asosida mikrokredit: {minAmount} mln sömdan {amount} mln sömgaça, {months} oygaça. Yillik foiz stavkasi {rateMin}% dan.",
       "metaKeywords": "mikrokredit, mikrokredit oliş, mikrokredit olish, tadbirkorlar uçun kredit, tadbirkorlar uchun kredit, özini özi band qilganlar uçun kredit, oʻzini oʻzi band qilganlar uchun kredit, biznes uçun kredit, biznes uchun kredit, biznes kredit, garov asosida kredit, köçmas mulk garovi bilan kredit, avtomobil garovi bilan kredit, tilla garovi bilan kredit, oltin garoviga kredit, {amount} mln sömgaça kredit, {months} oyga kredit, микрокредит, тадбиркорлар учун кредит"
     }
   },
@@ -137,7 +134,7 @@
     "steps": {
       "contact": {
         "title": "Murojaat",
-        "text": "Aloqa markaziga qönğiroq qiling yoki ofisimizga taşrif buyuring."
+        "text": "Işonç telefoniga qönğiroq qiling yoki ofisimizga taşrif buyuring."
       },
       "consult": {
         "title": "Ariza qabul qiliş",
@@ -156,7 +153,7 @@
   "home": {
     "meta": {
       "title": "Microfinance.uz — «Biznesni rivojlantiriş» mikromoliya taşkiloti",
-      "description": "Garov asosida mikroqarz va mikrokreditlar: {amount} mln sömgaça, {months} oygaça. Yillik foiz stavkasi {rateMin}% dan. Toşkent, aloqa markazi {phone}.",
+      "description": "Garov asosida mikroqarz va mikrokreditlar: {amount} mln sömgaça, {months} oygaça. Yillik foiz stavkasi {rateMin}% dan. Toşkent, işonç telefoni {phone}.",
       "keywords": "mikromoliya taşkiloti, mikromoliya tashkiloti, MMT, mikrokredit, mikroqarz, kredit oliş, kredit olish, tez kredit, onlayn ariza, kredit uçun ariza, garov asosida kredit, garovsiz kredit, tadbirkorlar uçun kredit, biznes uçun kredit, kredit kalkulyatori, foiz stavkasi, Toşkentda kredit, Toshkentda kredit, Özbekistonda kredit, Oʻzbekistonda kredit, Biznesni rivojlantiriş, Biznesni rivojlantirish, microfinance.uz, микромолия ташкилоти, микрокредит, кредит олиш"
     },
     "hero": {
@@ -236,11 +233,12 @@
       },
       "failed": {
         "title": "Arizani yuborib bölmadi",
-        "text": "Birozdan söng qayta urinib köring yoki aloqa markaziga qönğiroq qiling:"
+        "text": "Birozdan söng qayta urinib köring yoki işonç telefoniga qönğiroq qiling:"
       },
       "success": {
-        "title": "Arizangiz yuborildi",
-        "text": "Yaqin vaqt içida mutaxassislarimiz siz bilan boğlanişadi."
+        "title": "Arizangiz qabul qilindi",
+        "text": "Mutaxassisimiz tez orada siz bilan boğlanadi.",
+        "again": "Yangi ariza"
       }
     },
     "faq": {
@@ -294,14 +292,14 @@
     "islamic": "Islomiy moliyalaştiriş",
     "emailNote": "Savollaringiz uçun",
     "addressNote": "Ofis manzili",
-    "trustText": "Taklif, şikoyat va murojaatlar uçun aloqa markazi.",
-    "trustTitle": "Aloqa markazi raqami"
+    "trustText": "Taklif, şikoyat va murojaatlar uçun işonç telefoni.",
+    "trustTitle": "Işonç telefon raqami"
   },
   "error": {
     "notFoundTitle": "Sahifa topilmadi",
     "notFoundText": "Siz qidirgan sahifa mavjud emas yoki boşqa manzilga köçirilgan.",
     "genericTitle": "Xatolik yuz berdi",
-    "genericText": "Sahifani yuklaşda kutilmagan xatolik yuz berdi. Birozdan söng qayta urinib köring yoki aloqa markaziga qönğiroq qiling.",
+    "genericText": "Sahifani yuklaşda kutilmagan xatolik yuz berdi. Birozdan söng qayta urinib köring yoki işonç telefoniga qönğiroq qiling.",
     "code": "Xato kodi"
   },
   "regions": {
