@@ -13,6 +13,7 @@ export function organizationSchema(siteUrl: string, locale: AppLocale): JsonLdNo
     'name': COMPANY.legalName[locale],
     'alternateName': COMPANY.brandName,
     'url': absoluteUrl(siteUrl),
+    'logo': absoluteUrl(siteUrl, '/favicon-512.png'),
     'email': COMPANY.email,
     'telephone': COMPANY.phone.e164,
     'address': {

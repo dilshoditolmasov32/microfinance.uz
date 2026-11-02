@@ -38,6 +38,7 @@ Odamlar Google va Yandexda shu sözlar bilan qidiradi. Röyxatda microfinance.uz
 - Biznesni rivojlantirish mikromoliya tashkiloti
 - Biznesni rivojlantirish MMT
 - microfinance.uz
+- mikrofinanse.uz
 
 ### Mikroqarz (jismoniy şaxslar, garovsiz)
 - ★ mikroqarz

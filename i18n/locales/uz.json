@@ -61,7 +61,7 @@
       "termUpTo": "{months} oygaça",
       "gracePeriodUpTo": "{months} oygaça",
       "noGracePeriod": "Nazarda tutilmagan",
-      "entrepreneurs": "Özini-özi band qilgan fuqarolar",
+      "entrepreneurs": "Özini-özi band qilgan fuqarolar", 
       "rateRange": "{min}% – {max}%",
       "repayment": "Differensial va annuitet"
     },
@@ -152,7 +152,7 @@
   },
   "home": {
     "meta": {
-      "title": "Microfinance.uz — «Biznesni rivojlantiriş» mikromoliya taşkiloti",
+      "title": "Microfinance.uz — «Biznesni Rivojlantiriş Mikromoliya Taşkiloti»",
       "description": "Garov asosida mikroqarz va mikrokreditlar: {amount} mln sömgaça, {months} oygaça. Yillik foiz stavkasi {rateMin}% dan. Toşkent, işonç telefoni {phone}.",
       "keywords": "mikromoliya taşkiloti, mikromoliya tashkiloti, MMT, mikrokredit, mikroqarz, kredit oliş, kredit olish, tez kredit, onlayn ariza, kredit uçun ariza, garov asosida kredit, garovsiz kredit, tadbirkorlar uçun kredit, biznes uçun kredit, kredit kalkulyatori, foiz stavkasi, Toşkentda kredit, Toshkentda kredit, Özbekistonda kredit, Oʻzbekistonda kredit, Biznesni rivojlantiriş, Biznesni rivojlantirish, microfinance.uz, микромолия ташкилоти, микрокредит, кредит олиш"
     },
@@ -163,7 +163,7 @@
       "titleTail": "",
       "lead": "Tez rasmiylaştiriş, qulay şartlar",
       "cta": "Ariza qoldiriş",
-      "imageAlt": "«Biznesni rivojlantiriş» mikromoliya taşkiloti binosi"
+      "imageAlt": "«Biznesni Rivojlantiriş Mikromoliya Taşkiloti» binosi"
     },
     "offers": {
       "title": "Kreditni hisoblang",
