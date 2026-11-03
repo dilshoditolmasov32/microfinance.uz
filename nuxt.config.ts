@@ -25,6 +25,7 @@ export default defineNuxtConfig({
   image: {
     quality: 80,
     ipx: { maxAge: 60 * 60 * 24 * 7 },
+    providers: { none: { provider: 'none' } },
   },
 
   css: ['@fontsource-variable/manrope', '~/assets/css/main.css'],

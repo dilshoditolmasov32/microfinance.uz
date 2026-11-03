@@ -12,12 +12,11 @@ const localePath = useLocalePath()
 <template>
   <NuxtLink :to="localePath('/')" class="inline-flex items-center gap-2 rounded-md sm:gap-3">
     <NuxtImg
-      format="webp"
-      src="/images/logo-mark.png"
+      provider="none"
+      src="/images/logo-mark.webp"
       alt=""
       width="68"
       height="32"
-      densities="x1 x2"
       decoding="async"
       class="h-6 w-auto shrink-0 sm:h-8"
     />
