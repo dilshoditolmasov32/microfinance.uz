@@ -292,8 +292,10 @@
     "islamic": "Islomiy moliyalaştiriş",
     "emailNote": "Savollaringiz uçun",
     "addressNote": "Ofis manzili",
-    "trustText": "Taklif, şikoyat va murojaatlar uçun işonç telefoni.",
-    "trustTitle": "Işonç telefon raqami"
+    "feedbackTitle": "Bogʻlaniş uçun",
+    "feedbackSuggestion": "Taklif",
+    "feedbackComplaint": "Şikoyat",
+    "feedbackAppeal": "Murojaat"
   },
   "error": {
     "notFoundTitle": "Sahifa topilmadi",

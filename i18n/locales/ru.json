@@ -294,8 +294,10 @@
     "islamic": "Исламское финансирование",
     "emailNote": "Для ваших вопросов",
     "addressNote": "Адрес офиса",
-    "trustText": "Контакт-центр для предложений, жалоб и обращений.",
-    "trustTitle": "Контакт-центр"
+    "feedbackTitle": "Для связи",
+    "feedbackSuggestion": "Предложение",
+    "feedbackComplaint": "Жалоба",
+    "feedbackAppeal": "Обращение"
   },
   "error": {
     "notFoundTitle": "Страница не найдена",

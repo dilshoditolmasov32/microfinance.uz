@@ -123,31 +123,23 @@ const linkClass = 'rounded-sm text-[0.9375rem] text-ink-300 transition-colors ho
 
       <div>
         <h2 :class="headingClass">
-          {{ t('footer.trustTitle') }}
+          {{ t('footer.feedbackTitle') }}
         </h2>
-        <div class="mt-5 flex items-center gap-3">
-          <UIcon name="i-lucide-shield-check" class="size-10 shrink-0 text-brand-500" />
-          <p class="text-xs leading-5 text-ink-300">
-            {{ t('footer.trustText') }}
-          </p>
-        </div>
-        <ULink
-          :to="telHref(COMPANY.trustPhone.e164)"
-          external
-          raw
-          class="mt-5 inline-block rounded-sm text-2xl font-extrabold tracking-tight whitespace-nowrap text-white underline-offset-4 hover:underline focus-visible:outline-white"
-        >
-          {{ COMPANY.trustPhone.display }}
-        </ULink>
-        <ULink
-          :to="mailtoHref(COMPANY.supportEmail)"
-          external
-          raw
-          class="mt-3 flex items-center gap-2 rounded-sm text-[0.9375rem] font-bold wrap-break-word text-white underline-offset-4 hover:underline focus-visible:outline-white"
-        >
-          <UIcon name="i-lucide-mail" class="size-5 shrink-0 text-brand-500" />
-          {{ COMPANY.supportEmail }}
-        </ULink>
+        <ul class="mt-5 space-y-3.5 text-[0.9375rem] text-ink-300">
+          <li>{{ t('footer.feedbackSuggestion') }}</li>
+          <li>{{ t('footer.feedbackComplaint') }}</li>
+          <li>{{ t('footer.feedbackAppeal') }}</li>
+          <li>
+            <ULink
+              :to="mailtoHref(COMPANY.supportEmail)"
+              external
+              raw
+              class="rounded-sm font-bold wrap-break-word text-white underline-offset-4 hover:underline focus-visible:outline-white"
+            >
+              {{ COMPANY.supportEmail }}
+            </ULink>
+          </li>
+        </ul>
       </div>
     </UContainer>
 
