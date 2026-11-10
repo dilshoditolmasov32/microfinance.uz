@@ -34,6 +34,7 @@ export default defineNuxtConfig({
     head: {
       meta: [
         { name: 'theme-color', content: '#ffffff' },
+        { name: 'yandex-verification', content: '3977ba09b43d7352' },
       ],
       link: [
         { rel: 'icon', href: '/favicon.ico', sizes: '48x48' },
