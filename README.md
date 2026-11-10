@@ -1,6 +1,6 @@
 # microfinance.uz
 
-Corporate website for «Biznesni rivojlantirish» mikromoliya tashkiloti (Microfinance.uz).
+Corporate website for «Biznesni Rivojlantirish Mikromoliya Tashkiloti» (Microfinance.uz).
 Built with Nuxt 4 (SSR), Vue 3, TypeScript, Nuxt UI 4 (components, Tailwind CSS 4, icons),
 `@nuxtjs/i18n` and `@nuxt/image`. The site is in Uzbek and Russian (no URL prefix; the language is stored in a cookie).
 

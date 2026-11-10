@@ -28,8 +28,8 @@ export interface CompanyInfo {
 export const COMPANY: CompanyInfo = {
   brandName: SITE_NAME,
   legalName: {
-    uz: '«Biznesni rivojlantiriş» mikromoliya taşkiloti',
-    ru: 'Микрофинансовая организация «Развитие бизнеса»',
+    uz: '«Biznesni Rivojlantiriş Mikromoliya Taşkiloti»',
+    ru: '«Развитие Бизнеса Микрофинансовая Организация»',
   },
   phone: {
     e164: '+998712027575',
