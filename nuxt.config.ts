@@ -75,12 +75,17 @@ export default defineNuxtConfig({
         'Permissions-Policy': 'camera=(), microphone=(), geolocation=(self), payment=()',
       },
     },
-    '/kredit/istemol': { redirect: { to: `/${DEFAULT_LOCALE}/kredit/mikroqarz`, statusCode: 301 } },
-    ...Object.fromEntries(LOCALES.map(code => [`/${code}/kredit/istemol`, { redirect: { to: `/${code}/kredit/mikroqarz`, statusCode: 301 } }])),
+    '/kredit/istemol': { redirect: { to: '/kredit/mikroqarz', statusCode: 301 } },
+    // Old language-prefixed URLs (/uz/..., /ru/...) permanently redirect to the unprefixed ones.
+    ...Object.fromEntries(LOCALES.flatMap(code => [
+      [`/${code}`, { redirect: { to: '/', statusCode: 301 } }],
+      [`/${code}/kredit/istemol`, { redirect: { to: '/kredit/mikroqarz', statusCode: 301 } }],
+      [`/${code}/**`, { redirect: { to: '/**', statusCode: 301 } }],
+    ])),
   },
 
   i18n: {
-    strategy: 'prefix',
+    strategy: 'no_prefix',
     defaultLocale: DEFAULT_LOCALE,
     baseUrl: SITE_URL,
     locales: LOCALES.map(code => ({
@@ -90,7 +95,6 @@ export default defineNuxtConfig({
       file: `${code}.json`,
     })),
     detectBrowserLanguage: {
-      redirectOn: 'root',
       useCookie: true,
       cookieKey: 'i18n_locale',
       fallbackLocale: DEFAULT_LOCALE,

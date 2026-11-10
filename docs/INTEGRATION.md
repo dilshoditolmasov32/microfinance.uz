@@ -172,12 +172,11 @@ configured yet.
 
 ## 4. SEO behaviour
 
-- URLs: `/uz/...` and `/ru/...`. `/` redirects to the visitor's language (cookie, then
-  `Accept-Language`, then Uzbek).
-- Every page has a self-referencing canonical, hreflang alternates for `uz`, `ru` and
-  `x-default`, plus `og:locale` and `og:url`.
+- URLs have no language prefix. The language comes from the cookie, then `Accept-Language`, then
+  Uzbek. Old `/uz/...` and `/ru/...` URLs 301-redirect to the unprefixed ones.
+- Every page has a self-referencing canonical plus `og:locale` and `og:url`.
 - JSON-LD: `Organization` and `WebSite` on the homepage, `BreadcrumbList` on product pages.
   `logo` and `sameAs` are left out until official assets are available.
-- `/sitemap.xml` lists every page with its alternates. When you add a page, also add it to
+- `/sitemap.xml` lists every page. When you add a page, also add it to
   `PAGE_PATHS` in `server/routes/sitemap.xml.ts`.
 - The legacy consumer-loan URLs `/kredit/istemol` and `/{uz,ru}/kredit/istemol` return a 301 to `/{locale}/kredit/mikroqarz` (the product was renamed Mikroqarz on 2026-10-23).

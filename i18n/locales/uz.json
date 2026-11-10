@@ -154,7 +154,7 @@
     "meta": {
       "title": "Microfinance.uz — «Biznesni Rivojlantiriş Mikromoliya Taşkiloti»",
       "description": "Garov asosida mikroqarz va mikrokreditlar: {amount} mln sömgaça, {months} oygaça. Yillik foiz stavkasi {rateMin}% dan. Toşkent, işonç telefoni {phone}.",
-      "keywords": "mikromoliya taşkiloti, mikromoliya tashkiloti, MMT, mikrokredit, mikroqarz, kredit oliş, kredit olish, tez kredit, onlayn ariza, kredit uçun ariza, garov asosida kredit, garovsiz kredit, tadbirkorlar uçun kredit, biznes uçun kredit, kredit kalkulyatori, foiz stavkasi, Toşkentda kredit, Toshkentda kredit, Özbekistonda kredit, Oʻzbekistonda kredit, Biznesni rivojlantiriş, Biznesni rivojlantirish, microfinance.uz, микромолия ташкилоти, микрокредит, кредит олиш"
+      "keywords": "mikromoliya taşkiloti, mikromoliya tashkiloti, MMT, mikrokredit, mikroqarz, kredit oliş, kredit olish, tez kredit, onlayn ariza, kredit uçun ariza, garov asosida kredit, garovsiz kredit, tadbirkorlar uçun kredit, biznes uçun kredit, kredit kalkulyatori, foiz stavkasi, Toşkentda kredit, Toshkentda kredit, Özbekistonda kredit, Oʻzbekistonda kredit, Biznesni rivojlantiriş, Biznesni rivojlantirish, microfinance.uz, микромолия ташкилоти, микрокредит, кредит олиш, qarz, kredit, onlinekredit, onlayn kredit, online kredit, onlayn mikroqarz, onlayn mikrokredit, kredit online, mikroqarz olish, mikrokredit olish, mikroqarz shartlari, mikrokredit shartlari, mikroqarz foizi, mikrokredit foizi, mikroqarz Toshkent, mikrokredit Toshkent, qarz olish, qarzga pul olish, qarz berish, qarz kerak, pul qarz, kredit kerak, kredit berish, kredit beradigan tashkilotlar, qayerdan kredit olsa bo'ladi, tez kredit olish, tezkor kredit, tez qarz, naqd pulda kredit, so'mda kredit, kredit foizlari, foizi past kredit, eng arzon kredit, qulay kredit, kredit 2026, mikromoliya tashkilotlari, mikromoliya xizmatlari, mikromoliya tashkiloti Toshkent, MMT kredit, mikrofinanse.uz, garovsiz qarz, garovsiz mikroqarz, garovsiz kredit olish, garovli kredit, kafil bilan kredit, kafillik asosida kredit, kafillik asosida mikroqarz, oylik maoshga kredit, ish haqiga kredit, rasmiy daromad bilan kredit, iste'mol krediti, iste'mol uchun kredit, jismoniy shaxslarga kredit, aholiga kredit, fuqarolarga kredit, shaxsiy ehtiyojlar uchun kredit, maishiy texnika uchun kredit, mebel uchun kredit, ta'mirlash uchun kredit, to'y uchun kredit, sayohat uchun kredit, tadbirkorlarga kredit, YTT uchun kredit, yakka tartibdagi tadbirkorlarga kredit, o'zini o'zi band qilganlarga kredit, biznes kredit, kichik biznes uchun kredit, tadbirkorlik uchun kredit, savdo uchun kredit, aylanma mablag' uchun kredit, uskuna sotib olish uchun kredit, ishlab chiqarish uchun kredit, biznesni rivojlantirish uchun kredit, ko'chmas mulk garovi bilan kredit, uy garoviga kredit, kvartira garoviga kredit, mashina garoviga kredit, avtomobil garoviga kredit, tilla garoviga kredit, oltin garoviga kredit, tilla lombard, kredit kalkulyator onlayn, kredit hisoblash, oylik to'lovni hisoblash, kredit foiz stavkasi, yillik foiz stavkasi, kredit to'lov grafigi, kredit uchun onlayn ariza, kredit olish uchun hujjatlar, kredit olish shartlari, kredit olish tartibi, kredit shartnomasi, 10 million so'm kredit, 50 million so'm kredit, 100 million so'mgacha kredit, 300 million so'mgacha kredit, Samarqandda kredit olish, Andijonda kredit olish, Namanganda kredit olish, Gulistonda kredit olish, Urganchda kredit olish, Termizda kredit olish, Chortoqda kredit, O'zbekistonda kredit olish"
     },
     "hero": {
       "badge": "Tezkor moliya — muvaffaqiyatli start",
@@ -291,11 +291,7 @@
     "license": "Markaziy bank litsenziyasi № {number}",
     "islamic": "Islomiy moliyalaştiriş",
     "emailNote": "Savollaringiz uçun",
-    "addressNote": "Ofis manzili",
-    "feedbackTitle": "Bogʻlaniş uçun",
-    "feedbackSuggestion": "Taklif",
-    "feedbackComplaint": "Şikoyat",
-    "feedbackAppeal": "Murojaat"
+    "addressNote": "Ofis manzili"
   },
   "error": {
     "notFoundTitle": "Sahifa topilmadi",

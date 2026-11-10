@@ -40,7 +40,7 @@ const linkClass = 'rounded-sm text-[0.9375rem] text-ink-300 transition-colors ho
 
 <template>
   <footer class="bg-ink-950 text-sm text-ink-300">
-    <UContainer class="grid gap-12 py-14 sm:py-16 md:grid-cols-2 xl:grid-cols-[minmax(0,1fr)_auto_auto_14rem] xl:gap-10">
+    <UContainer class="grid gap-12 py-14 sm:py-16 md:grid-cols-2 xl:grid-cols-[minmax(0,1fr)_auto_auto] xl:gap-10">
       <div>
         <AppLogo inverse tagline-always class="focus-visible:outline-white" />
         <p class="mt-5 max-w-sm text-[0.9375rem] leading-6">
@@ -117,27 +117,6 @@ const linkClass = 'rounded-sm text-[0.9375rem] text-ink-300 transition-colors ho
                 {{ item.note }}
               </p>
             </div>
-          </li>
-        </ul>
-      </div>
-
-      <div>
-        <h2 :class="headingClass">
-          {{ t('footer.feedbackTitle') }}
-        </h2>
-        <ul class="mt-5 space-y-3.5 text-[0.9375rem] text-ink-300">
-          <li>{{ t('footer.feedbackSuggestion') }}</li>
-          <li>{{ t('footer.feedbackComplaint') }}</li>
-          <li>{{ t('footer.feedbackAppeal') }}</li>
-          <li>
-            <ULink
-              :to="mailtoHref(COMPANY.supportEmail)"
-              external
-              raw
-              class="rounded-sm font-bold wrap-break-word text-white underline-offset-4 hover:underline focus-visible:outline-white"
-            >
-              {{ COMPANY.supportEmail }}
-            </ULink>
           </li>
         </ul>
       </div>

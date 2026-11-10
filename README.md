@@ -2,7 +2,7 @@
 
 Corporate website for «Biznesni rivojlantirish» mikromoliya tashkiloti (Microfinance.uz).
 Built with Nuxt 4 (SSR), Vue 3, TypeScript, Nuxt UI 4 (components, Tailwind CSS 4, icons),
-`@nuxtjs/i18n` and `@nuxt/image`. The site is in Uzbek (`/uz`) and Russian (`/ru`).
+`@nuxtjs/i18n` and `@nuxt/image`. The site is in Uzbek and Russian (no URL prefix; the language is stored in a cookie).
 
 ## Commands
 
@@ -49,7 +49,7 @@ app/
 i18n/locales/            uz.json, ru.json (all visible text)
 shared/                  Company facts, loan products, locales (app + server)
 server/
-  routes/sitemap.xml.ts  Sitemap with hreflang alternates
+  routes/sitemap.xml.ts  Sitemap
 docs/INTEGRATION.md      Content status, data needed from the organization, backend plan
 ```
 
