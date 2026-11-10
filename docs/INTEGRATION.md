@@ -177,6 +177,6 @@ configured yet.
 - Every page has a self-referencing canonical plus `og:locale` and `og:url`.
 - JSON-LD: `Organization` and `WebSite` on the homepage, `BreadcrumbList` on product pages.
   `logo` and `sameAs` are left out until official assets are available.
-- `/sitemap.xml` lists every page. When you add a page, also add it to
-  `PAGE_PATHS` in `server/routes/sitemap.xml.ts`.
+- `/sitemap.xml` (@nuxtjs/sitemap) lists every page. When you add a page, also add it to
+  `sitemap.urls` in `nuxt.config.ts`.
 - The legacy consumer-loan URLs `/kredit/istemol` and `/{uz,ru}/kredit/istemol` return a 301 to `/{locale}/kredit/mikroqarz` (the product was renamed Mikroqarz on 2026-10-23).

@@ -49,7 +49,6 @@ app/
 i18n/locales/            uz.json, ru.json (all visible text)
 shared/                  Company facts, loan products, locales (app + server)
 server/
-  routes/sitemap.xml.ts  Sitemap
 docs/INTEGRATION.md      Content status, data needed from the organization, backend plan
 ```
 

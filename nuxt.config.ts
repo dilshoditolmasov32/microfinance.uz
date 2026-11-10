@@ -1,3 +1,4 @@
+import { LOAN_PRODUCTS, loanProductPath } from './shared/products'
 import { DEFAULT_LOCALE, LOCALE_LANGUAGE, LOCALE_NAME, LOCALES } from './shared/locales'
 
 const SITE_URL = 'https://microfinance.uz'
@@ -83,6 +84,13 @@ export default defineNuxtConfig({
       [`/${code}/kredit/istemol`, { redirect: { to: '/kredit/mikroqarz', statusCode: 301 } }],
       [`/${code}/**`, { redirect: { to: '/**', statusCode: 301 } }],
     ])),
+  },
+
+  site: { url: SITE_URL },
+
+  sitemap: {
+    xsl: false,
+    urls: LOAN_PRODUCTS.map(product => loanProductPath(product.slug)),
   },
 
   i18n: {
