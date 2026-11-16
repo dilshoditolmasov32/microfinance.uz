@@ -21,6 +21,12 @@ Uzbek text uses the new Latin alphabet (since 2026-10-24): `sh → ş`, `ch → 
 slugs, URLs and the Yandex search string `COMPANY.address.mapQuery` stay in plain old spelling.
 The branch search accepts both alphabets.
 
+People search in the old spelling (`sh`, `ch`, `oʻ`, `gʻ`), so the text shown in search results
+is written that way: page titles and meta descriptions (`home.meta.title`, `home.meta.description`,
+`metaTitle`, `metaDescription` in `uz.json`) and `COMPANY.searchName`, which goes into the JSON-LD
+`alternateName`. Everything visible on the pages stays in the new alphabet. Do not add hidden
+old-spelling text to pages: search engines treat hidden text as spam.
+
 ### Deliberately not published
 
 The current site contradicts itself on these points, or they look like placeholders. Each needs
@@ -172,11 +178,17 @@ configured yet.
 
 ## 4. SEO behaviour
 
-- URLs have no language prefix. The language comes from the cookie, then `Accept-Language`, then
-  Uzbek. Old `/uz/...` and `/ru/...` URLs 301-redirect to the unprefixed ones.
-- Every page has a self-referencing canonical plus `og:locale` and `og:url`.
+- The primary host is `https://microfinance.uz`. `www.microfinance.uz` 301-redirects to it; this is
+  set in the Vercel project's domain settings, not in the code.
+- The URL decides the language (`prefix_except_default`): Uzbek has no prefix (`/`,
+  `/kredit/mikroqarz`), Russian is under `/ru` (`/ru`, `/ru/kredit/mikroqarz`). There is no
+  cookie and no `Accept-Language` detection. Old `/uz/...` URLs 301-redirect to the unprefixed ones.
+- Every page has a self-referencing canonical, reciprocal `hreflang` links (`uz`, `ru`,
+  `x-default` → Uzbek), `og:locale` and `og:url`. The language switcher links to the same page in
+  the other language.
 - JSON-LD: `Organization` and `WebSite` on the homepage, `BreadcrumbList` on product pages.
-  `logo` and `sameAs` are left out until official assets are available.
-- `/sitemap.xml` (@nuxtjs/sitemap) lists every page. When you add a page, also add it to
-  `sitemap.urls` in `nuxt.config.ts`.
-- The legacy consumer-loan URLs `/kredit/istemol` and `/{uz,ru}/kredit/istemol` return a 301 to `/{locale}/kredit/mikroqarz` (the product was renamed Mikroqarz on 2026-10-23).
+- `/sitemap.xml` (@nuxtjs/sitemap) lists every page in both languages with `hreflang`
+  alternates. When you add a page, also add it to `sitemap.urls` in `nuxt.config.ts`.
+- The legacy consumer-loan URLs return a 301: `/kredit/istemol` and `/uz/kredit/istemol` to
+  `/kredit/mikroqarz`, `/ru/kredit/istemol` to `/ru/kredit/mikroqarz` (the product was renamed
+  Mikroqarz on 2026-10-23).

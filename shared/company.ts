@@ -10,6 +10,7 @@ export interface CompanyLicense {
 export interface CompanyInfo {
   brandName: string
   legalName: Localized
+  searchName: string
   phone: { e164: string; display: string }
   trustPhone: { e164: string; display: string }
   email: string
@@ -31,6 +32,8 @@ export const COMPANY: CompanyInfo = {
     uz: '«Biznesni Rivojlantiriş Mikromoliya Taşkiloti»',
     ru: '«Развитие Бизнеса Микрофинансовая Организация»',
   },
+  // The Uzbek name in the Latin spelling people type into search engines (sh, ch); not shown on the pages.
+  searchName: 'Biznesni Rivojlantirish Mikromoliya Tashkiloti',
   phone: {
     e164: '+998712027575',
     display: '+998 71 202 75 75',

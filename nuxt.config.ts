@@ -77,12 +77,15 @@ export default defineNuxtConfig({
         'Permissions-Policy': 'camera=(), microphone=(), geolocation=(self), payment=()',
       },
     },
+    // The default locale has no URL prefix, so old /uz/... URLs permanently redirect to the unprefixed ones.
+    [`/${DEFAULT_LOCALE}`]: { redirect: { to: '/', statusCode: 301 } },
+    [`/${DEFAULT_LOCALE}/**`]: { redirect: { to: '/**', statusCode: 301 } },
+    // The consumer loan was renamed Mikroqarz; each language keeps its own prefix.
     '/kredit/istemol': { redirect: { to: '/kredit/mikroqarz', statusCode: 301 } },
-    // Old language-prefixed URLs (/uz/..., /ru/...) permanently redirect to the unprefixed ones.
-    ...Object.fromEntries(LOCALES.flatMap(code => [
-      [`/${code}`, { redirect: { to: '/', statusCode: 301 } }],
-      [`/${code}/kredit/istemol`, { redirect: { to: '/kredit/mikroqarz', statusCode: 301 } }],
-      [`/${code}/**`, { redirect: { to: '/**', statusCode: 301 } }],
+    [`/${DEFAULT_LOCALE}/kredit/istemol`]: { redirect: { to: '/kredit/mikroqarz', statusCode: 301 } },
+    ...Object.fromEntries(LOCALES.filter(code => code !== DEFAULT_LOCALE).map(code => [
+      `/${code}/kredit/istemol`,
+      { redirect: { to: `/${code}/kredit/mikroqarz`, statusCode: 301 } },
     ])),
   },
 
@@ -90,11 +93,14 @@ export default defineNuxtConfig({
 
   sitemap: {
     xsl: false,
-    urls: LOAN_PRODUCTS.map(product => loanProductPath(product.slug)),
+    // One /sitemap.xml for both languages instead of an index with a file per language.
+    sitemaps: false,
+    // _i18nTransform lists each product once per language, with hreflang alternates.
+    urls: LOAN_PRODUCTS.map(product => ({ loc: loanProductPath(product.slug), _i18nTransform: true })),
   },
 
   i18n: {
-    strategy: 'no_prefix',
+    strategy: 'prefix_except_default',
     defaultLocale: DEFAULT_LOCALE,
     baseUrl: SITE_URL,
     locales: LOCALES.map(code => ({
@@ -103,10 +109,7 @@ export default defineNuxtConfig({
       name: LOCALE_NAME[code],
       file: `${code}.json`,
     })),
-    detectBrowserLanguage: {
-      useCookie: true,
-      cookieKey: 'i18n_locale',
-      fallbackLocale: DEFAULT_LOCALE,
-    },
+    // The URL alone decides the language, so crawlers and visitors always get the page they asked for.
+    detectBrowserLanguage: false,
   },
 })

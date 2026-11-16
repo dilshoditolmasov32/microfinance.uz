@@ -11,7 +11,7 @@ export function organizationSchema(siteUrl: string, locale: AppLocale): JsonLdNo
     '@type': 'Organization',
     '@id': organizationId(siteUrl),
     'name': COMPANY.legalName[locale],
-    'alternateName': COMPANY.brandName,
+    'alternateName': [COMPANY.brandName, COMPANY.searchName],
     'url': absoluteUrl(siteUrl),
     'logo': absoluteUrl(siteUrl, '/favicon-512.png'),
     'email': COMPANY.email,
