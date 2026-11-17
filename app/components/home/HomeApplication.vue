@@ -80,6 +80,8 @@ async function onSubmit() {
   try {
     await $fetch('/api/applications', { method: 'POST', body: { ...payload(), website: website.value } })
     status.value = 'success'
+    reachMetrikaGoal('application_sent')
+    sendGtagEvent('generate_lead')
     await nextTick()
     successTitle.value?.focus()
   }
