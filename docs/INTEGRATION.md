@@ -49,8 +49,9 @@ a confirmed value from the organization before it goes on the site:
 1. **Legal details:** full registered name and legal form (e.g. MChJ), Central Bank licence number
    and date, STIR/INN. Set `COMPANY.license` in `shared/company.ts`. The licence line in
    the footer appears automatically once it is set.
-2. **Interest rates and disclosures:** the rate sheet in force from 2026-06-01 (45–51 % a year by
-   amount and term, loans up to 100 mln for at most 36 months) is `RATE_SHEET` in `shared/products.ts`;
+2. **Interest rates and disclosures:** the "Yangi yil" promo rate sheet (43–55 % a year by
+   term, loans up to 100 mln for at most 36 months, 48 months maximum otherwise, with a 2–6 month
+   interest-only grace period inside the term) is `RATE_SHEET` in `shared/products.ts`;
    the calculator, product pages and meta descriptions read it. Still to confirm: any disclosure that
    consumer-credit rules require (for example the annual effective rate and total cost of credit,
    fees or insurance).

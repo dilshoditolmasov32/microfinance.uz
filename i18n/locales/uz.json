@@ -206,8 +206,8 @@
       "total": "Umumiy tölov",
       "overpayment": "Ortiqça tölov",
       "cta": "Hoziroq ariza qoldiring",
-      "note": "Foiz stavkalari {date} dan amalda. Hisob taxminiy, yakuniy şartlar kredit şartnomasida körsatiladi.",
-      "rate": "Yillik foiz stavkasi"
+      "rate": "Yillik foiz stavkasi",
+      "grace": "Imtiyozli davr"
     },
     "application": {
       "titleLead": "Moliyaviy maqsadlaringizga",

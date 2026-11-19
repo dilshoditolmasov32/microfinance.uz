@@ -17,16 +17,19 @@ export interface LoanProduct {
   defaultAmountMln: number
 }
 
+// "Yangi yil" aksiyasi: barcha garovli kreditlar uchun yillik foiz stavkalari.
+// gracePeriodMonths — har bir muddat qatori uchun imtiyozli davr (muddat ichiga kiradi,
+// imtiyozli davrda faqat foiz to'lanadi, asosiy qarz qolgan oylarda annuitet bilan so'ndiriladi).
 export const RATE_SHEET = {
-  effectiveFrom: '2026-06-01',
   amountTiersMln: [100, 200, 300],
-  termTiersMonths: [12, 24, 36, 60],
+  termTiersMonths: [12, 24, 36, 48],
   ratesPct: [
-    [45, 47, 48],
-    [47, 48, 49],
-    [48, 49, 50],
-    [null, 50, 51],
+    [43, 43, 43],
+    [46, 46, 46],
+    [48, 48, 48],
+    [null, 55, 55],
   ] as const satisfies readonly (readonly (number | null)[])[],
+  gracePeriodMonths: [2, 3, 6, 6] as const,
 }
 
 const tierIndex = (tiers: readonly number[], value: number) => {
@@ -37,6 +40,10 @@ const tierIndex = (tiers: readonly number[], value: number) => {
 export function annualRatePct(amountMln: number, months: number): number | null {
   const row = RATE_SHEET.ratesPct[tierIndex(RATE_SHEET.termTiersMonths, months)]!
   return row[tierIndex(RATE_SHEET.amountTiersMln, amountMln)] ?? null
+}
+
+export function gracePeriodForTerm(months: number): number {
+  return RATE_SHEET.gracePeriodMonths[tierIndex(RATE_SHEET.termTiersMonths, months)]!
 }
 
 export function maxTermForAmount(amountMln: number, productMaxTermMonths: number): number {
@@ -69,7 +76,7 @@ export const LOAN_PRODUCTS: readonly [LoanProduct, ...LoanProduct[]] = [
     maxAmountMln: 50,
     minTermMonths: 3,
     maxTermMonths: 36,
-    gracePeriodMonths: 0,
+    gracePeriodMonths: 6,
     collateral: ['salary'],
     documents: ['identity', 'income'],
     defaultAmountMln: 10,
@@ -83,7 +90,7 @@ export const LOAN_PRODUCTS: readonly [LoanProduct, ...LoanProduct[]] = [
     maxAmountMln: 100,
     minTermMonths: 3,
     maxTermMonths: 36,
-    gracePeriodMonths: 0,
+    gracePeriodMonths: 6,
     collateral: ['realEstate', 'car', 'gold'],
     documents: ['identity', 'collateral'],
     defaultAmountMln: 30,
@@ -96,8 +103,8 @@ export const LOAN_PRODUCTS: readonly [LoanProduct, ...LoanProduct[]] = [
     minAmountMln: 101,
     maxAmountMln: 300,
     minTermMonths: 3,
-    maxTermMonths: 60,
-    gracePeriodMonths: 0,
+    maxTermMonths: 48,
+    gracePeriodMonths: 6,
     collateral: ['realEstate', 'car', 'gold'],
     documents: ['identity', 'collateral', 'selfEmployed'],
     defaultAmountMln: 150,

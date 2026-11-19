@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { LOAN_CHOICES, RATE_SHEET, annualRatePct, maxTermForAmount } from '#shared/products'
+import { LOAN_CHOICES, annualRatePct, gracePeriodForTerm, maxTermForAmount } from '#shared/products'
 
 const { t } = useI18n()
 const sectionLink = useSectionLink()
@@ -24,8 +24,9 @@ const term = computed(() => clamp(months.value, limits.value.minTermMonths, maxT
 const ratePct = computed(() => annualRatePct(amountMln.value, term.value) ?? 0)
 
 const principal = computed(() => amountMln.value * 1_000_000)
-const monthly = computed(() => annuityPayment(principal.value, ratePct.value, term.value))
-const total = computed(() => monthly.value * term.value)
+const schedule = computed(() => graceSchedule(principal.value, ratePct.value, term.value, gracePeriodForTerm(term.value)))
+const monthly = computed(() => schedule.value.annuityPayment)
+const total = computed(() => schedule.value.total)
 const overpayment = computed(() => total.value - principal.value)
 
 const monthlyShown = useTweenedNumber(monthly)
@@ -35,8 +36,6 @@ const overpaymentShown = useTweenedNumber(overpayment)
 const productItems = computed(() =>
   LOAN_CHOICES.map(option => ({ label: t(`products.${option.key}.name`), value: option.value })),
 )
-
-const rateSheetDate = RATE_SHEET.effectiveFrom.split('-').reverse().join('.')
 </script>
 
 <template>
@@ -94,7 +93,22 @@ const rateSheetDate = RATE_SHEET.effectiveFrom.split('-').reverse().join('.')
           </p>
 
           <dl class="mt-8 space-y-4 border-t border-white/25 pt-6">
-           
+            <div class="flex items-baseline justify-between gap-4">
+              <dt class="font-medium">
+                {{ t('home.calculator.rate') }}
+              </dt>
+              <dd class="text-right text-xl font-extrabold tabular-nums">
+                {{ ratePct }}%
+              </dd>
+            </div>
+            <div v-if="schedule.graceMonths > 0" class="flex items-baseline justify-between gap-4">
+              <dt class="font-medium">
+                {{ t('home.calculator.grace') }}
+              </dt>
+              <dd class="text-right text-xl font-extrabold tabular-nums">
+                {{ t('home.calculator.months', { value: schedule.graceMonths }) }}
+              </dd>
+            </div>
             <div class="flex items-baseline justify-between gap-4">
               <dt class="font-medium">
                 {{ t('home.calculator.total') }}
